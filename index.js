@@ -55,7 +55,7 @@ function scaleItem(url, token, visitor, rating, color) {
   if (href) {
     attrs.href = href;
   }
-  return h('a', attrs, [String(rating)]);
+  return h('a.Rating', attrs, [String(rating)]);
 }
 
 function scale(url, token, visitor, color) {
