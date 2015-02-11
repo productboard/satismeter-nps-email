@@ -1,5 +1,6 @@
 var marked = require('marked');
-var h = require('hyperscript');
+var h = require('virtual-dom/h');
+var stringify = require('virtual-dom-stringify');
 var range = require('range');
 var translations = require('nps-translations');
 var Uri = require('jsuri');
@@ -54,7 +55,7 @@ function scaleItem(url, token, visitor, rating, color) {
   if (href) {
     attrs.href = href;
   }
-  return h('a', attrs, rating);
+  return h('a', attrs, [String(rating)]);
 }
 
 function scale(url, token, visitor, color) {
@@ -78,16 +79,17 @@ function legend(language) {
         'margin-bottom': '30px',
         width: (11 * 40 + 10 * 4) + 'px'
       }
-    },
-    h('div', {style: {
-      float: 'left'
-    }}, translations[language].NOT_AT_ALL),
-    h('div', {style: {
-      float: 'right'
-    }}, translations[language].EXTREMLY),
-    h('div', {style: {
-      clear: 'both'
-    }})
+    }, [
+      h('div', {style: {
+        float: 'left'
+      }}, translations[language].NOT_AT_ALL),
+      h('div', {style: {
+        float: 'right'
+      }}, translations[language].EXTREMLY),
+      h('div', {style: {
+        clear: 'both'
+      }})
+    ]
   );
 }
 
@@ -96,9 +98,7 @@ function rating(url, token, visitor, language, color) {
 }
 
 function n(html) {
-  var node = document.createElement('div');
-  node.innerHTML = html;
-  return node;
+  return h('div', {innerHTML: html});
 }
 
 function poweredBy() {
@@ -128,7 +128,7 @@ function render(options) {
   var language = options.language || 'en';
   var color = options.color || 'pink';
 
-  return h('div', {
+  return stringify(h('div', {
     style: {
       'font-family': 'sans-serif',
       'line-height': 1.6,
@@ -141,7 +141,7 @@ function render(options) {
     rating(url, token, visitor, language, color),
     n(marked(options.outro)),
     poweredBy()
-  ]).outerHTML;
+  ]));
 }
 
 module.exports = render;
