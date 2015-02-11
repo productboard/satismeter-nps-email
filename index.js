@@ -108,7 +108,11 @@ function poweredBy() {
       border: 'none',
       'border-top': '1px solid #eee'
     }}),
-    h('span', [
+    h('span', {
+        style: {
+          'font-size': '12px'
+        }
+      }, [
       'Powered by ',
       h('a', {
         href: 'https://satismeter.com',
