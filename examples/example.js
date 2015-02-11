@@ -6,5 +6,6 @@ document.body.innerHTML = render({
   visitor: {id: '1'},
   url: 'http://localhost/survey',
   token: 'aaa',
-  language: 'de'
+  language: 'de',
+  color: 'orange'
 });

@@ -5,6 +5,17 @@ var translations = require('nps-translations');
 var Uri = require('jsuri');
 var is = require('is');
 
+var colors = {
+  'gray': '#666',
+  'pink': '#ff4981',
+  'green': '#4CD964',
+  'blue': '#007AFF',
+  'red': '#FF3A2D',
+  'yellow': '#FFCC00',
+  'orange': '#FF9500',
+  'violet': '#C643FC'
+};
+
 function ratingUrl(url, token, visitor, rating) {
   if (!url) {
     return null;
@@ -24,10 +35,9 @@ function ratingUrl(url, token, visitor, rating) {
   return uri.toString();
 }
 
-
-function scaleItem(url, token, visitor, rating) {
+function scaleItem(url, token, visitor, rating, color) {
   var attrs = {style: {
-      'background-color': '#FF9500',
+      'background-color': colors[color],
       'border-radius': '50%',
       color: 'white',
       display: 'inline-block',
@@ -40,21 +50,21 @@ function scaleItem(url, token, visitor, rating) {
       'text-decoration': 'none',
       width: '40px'
   }};
-  var url = ratingUrl(url, token, visitor, rating);
-  if (url) {
-    attrs.href = url;
+  var href = ratingUrl(url, token, visitor, rating);
+  if (href) {
+    attrs.href = href;
   }
   return h('a', attrs, rating);
 }
 
-function scale(url, token, visitor) {
+function scale(url, token, visitor, color) {
   return h('div', {
       style: {
         width: (11 * 40 + 10 * 4) + 'px'
       }
     },
     range(0, 11).map(function(rating) {
-      return scaleItem(url, token, visitor, rating);
+      return scaleItem(url, token, visitor, rating, color);
     })
   );
 }
@@ -81,8 +91,8 @@ function legend(language) {
   );
 }
 
-function rating(url, token, visitor, language) {
-  return [scale(url, token, visitor), legend(language)];
+function rating(url, token, visitor, language, color) {
+  return [scale(url, token, visitor, color), legend(language)];
 }
 
 function n(html) {
@@ -128,7 +138,7 @@ function render(options) {
     }
   }, [
     n(marked(options.intro)),
-    rating(url, token, visitor, language),
+    rating(url, token, visitor, language, color),
     n(marked(options.outro)),
     poweredBy()
   ]).outerHTML;
