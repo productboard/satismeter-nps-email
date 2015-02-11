@@ -61,7 +61,8 @@ function scaleItem(url, token, visitor, rating, color) {
 function scale(url, token, visitor, color) {
   return h('div', {
       style: {
-        width: (11 * 40 + 10 * 4) + 'px'
+        width: (11 * 40 + 10 * 4) + 'px',
+        'margin-top': '30px'
       }
     },
     range(0, 11).map(function(rating) {
