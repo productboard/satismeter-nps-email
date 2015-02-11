@@ -5,6 +5,7 @@ var range = require('range');
 var translations = require('nps-translations');
 var Uri = require('jsuri');
 var is = require('is');
+var escape = require('escape-html');
 
 var colors = {
   'gray': '#666',
@@ -16,6 +17,15 @@ var colors = {
   'orange': '#FF9500',
   'violet': '#C643FC'
 };
+
+function question(serviceName, language) {
+  var translation = translations[language];
+
+  var serviceName = is.string(serviceName) ? serviceName.trim() : null;
+  var us = translation.US;
+  var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : us;
+  return h('p', {innerHTML: escape(translation.HOW_LIKELY).replace('%s', serviceHtml)});
+}
 
 function ratingUrl(url, token, visitor, rating) {
   if (!url) {
@@ -45,8 +55,8 @@ function scaleItem(url, token, visitor, rating, color) {
       height: '40px',
       'line-height': '40px',
       margin: '2px',
-      'margin-left': rating === 0 ? 0 : undefined,
-      'margin-right': rating === 10 ? 0 : undefined,
+      'margin-left': rating === 0 ? 0 : '',
+      'margin-right': rating === 10 ? 0 : '',
       'text-align': 'center',
       'text-decoration': 'none',
       width: '40px'
@@ -133,6 +143,7 @@ function render(options) {
   var visitor = options.visitor || {};
   var language = options.language || 'en';
   var color = options.color || 'pink';
+  var serviceName = options.serviceName || null;
 
   return stringify(h('div', {
     style: {
@@ -144,6 +155,7 @@ function render(options) {
     }
   }, [
     n(marked(options.intro)),
+    question(serviceName, language),
     rating(url, token, visitor, language, color),
     n(marked(options.outro)),
     poweredBy()

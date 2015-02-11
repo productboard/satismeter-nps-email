@@ -7,5 +7,6 @@ document.body.innerHTML = render({
   url: 'http://localhost/survey',
   token: 'aaa',
   language: 'de',
-  color: 'orange'
+  color: 'orange',
+  serviceName: 'ACME'
 });
