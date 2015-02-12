@@ -1,12 +1,13 @@
 {
   "name": "nps-email",
   "version": "0.1.0",
-  "description": "",
+  "description": "Net Promoter Score email template",
+  "repository": "git@github.com:satismeter/nps-email.git",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jakub Sedlacek",
   "license": "ISC",
   "dependencies": {
     "browserify": "^8.1.3",
