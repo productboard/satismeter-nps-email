@@ -52,14 +52,14 @@ function scaleItem(url, token, visitor, rating, color) {
       'border-radius': '50%',
       color: 'white',
       display: 'inline-block',
-      height: '40px',
-      'line-height': '40px',
-      margin: '2px',
+      height: '2.5em',
+      'line-height': '2.5em',
+      margin: '.125em',
       'margin-left': rating === 0 ? 0 : '',
       'margin-right': rating === 10 ? 0 : '',
       'text-align': 'center',
       'text-decoration': 'none',
-      width: '40px'
+      width: '2.5em'
   }};
   var href = ratingUrl(url, token, visitor, rating);
   if (href) {
@@ -71,8 +71,8 @@ function scaleItem(url, token, visitor, rating, color) {
 function scale(url, token, visitor, color) {
   return h('div', {
       style: {
-        width: (11 * 40 + 10 * 4) + 'px',
-        'margin-top': '30px'
+        width: (11 * 2.5 + 20 * .125) + 'em',
+        'margin-top': '1.8em'
       }
     },
     range(0, 11).map(function(rating) {
@@ -85,17 +85,18 @@ function legend(language) {
   return h('div', {
       style: {
         color: '#999',
-        'font-size': '12px',
         'font-style': 'italic',
-        'margin-bottom': '30px',
-        width: (11 * 40 + 10 * 4) + 'px'
+        'margin-bottom': '1.8em',
+        width: (11 * 2.5 + 20 * .125) + 'em'
       }
     }, [
       h('div', {style: {
-        float: 'left'
+        float: 'left',
+        'font-size': '.75em'
       }}, translations[language].NOT_AT_ALL),
       h('div', {style: {
-        float: 'right'
+        float: 'right',
+        'font-size': '.75em'
       }}, translations[language].EXTREMLY),
       h('div', {style: {
         clear: 'both'
@@ -120,7 +121,7 @@ function poweredBy() {
     }}),
     h('span', {
         style: {
-          'font-size': '12px'
+          'font-size': '.75em'
         }
       }, [
       'Powered by ',
@@ -148,8 +149,8 @@ function render(options) {
   return stringify(h('div', {
     style: {
       'font-family': 'sans-serif',
-      'line-height': 1.6,
-      'font-size': '16px',
+      'line-height': '1.6em',
+      'font-size': '1em',
       margin: 0,
       padding: 0
     }
