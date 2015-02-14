@@ -27,18 +27,18 @@ function question(serviceName, language) {
   return h('p', {innerHTML: escape(translation.HOW_LIKELY).replace('%s', serviceHtml)});
 }
 
-function ratingUrl(url, token, visitor, rating) {
+function ratingUrl(url, token, user, rating) {
   if (!url) {
     return null;
   }
   var uri = new Uri(url);
   uri.addQueryParam('token', token);
-  uri.addQueryParam('id', visitor.source_id);
-  if (visitor.email) {
-    uri.addQueryParam('email', visitor.email);
+  uri.addQueryParam('id', user.id);
+  if (user.email) {
+    uri.addQueryParam('email', user.email);
   }
-  if (visitor.name) {
-    uri.addQueryParam('name', visitor.name);
+  if (user.name) {
+    uri.addQueryParam('name', user.name);
   }
   if (is.number(rating)) {
     uri.addQueryParam('rating', rating.toString());
@@ -46,7 +46,7 @@ function ratingUrl(url, token, visitor, rating) {
   return uri.toString();
 }
 
-function scaleItem(url, token, visitor, rating, color) {
+function scaleItem(url, token, user, rating, color) {
   var attrs = {style: {
       'background-color': colors[color],
       'border-radius': '50%',
@@ -61,14 +61,14 @@ function scaleItem(url, token, visitor, rating, color) {
       'text-decoration': 'none',
       width: '2.5em'
   }};
-  var href = ratingUrl(url, token, visitor, rating);
+  var href = ratingUrl(url, token, user, rating);
   if (href) {
     attrs.href = href;
   }
   return h('a.Rating', attrs, [String(rating)]);
 }
 
-function scale(url, token, visitor, color) {
+function scale(url, token, user, color) {
   return h('div', {
       style: {
         width: (11 * 2.5 + 20 * .125) + 'em',
@@ -76,7 +76,7 @@ function scale(url, token, visitor, color) {
       }
     },
     range(0, 11).map(function(rating) {
-      return scaleItem(url, token, visitor, rating, color);
+      return scaleItem(url, token, user, rating, color);
     })
   );
 }
@@ -105,8 +105,8 @@ function legend(language) {
   );
 }
 
-function rating(url, token, visitor, language, color) {
-  return [scale(url, token, visitor, color), legend(language)];
+function rating(url, token, user, language, color) {
+  return [scale(url, token, user, color), legend(language)];
 }
 
 function n(html) {
@@ -141,7 +141,7 @@ function render(options) {
   var outro = options.outro;
   var token = options.token;
   var url = options.url;
-  var visitor = options.visitor || {};
+  var user = options.user || {};
   var language = options.language || 'en';
   var color = options.color || 'pink';
   var serviceName = options.serviceName || null;
@@ -157,7 +157,7 @@ function render(options) {
   }, [
     n(marked(options.intro)),
     question(serviceName, language),
-    rating(url, token, visitor, language, color),
+    rating(url, token, user, language, color),
     n(marked(options.outro)),
     poweredBy()
   ]));
