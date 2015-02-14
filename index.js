@@ -33,7 +33,7 @@ function ratingUrl(url, token, user, rating) {
   }
   var uri = new Uri(url);
   uri.addQueryParam('token', token);
-  uri.addQueryParam('id', user.id);
+  uri.addQueryParam('userId', user.userId);
   if (user.email) {
     uri.addQueryParam('email', user.email);
   }
