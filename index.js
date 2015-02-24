@@ -54,9 +54,8 @@ function scaleItem(url, token, user, rating, color) {
       display: 'inline-block',
       height: '2.5em',
       'line-height': '2.5em',
-      margin: '.125em',
-      'margin-left': rating === 0 ? 0 : '',
-      'margin-right': rating === 10 ? 0 : '',
+      'margin-left': rating === 0 ? 0 : '.125em',
+      'margin-right': rating === 10 ? 0 : '.125em',
       'text-align': 'center',
       'text-decoration': 'none',
       width: '2.5em'
