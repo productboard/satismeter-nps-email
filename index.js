@@ -15,7 +15,8 @@ var colors = {
   'red': '#FF3A2D',
   'yellow': '#FFCC00',
   'orange': '#FF9500',
-  'violet': '#C643FC'
+  'violet': '#C643FC',
+  'lightBlue': '#3FA2D9'
 };
 
 function question(serviceName, language) {
