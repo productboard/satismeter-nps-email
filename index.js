@@ -92,11 +92,11 @@ function legend(language) {
       h('div', {style: {
         float: 'left',
         'font-size': '.75em'
-      }}, translations[language].LIKELY),
+      }}, translations[language].UNLIKELY),
       h('div', {style: {
         float: 'right',
         'font-size': '.75em'
-      }}, translations[language].UNLIKELY),
+      }}, translations[language].LIKELY),
       h('div', {style: {
         clear: 'both'
       }})
