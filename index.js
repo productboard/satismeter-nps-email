@@ -23,7 +23,7 @@ var colors = {
 function question(serviceName, language) {
   var translation = translations[language];
 
-  var serviceName = is.string(serviceName) ? serviceName.trim() : null;
+  serviceName = is.string(serviceName) ? serviceName.trim() : null;
   var us = translation.US;
   var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : us;
   return h('p', {innerHTML: escape(translation.HOW_LIKELY).replace('%s', serviceHtml)});
