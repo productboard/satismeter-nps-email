@@ -1,6 +1,6 @@
 var marked = require('marked');
 var h = require('virtual-dom/h');
-var stringify = require('virtual-dom-stringify');
+var toHTML = require('vdom-to-html');
 var range = require('range');
 var translations = require('nps-translations');
 var Uri = require('jsuri');
@@ -147,7 +147,7 @@ function render(options) {
   var color = options.color || 'pink';
   var serviceName = options.serviceName || null;
 
-  return stringify(h('div', {
+  return toHTML(h('div', {
     style: {
       'font-family': 'sans-serif',
       'line-height': '1.6em',
