@@ -24,8 +24,10 @@ function question(serviceName, language) {
   var translation = translations[language];
 
   serviceName = is.string(serviceName) ? serviceName.trim() : null;
-  var us = translation.US;
-  var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : us;
+  if (!serviceName && translation.HOW_LIKELY_US) {
+    return h('p', translation.HOW_LIKELY_US);
+  }
+  var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : translation.US;
   return h('p', {innerHTML: escape(translation.HOW_LIKELY).replace('%s', serviceHtml)});
 }
 
