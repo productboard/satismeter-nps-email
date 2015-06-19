@@ -6,7 +6,7 @@ document.body.innerHTML = render({
   user: {userId: '1'},
   url: 'http://localhost/survey',
   token: 'aaa',
-  language: 'de',
+  language: 'da',
   color: 'orange',
   serviceName: 'ACME'
 });
