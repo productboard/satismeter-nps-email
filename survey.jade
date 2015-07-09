@@ -1,51 +1,39 @@
 mixin ratingLink(rating)
   a(href=ratingUrl(rating) style="background-color: #{color}; color: white; height: 2.5em; width: 2.5em; border-radius: 50%; display: inline-block; line-height: 2.5em; text-align: center; text-decoration: none;")
     | #{rating}
-  if rating !== 10
-    span(style="width: .5em; display: inline-block")
 
 doctype html
 html(lang="en")
   head
-    style.
-      @media screen and (max-width: 560px) {
-        .Scale {
-          text-align: center;
-        }
-        .Scale-section {
-          display: block;
-        }
-        .Scale-legend {
-          width: #{6 * 2.5 + 5 * .5}em;
-          margin-left: auto;
-          margin-right: auto;          
-        }
-      }
-      
+    meta(name="viewport" content="width=device-width, initial-scale=1")
   body(style="font-family: sans-serif; line-height: 1.6; font-size: 1em;")
 
-    p !{intro}
+    | !{intro}
 
     p !{question}
 
-    div.Scale
-      span.Scale-section(style="line-height: 3em;")
-        each rating in [0, 1, 2, 3, 4, 5]
-          +ratingLink(rating)
-      span.Scale-section(style="line-height: 3em;")
-        each rating in [6, 7, 8, 9, 10]
-          +ratingLink(rating)
-      div.Scale-legend(style="color: #999; font-style: italic; margin-bottom: 1.8em; max-width: #{11 * 2.5 + 10 * .5}em")
-        div(style="float: left; font-size: .75em") #{unlikely}        
-        div(style="float: right; font-size: .75em") #{likely}        
-        div(style="clear:both")
+    table(style="border-spacing: 0")
+      tr
+        each rating in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          td
+            +ratingLink(rating)
+      tr  
+        td(colspan="11" style="color: #999; font-style: italic; margin-bottom: 1.8em; font-size: .75em;")
+          div(style="float: left") #{unlikely}        
+          div(style="float: right") #{likely}        
 
-    p !{outro}
+    | !{outro}
 
     hr(style="border: none; border-top: 1px solid #eee;")
-    span(style="font-size: .75em")
-      | Powered by
-      = ' '
-      a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
-        | SatisMeter
-      
+    
+    table(style="font-size: .75em; border-spacing: 0" width="100%")
+      tr
+        td
+          | Powered by
+          = ' '
+          a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
+            | SatisMeter
+        if unsubscribe
+          td(align="right")
+            a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
+              | Unsubscribe

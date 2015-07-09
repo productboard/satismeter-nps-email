@@ -32,28 +32,25 @@ function question(serviceName, language) {
 var template = jade.compileFile(__dirname + '/survey.jade', {pretty: true});
 
 function render(options) {
-  var intro = options.intro;
   var outro = options.outro;
-  var token = options.token;
-  var url = options.url;
   var user = options.user || {};
   var language = options.language || 'en';
   var color = COLORS[options.color] || options.color || '#ff4981';
-  var serviceName = options.serviceName || null;
 
   return template({
-    intro: marked(intro),
-    outro: marked(outro),
-    question: question(serviceName, language),
+    intro: marked(options.intro),
+    outro: marked(options.outro),
+    question: question(options.serviceName, language),
     color: color,
     unlikely: translations[language].UNLIKELY,
     likely: translations[language].LIKELY,
+    unsubscribe: options.unsubscribe,
     ratingUrl: function(rating) {
-      if (!url) {
+      if (!options.url) {
         return null;
       }
-      var uri = new Uri(url);
-      uri.addQueryParam('token', token);
+      var uri = new Uri(options.url);
+      uri.addQueryParam('token', options.token);
       uri.addQueryParam('userId', user.userId);
       if (user.email) {
         uri.addQueryParam('email', user.email);

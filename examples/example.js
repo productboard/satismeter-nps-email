@@ -12,7 +12,8 @@ app.get('/', function(req, res) {
     token: 'aaa',
     language: 'da',
     color: 'pink',
-    serviceName: 'ACME'
+    serviceName: 'ACME',
+    unsubscribe: true
   }));
 });
 
