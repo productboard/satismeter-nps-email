@@ -2,37 +2,33 @@ mixin ratingLink(rating)
   a(href=ratingUrl(rating) style="background-color: #{color}; color: white; height: 2.5em; width: 2.5em; border-radius: 50%; display: inline-block; line-height: 2.5em; text-align: center; text-decoration: none;")
     | #{rating}
 
-doctype html
-html(lang="en")
-  head
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-  body(style="font-family: sans-serif; line-height: 1.6;")
+div(style="font-family: sans-serif; line-height: 1.6;")
 
-    | !{intro}
+  | !{intro}
 
-    p !{question}
+  p !{question}
 
-    table(style="border-spacing: 0")
-      tr
-        each rating in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-          td
-            +ratingLink(rating)
-      tr(style="color: #999; font-style: italic; font-size: .75em;")
-        td(colspan="5") #{unlikely}        
-        td(colspan="6" align="right") #{likely}        
-
-    | !{outro}
-
-    hr(style="border: none; border-top: 1px solid #eee;")
-    
-    table(style="font-size: .75em; border-spacing: 0" width="100%")
-      tr
+  table(style="border-spacing: 0")
+    tr
+      each rating in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         td
-          | Powered by
-          = ' '
+          +ratingLink(rating)
+    tr(style="color: #999; font-style: italic; font-size: .75em;")
+      td(colspan="5") #{unlikely}        
+      td(colspan="6" align="right") #{likely}        
+
+  | !{outro}
+
+  hr(style="border: none; border-top: 1px solid #eee;")
+  
+  table(style="font-size: .75em; border-spacing: 0" width="100%")
+    tr
+      td
+        | Powered by
+        = ' '
+        a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
+          | SatisMeter
+      if unsubscribe
+        td(align="right")
           a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
-            | SatisMeter
-        if unsubscribe
-          td(align="right")
-            a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
-              | Unsubscribe
+            | Unsubscribe

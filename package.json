@@ -4,16 +4,19 @@
   "description": "Net Promoter Score email template",
   "repository": "git@github.com:satismeter/nps-email.git",
   "main": "index.js",
+  "browser": "browser.js",
   "scripts": {
     "test": "make test"
   },
   "author": "Jakub Sedlacek",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^10.2.4",
     "escape-html": "^1.0.1",
     "express": "^4.13.1",
     "is": "^2.2.1",
     "jade": "^1.11.0",
+    "jadeify": "^4.3.0",
     "jsuri": "^1.3.0",
     "marked": "^0.3.3",
     "nps-translations": "satismeter/nps-translations#1.7.0",
@@ -23,5 +26,10 @@
     "beefy": "^2.1.3",
     "chai": "^2.0.0",
     "mocha": "^2.1.0"
+  },
+  "browserify": {
+    "transform": [
+      "jadeify"
+    ]
   }
 }
