@@ -6,7 +6,7 @@ doctype html
 html(lang="en")
   head
     meta(name="viewport" content="width=device-width, initial-scale=1")
-  body(style="font-family: sans-serif; line-height: 1.6; font-size: 1em;")
+  body(style="font-family: sans-serif; line-height: 1.6;")
 
     | !{intro}
 
@@ -17,10 +17,9 @@ html(lang="en")
         each rating in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           td
             +ratingLink(rating)
-      tr  
-        td(colspan="11" style="color: #999; font-style: italic; margin-bottom: 1.8em; font-size: .75em;")
-          div(style="float: left") #{unlikely}        
-          div(style="float: right") #{likely}        
+      tr(style="color: #999; font-style: italic; font-size: .75em;")
+        td(colspan="5") #{unlikely}        
+        td(colspan="6" align="right") #{likely}        
 
     | !{outro}
 
