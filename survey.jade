@@ -1,6 +1,7 @@
 mixin ratingLink(rating)
-  a(href=ratingUrl(rating) style="background-color: #{color}; color: white; height: 2.5em; width: 2.5em; border-radius: 50%; display: inline-block; line-height: 2.5em; text-align: center; text-decoration: none;")
-    | #{rating}
+ a(href=ratingUrl(rating) style="background-color: #{color}; color: white; height: 2.5em; width: 2.5em; border-radius: 50%; display: inline-block; line-height: 2.5em; text-align: center; text-decoration: none;")
+  = rating
+    
 
 div(style="font-family: sans-serif; line-height: 1.6;")
 
