@@ -8,10 +8,12 @@ div(style="font-family: sans-serif; line-height: 1.6;")
 
   p !{question}
 
-  table(style="border-spacing: 0" cellpadding="4")
+  table(style="border-spacing: 0; margin-bottom: 1em;")
     tr
       each rating in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        td
+        - rightPadding = rating === 10 ? 0 : '0.25em'
+        - leftPadding = rating === 0 ? 0 : '0.25em'         
+        td(style="padding-left: #{leftPadding}; padding-right: #{rightPadding};")
           +ratingLink(rating)
     tr(style="color: #999; font-style: italic; font-size: .75em;")
       td(colspan="5" style="padding-top: .5em;") #{unlikely}        
