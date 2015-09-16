@@ -12,12 +12,14 @@ describe('email', function() {
       token: 'aaa',
       language: 'de',
       color: 'orange',
-      serviceName: 'ACME'
+      serviceName: 'ACME',
+      unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1'
     });
     assert.isString(html);
     assert.include(html, 'Please fill');
     assert.include(html, 'Bye');
     assert.include(html, 'Sehr wahrscheinlich');
     assert.include(html, 'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"');
+    assert.include(html, 'href="http://localhost/survey/unsubscribe?token=aaa&amp;userId=1"');
   });
 });
