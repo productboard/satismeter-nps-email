@@ -31,7 +31,7 @@ div(style="font-family: sans-serif; line-height: 1.6;")
         = ' '
         a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
           b SatisMeter
-      if unsubscribe
+      if unsubscribeUrl
         td(align="right")
-          a(href="https://satismeter.com" style="color: #ff4981; text-decoration: none")
+          a(href="#{unsubscribeUrl}" style="color: #ff4981; text-decoration: none")
             | Unsubscribe

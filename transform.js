@@ -41,7 +41,7 @@ function transform(options) {
     color: color,
     unlikely: translations[language].UNLIKELY,
     likely: translations[language].LIKELY,
-    unsubscribe: options.unsubscribe,
+    unsubscribeUrl: options.unsubscribeUrl,
     ratingUrl: function(rating) {
       if (!options.url) {
         return null;

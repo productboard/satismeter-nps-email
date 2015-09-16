@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
     language: 'da',
     color: 'pink',
     serviceName: 'ACME',
-    unsubscribe: true
+    unsubscribeUrl: 'http://localhost/unsubscribe'
   }));
 });
 
