@@ -17,30 +17,38 @@ var COLORS = {
   'lightBlue': '#3FA2D9'
 };
 
-function question(serviceName, language) {
-  var translation = translations[language];
-
-  serviceName = is.string(serviceName) ? serviceName.trim() : null;
-  if (!serviceName && translation.HOW_LIKELY_US) {
-    return escape(translation.HOW_LIKELY_US);
-  }
-  var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : translation.US;
-  return escape(translation.HOW_LIKELY).replace('%s', serviceHtml);
-}
-
 function transform(options) {
   var outro = options.outro;
   var user = options.user || {};
   var language = options.language || 'en';
   var color = COLORS[options.color] || options.color || '#ff4981';
+  var translation = options.translation || {};
+
+  function t(key) {
+    if (translation[key]) {
+      return translation[key];
+    }
+    return translations[language][key];
+  }
+
+  function question(serviceName) {
+    serviceName = is.string(serviceName) ? serviceName.trim() : null;
+    var howLikelyUs = t('HOW_LIKELY_US');
+    if (!serviceName && howLikelyUs) {
+      return escape(howLikelyUs);
+    }
+    var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : t('US');
+    return escape(t('HOW_LIKELY')).replace('%s', serviceHtml);
+  }
+
 
   return {
     intro: marked(options.intro),
     outro: marked(options.outro),
-    question: question(options.serviceName, language),
+    question: question(options.serviceName),
     color: color,
-    unlikely: translations[language].UNLIKELY,
-    likely: translations[language].LIKELY,
+    unlikely: t('UNLIKELY'),
+    likely: t('LIKELY'),
     unsubscribeUrl: options.unsubscribeUrl,
     ratingUrl: function(rating) {
       if (!options.url) {
