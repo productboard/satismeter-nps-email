@@ -23,7 +23,7 @@ describe('email', function() {
     assert.include(html, 'Bye');
     assert.include(html, 'Je to dobry?');
     assert.include(html, 'Sehr wahrscheinlich');
-    assert.include(html, 'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"');
-    assert.include(html, 'href="http://localhost/survey/unsubscribe?token=aaa&amp;userId=1"');
+    assert.include(html, 'href="http://localhost/survey?token&#x3D;aaa&amp;userId&#x3D;1&amp;rating&#x3D;10"');
+    assert.include(html, 'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"');
   });
 });
