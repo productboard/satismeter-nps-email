@@ -47,6 +47,24 @@ function transform(options) {
     return escape(t('HOW_LIKELY')).replace('%s', serviceHtml);
   }
 
+  function ratingUrl(rating) {
+    if (!options.url) {
+      return null;
+    }
+    var uri = new Uri(options.url);
+    uri.addQueryParam('token', options.token);
+    uri.addQueryParam('userId', user.userId);
+    if (user.email) {
+      uri.addQueryParam('email', user.email);
+    }
+    if (user.name) {
+      uri.addQueryParam('name', user.name);
+    }
+    if (is.number(rating)) {
+      uri.addQueryParam('rating', rating.toString());
+    }
+    return uri.toString();
+  }
 
   return {
     intro: marked(options.intro, {renderer: renderer}),
@@ -55,26 +73,13 @@ function transform(options) {
     color: color,
     unlikely: t('UNLIKELY'),
     likely: t('LIKELY'),
-    ratings: [0,1,2,3,4,5,6,7,8,9,10],
-    unsubscribeUrl: options.unsubscribeUrl,
-    ratingUrl: function(rating) {
-      if (!options.url) {
-        return null;
-      }
-      var uri = new Uri(options.url);
-      uri.addQueryParam('token', options.token);
-      uri.addQueryParam('userId', user.userId);
-      if (user.email) {
-        uri.addQueryParam('email', user.email);
-      }
-      if (user.name) {
-        uri.addQueryParam('name', user.name);
-      }
-      if (is.number(rating)) {
-        uri.addQueryParam('rating', rating.toString());
-      }
-      return uri.toString();
-    }
+    ratings: [0,1,2,3,4,5,6,7,8,9,10].map(function(rating) {
+      return {
+        rating: rating,
+        url: ratingUrl(rating)
+      };
+    }),
+    unsubscribeUrl: options.unsubscribeUrl
   };
 }
 

@@ -99,7 +99,9 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
                                                                                             <tbody>
                                                                                               <tr>
                                                                                                 <td class="ee_pad" style="width: auto; padding: 0px;"><div class="ee_editable eev_element" ee-type="element" style="width: 43px;">
-                                                																									<p style="margin: 0px; text-align: center; font-family: arial, helvetica, sans-serif; color: rgb(255, 255, 255); font-size: 14px;"><b><a href="{{../ratingUrl .}}" style="display:block; line-height: 100%; color: rgb(255, 255, 255); text-decoration: none; border: 12px solid {{../color}};">{{.}}</a> </b></p>
+                                                																									<p style="margin: 0px; text-align: center; font-family: arial, helvetica, sans-serif; color: rgb(255, 255, 255); font-size: 14px;">
+                                                                                                    <b><a {{#if url}} href="{{url}}" {{/if}} style="display:block; line-height: 100%; color: rgb(255, 255, 255); text-decoration: none; border: 12px solid {{../color}};">{{rating}}</a></b>
+                                                                                                  </p>
                                                                                                 </div></td>
                                                                                               </tr>
                                                                                             </tbody>
