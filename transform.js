@@ -29,6 +29,7 @@ function transform(options) {
   var language = options.language || 'en';
   var color = COLORS[options.color] || options.color || '#ff4981';
   var translation = options.translation || {};
+  var preview = is.boolean(options.preview) ? options.preview : false;
 
   function t(key) {
     if (translation[key]) {
@@ -79,7 +80,8 @@ function transform(options) {
         url: ratingUrl(rating)
       };
     }),
-    unsubscribeUrl: options.unsubscribeUrl
+    unsubscribeUrl: options.unsubscribeUrl,
+    preview: preview
   };
 }
 

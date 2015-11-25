@@ -9,5 +9,6 @@ document.body.innerHTML = render({
   language: 'da',
   color: 'pink',
   serviceName: 'ACME',
-  unsubscribe: true
+  unsubscribe: true,
+  preview: true
 });
