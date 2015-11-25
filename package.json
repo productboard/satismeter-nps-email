@@ -1,6 +1,6 @@
 {
   "name": "nps-email",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Net Promoter Score email template",
   "repository": "git@github.com:satismeter/nps-email.git",
   "main": "index.js",
