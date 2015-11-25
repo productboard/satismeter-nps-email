@@ -1,4 +1,4 @@
-var template = require('./survey.jade');
+var template = require('./survey.hbs');
 var transform = require('./transform');
 
 function render(options) {

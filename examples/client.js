@@ -1,7 +1,7 @@
 var render = require('..');
 
 document.body.innerHTML = render({
-  intro: 'Hi!\n\nPlease fill in the survey below:',
+  intro: 'Hi!\n\nPlease fill in the *survey* below:',
   outro: 'Bye!',
   user: {userId: '1'},
   url: 'http://localhost/survey',

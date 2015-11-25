@@ -4,6 +4,12 @@ var Uri = require('jsuri');
 var is = require('is');
 var escape = require('escape-html');
 
+var renderer = new marked.Renderer();
+
+renderer.paragraph = function (text) {
+  return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: left; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br></br></p>';
+};
+
 var COLORS = {
   'gray': '#666',
   'pink': '#ff4981',
@@ -43,12 +49,13 @@ function transform(options) {
 
 
   return {
-    intro: marked(options.intro),
-    outro: marked(options.outro),
+    intro: marked(options.intro, {renderer: renderer}),
+    outro: marked(options.outro, {renderer: renderer}),
     question: question(options.serviceName),
     color: color,
     unlikely: t('UNLIKELY'),
     likely: t('LIKELY'),
+    ratings: [0,1,2,3,4,5,6,7,8,9,10],
     unsubscribeUrl: options.unsubscribeUrl,
     ratingUrl: function(rating) {
       if (!options.url) {
