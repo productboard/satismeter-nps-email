@@ -7,7 +7,7 @@ var escape = require('escape-html');
 var renderer = new marked.Renderer();
 
 renderer.paragraph = function (text) {
-  return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: left; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br></br></p>';
+  return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: left; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br><br></p>';
 };
 
 var COLORS = {
