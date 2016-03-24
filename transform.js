@@ -66,12 +66,17 @@ function transform(options) {
     }
     return uri.toString();
   }
+  
+  var direction = t('DIRECTION') || 'ltr';
 
   return {
     intro: marked(options.intro, {renderer: renderer}),
     outro: marked(options.outro, {renderer: renderer}),
     question: question(options.serviceName),
     color: color,
+    direction: direction,
+    left: direction === 'rtl' ? 'right' : 'left',
+    right: direction === 'rtl' ? 'left' : 'right',
     unlikely: t('UNLIKELY'),
     likely: t('LIKELY'),
     ratings: [0,1,2,3,4,5,6,7,8,9,10].map(function(rating) {
