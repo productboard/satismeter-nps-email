@@ -82,7 +82,7 @@ function transform(options) {
     ratings: [0,1,2,3,4,5,6,7,8,9,10].map(function(rating) {
       return {
         rating: rating,
-        url: ratingUrl(rating)
+        url: escape(ratingUrl(rating))
       };
     }),
     unsubscribeUrl: options.unsubscribeUrl,
