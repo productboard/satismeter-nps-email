@@ -1,5 +1,5 @@
 var marked = require('marked');
-var translations = require('nps-translations');
+var messages = require('./messages');
 var Uri = require('jsuri');
 var is = require('is');
 var escape = require('escape-html');
@@ -26,7 +26,6 @@ var COLORS = {
 function transform(options) {
   var outro = options.outro;
   var user = options.user || {};
-  var language = options.language || 'en';
   var color = COLORS[options.color] || options.color || '#ff4981';
   var translation = options.translation || {};
   var preview = is.boolean(options.preview) ? options.preview : false;
@@ -35,7 +34,7 @@ function transform(options) {
     if (translation[key]) {
       return translation[key];
     }
-    return translations[language][key];
+    return messages[key];
   }
 
   function question(serviceName) {

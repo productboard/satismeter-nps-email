@@ -10,7 +10,6 @@ describe('email', function() {
       user: {userId: '1'},
       url: 'http://localhost/survey',
       token: 'aaa',
-      language: 'de',
       color: 'orange',
       serviceName: 'ACME',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
@@ -22,7 +21,7 @@ describe('email', function() {
     assert.include(html, 'Please fill');
     assert.include(html, 'Bye');
     assert.include(html, 'Je to dobry?');
-    assert.include(html, 'Sehr wahrscheinlich');
+    assert.include(html, 'Extremely likely');
     assert.include(html, 'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"');
     assert.include(html, 'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"');
   });

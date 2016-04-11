@@ -6,6 +6,5 @@ console.log(render({
   user: {userId: '1'},
   url: 'http://localhost/survey',
   token: 'aaa',
-  language: 'de',
   color: 'orange'
 }));
