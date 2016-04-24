@@ -2,7 +2,7 @@ var marked = require('marked');
 var messages = require('./messages');
 var Uri = require('jsuri');
 var is = require('is');
-var escape = require('escape-html');
+var escapeHtml = require('escape-html');
 
 var renderer = new marked.Renderer();
 
@@ -22,6 +22,13 @@ var COLORS = {
   'violet': '#C643FC',
   'lightBlue': '#3FA2D9'
 };
+
+function escape(html) {
+  if (!html) {
+    return null;
+  }
+  return escapeHtml(html);
+}
 
 function transform(options) {
   var outro = options.outro;
@@ -65,7 +72,7 @@ function transform(options) {
     }
     return uri.toString();
   }
-  
+
   var direction = t('DIRECTION') || 'ltr';
 
   return {
