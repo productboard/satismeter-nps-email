@@ -10,19 +10,6 @@ renderer.paragraph = function (text) {
   return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: left; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br><br></p>';
 };
 
-var COLORS = {
-  'gray': '#666',
-  'pink': '#ff4981',
-  'green': '#4CD964',
-  'darkGreen': '#2FB12C',
-  'blue': '#007AFF',
-  'red': '#FF3A2D',
-  'yellow': '#FFCC00',
-  'orange': '#FF9500',
-  'violet': '#C643FC',
-  'lightBlue': '#3FA2D9'
-};
-
 function escape(html) {
   if (!html) {
     return null;
@@ -33,7 +20,7 @@ function escape(html) {
 function transform(options) {
   var outro = options.outro;
   var user = options.user || {};
-  var color = COLORS[options.color] || options.color || '#ff4981';
+  var color = options.color || '#ff4981';
   var translation = options.translation || {};
   var preview = is.boolean(options.preview) ? options.preview : false;
 
