@@ -2,7 +2,9 @@
 Net Promoter Score email template
 
 # Installation
-```npm install```
+```
+npm install
+```
 
 # Run in browser
 ```
