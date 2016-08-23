@@ -3,9 +3,13 @@ var fs = require('fs');
 
 var transform = require('./transform');
 
-var template = handlebars.compile(fs.readFileSync(__dirname + '/survey.hbs', 'utf8'));
+var TEMPLATES = {
+  default: handlebars.compile(fs.readFileSync(__dirname + '/survey.hbs', 'utf8')),
+  zonky: handlebars.compile(fs.readFileSync(__dirname + '/zonky-survey.hbs', 'utf8'))
+};
 
 function render(options) {
+  var template = TEMPLATES[options.template] || TEMPLATES.default;
   return template(transform(options))
 }
 
