@@ -1,6 +1,9 @@
 # nps-email
 Net Promoter Score email template
 
+# Installation
+```npm install```
+
 # Run in browser
 ```
 make serve
