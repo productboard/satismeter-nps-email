@@ -42,4 +42,18 @@ describe('email', function() {
     var $ = cheerio.load(html);
     assert.equal($('a:not([href])').length, 12);
   });
+
+  it('should handle other templates', function() {
+    var html = render({
+      intro: 'Hi!\n\nPlease fill in the survey below:',
+      outro: 'Bye!',
+      user: {userId: '1'},
+      token: 'aaa',
+      color: 'orange',
+      serviceName: 'ACME',
+      template: 'zonky'
+    });
+    var $ = cheerio.load(html);
+    assert.equal($('img[src="https://zonky.cz/images/zebra/zebra-point-self-fill-flipped.png"]').length, 1);
+  });
 });
