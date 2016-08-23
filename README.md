@@ -11,7 +11,7 @@ npm install
 make serve
 ```
 
-Open http://localhost:3000 in your browser.
+Open `http://localhost:3000` in your browser.
 
 # Test
 ```
