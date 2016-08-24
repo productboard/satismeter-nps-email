@@ -35,6 +35,7 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
   img[class~=ee_no_upscale] { max-width: 100% !important; height: auto !important; }
   img[class~=ee_outro_img] { margin-right: 15px !important; }
   img[class~=ee_intro_img] { margin-right: 15px !important; }
+  img[class~=ee_logo] { margin-top: 0 !important; }
   p[class~=ee_question_outer] { margin-top: 10px !important; margin-bottom: 30px !important; }
   [class~=ee_editable]:not(.ee_smallimage):not(.ee_pnggif_image):not(.ee_no_upscale) { width: 100% !important; height: auto !important; }
   [class~=eegap] { display: inherit !important; }
@@ -85,6 +86,7 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
                                                   <tbody>
                                                     <tr>
                                                       <td width="100%" valign="top" class="ee_dropzone ved-scaled-cols" align="{{left}}" style="width: 530px; padding-top: 0px;padding-{{right}}: 0px;padding-bottom: 0px;padding-{{left}}: 0px;"><div class="ee_editable ee_element" ee-type="element">
+                                                          <img src="https://zonky.cz/images/logo/logo-satismeter.png" class="ee_logo" style="float: right; margin-top: -10px; width: 116px; height: 35px;"/>
                                                           {{{intro}}}
                                                           <img src="https://zonky.cz/images/zebra/zebra-point-self-fill-flipped.png" class="ee_intro_img" style="float: right; width: 76px; height: 80px; margin-right: 50px;"/>
                                                           <p class="ee_question_outer" style="margin: 0px; margin-top: 30px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: {{left}}; font-size: 15px; color: rgb(69, 69, 69);">
@@ -96,7 +98,7 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
                                                                     <tr>
                                                                       <td width="100%" valign="top" class="ee_dropzone ved-scaled-cols " align="{{left}}" style="width: 530px; padding: 0px;"><div class="ee_editable ee_element ee_headercenter show_on_mobile" ee-type="element" style="width: 0; max-height: 0; overflow: hidden; float: {{left}}; display: none;">
                                                                           <p style="margin: 0px; font-family: arial, helvetica, sans-serif; line-height: 21px; color: rgb(176, 176, 176); font-size: 14px;">{{unlikely}}</p>
-                                                           </div>
+						                                               </div>
                                                                         <table class="ee_borders eeb_width ee_element" cellpadding="0" cellspacing="0" style="width: 530px; table-layout: auto;" data-eewidth="530">
                                                                           <tbody>
                                                                             <tr>
@@ -108,7 +110,7 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
                                                                                             <tbody>
                                                                                               <tr>
                                                                                                 <td class="ee_pad" style="width: auto; padding: 0px;"><div class="ee_editable eev_element" ee-type="element" style="width: 43px;">
-                                                                                                  <p style="margin: 0px; text-align: center; font-family: arial, helvetica, sans-serif; color: rgb(255, 255, 255); font-size: 14px;">
+                                                																									<p style="margin: 0px; text-align: center; font-family: arial, helvetica, sans-serif; color: rgb(255, 255, 255); font-size: 14px;">
                                                                                                     <b><a {{#if url}} href="{{{url}}}" {{/if}} style="display:block; line-height: 100%; color: rgb(255, 255, 255); text-decoration: none; border: 12px solid {{../color}};">{{rating}}</a></b>
                                                                                                   </p>
                                                                                                 </div></td>
