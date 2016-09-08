@@ -23,6 +23,7 @@ function transform(options) {
   var color = options.color || '#ff4981';
   var translation = options.translation || {};
   var preview = is.boolean(options.preview) ? options.preview : false;
+  var showPoweredBy = is.boolean(options.showPoweredBy) ? options.showPoweredBy : true;
 
   function t(key) {
     if (translation[key]) {
@@ -79,7 +80,8 @@ function transform(options) {
       };
     }),
     unsubscribeUrl: options.unsubscribeUrl,
-    preview: preview
+    preview: preview,
+    showPoweredBy: showPoweredBy
   };
 }
 
