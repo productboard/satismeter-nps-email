@@ -2,7 +2,8 @@ var transform = require('./transform');
 
 var TEMPLATES = {
   default: require('./survey.hbs'),
-  zonky: require('./zonky-survey.hbs')
+  zonky: require('./zonky-survey.hbs'),
+  ilos: require('./ilos-survey.hbs')
 };
 
 function render(options) {
