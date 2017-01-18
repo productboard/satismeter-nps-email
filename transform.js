@@ -3,6 +3,13 @@ var messages = require('./messages');
 var Uri = require('jsuri');
 var is = require('is');
 var escapeHtml = require('escape-html');
+var xtend = require('xtend');
+
+var DEFAULT_COLORS = {
+  primary: '#ff4981',
+  foreground: '#333',
+  background: '#FDFDFD'
+};
 
 var renderer = new marked.Renderer();
 
@@ -20,7 +27,8 @@ function escape(html) {
 function transform(options) {
   var outro = options.outro;
   var user = options.user || {};
-  var color = options.color || '#ff4981';
+  var colors = xtend(DEFAULT_COLORS, options.color ? {primary: options.color} : null, options.colors);
+
   var translation = options.translation || {};
   var preview = is.boolean(options.preview) ? options.preview : false;
   var showPoweredBy = is.boolean(options.showPoweredBy) ? options.showPoweredBy : true;
@@ -67,7 +75,7 @@ function transform(options) {
     intro: marked(options.intro, {renderer: renderer}),
     outro: marked(options.outro, {renderer: renderer}),
     question: question(options.serviceName),
-    color: color,
+    colors: colors,
     direction: direction,
     left: direction === 'rtl' ? 'right' : 'left',
     right: direction === 'rtl' ? 'left' : 'right',

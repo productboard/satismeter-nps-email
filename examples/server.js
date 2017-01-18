@@ -10,7 +10,11 @@ app.get('/', function(req, res) {
     user: {userId: '1'},
     url: 'http://localhost/survey',
     token: 'aaa',
-    color: 'pink',
+    colors: {
+      primary: 'white',
+      foreground: 'white',
+      background: 'black'
+    },
     serviceName: 'ACME',
     unsubscribeUrl: 'http://localhost/unsubscribe'
   }));
