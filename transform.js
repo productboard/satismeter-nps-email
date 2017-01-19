@@ -25,7 +25,6 @@ function escape(html) {
 }
 
 function transform(options) {
-  var outro = options.outro;
   var user = options.user || {};
   var colors = xtend(DEFAULT_COLORS, options.color ? {primary: options.color} : null, options.colors);
 
@@ -72,8 +71,8 @@ function transform(options) {
   var direction = t('DIRECTION') || 'ltr';
 
   return {
-    intro: marked(options.intro, {renderer: renderer}),
-    outro: marked(options.outro, {renderer: renderer}),
+    intro: marked(options.intro || t('INTRO'), {renderer: renderer}),
+    outro: marked(options.outro || t('OUTRO'), {renderer: renderer}),
     question: question(options.serviceName),
     colors: colors,
     direction: direction,
