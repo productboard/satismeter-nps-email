@@ -15,13 +15,13 @@ describe('email', function() {
       serviceName: 'ACME',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
-        HOW_LIKELY: 'Je to dobry?'
+        HOW_LIKELY: 'Je {{service_name}} dobry?'
       }
     });
     assert.isString(html);
     assert.include(html, 'Please fill');
     assert.include(html, 'Bye');
-    assert.include(html, 'Je to dobry?');
+    assert.include(html, 'Je <b>ACME</b> dobry?');
     assert.include(html, 'Extremely likely');
     assert.include(html, 'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"');
     assert.include(html, 'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"');

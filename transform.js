@@ -46,7 +46,8 @@ function transform(options) {
       return escape(howLikelyUs);
     }
     var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : t('US');
-    return escape(t('HOW_LIKELY')).replace('%s', serviceHtml);
+    var howLikely = t('HOW_LIKELY').replace('%s', '{{service_name}}');
+    return escape(howLikely).replace('{{service_name}}', serviceHtml);
   }
 
   function ratingUrl(rating) {
