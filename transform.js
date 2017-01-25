@@ -11,12 +11,6 @@ var DEFAULT_COLORS = {
   background: '#FDFDFD'
 };
 
-var renderer = new marked.Renderer();
-
-renderer.paragraph = function (text) {
-  return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: left; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br><br></p>';
-};
-
 function escape(html) {
   if (!html) {
     return null;
@@ -38,6 +32,16 @@ function transform(options) {
     }
     return messages[key];
   }
+
+  var direction = t('DIRECTION') || 'ltr';
+  var left = direction === 'rtl' ? 'right' : 'left';
+  var right = direction === 'rtl' ? 'left' : 'right';
+
+  var renderer = new marked.Renderer();
+
+  renderer.paragraph = function (text) {
+    return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: ' + left + '; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br><br></p>';
+  };
 
   function question(serviceName) {
     serviceName = is.string(serviceName) ? serviceName.trim() : null;
@@ -69,16 +73,14 @@ function transform(options) {
     return uri.toString();
   }
 
-  var direction = t('DIRECTION') || 'ltr';
-
   return {
     intro: marked(options.intro || t('INTRO'), {renderer: renderer}),
     outro: marked(options.outro || t('OUTRO'), {renderer: renderer}),
     question: question(options.serviceName),
     colors: colors,
     direction: direction,
-    left: direction === 'rtl' ? 'right' : 'left',
-    right: direction === 'rtl' ? 'left' : 'right',
+    left: left,
+    right: right,
     unlikely: t('UNLIKELY'),
     likely: t('LIKELY'),
     ratings: [0,1,2,3,4,5,6,7,8,9,10].map(function(rating) {
