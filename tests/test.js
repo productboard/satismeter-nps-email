@@ -30,6 +30,26 @@ describe('email', function() {
     assert.equal($('a:not([href])').length, 0);
   });
 
+  it('should not include unsubscribe', function() {
+    var html = render({
+      intro: 'Hi!\n\nPlease fill in the survey below:',
+      outro: 'Bye!',
+      user: {userId: '1'},
+      url: 'http://localhost/survey',
+      token: 'aaa',
+      color: 'orange',
+      serviceName: 'ACME',
+      translation: {
+        HOW_LIKELY: 'Je {{service_name}} dobry?'
+      }
+    });
+    assert.isString(html);
+    assert.notInclude(html, 'Unsubscribe');
+
+    var $ = cheerio.load(html);
+    assert.equal($('a:not([href])').length, 0);
+  });
+
   it('should handle undefined values', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
@@ -40,7 +60,7 @@ describe('email', function() {
       serviceName: 'ACME',
     });
     var $ = cheerio.load(html);
-    assert.equal($('a:not([href])').length, 12);
+    assert.equal($('a:not([href])').length, 11);
   });
 
   it('should handle other templates', function() {
