@@ -153,9 +153,11 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
                                                   </p>
                                                 {{/if}}
                                                 </div></td>
-                                              <td width="50%" valign="top" class="ee_dropzone ved-scaled-cols ee_headercenter" align="{{left}}" style="width: 290px; padding-top: 4px;padding-{{right}}: 0;padding-bottom: 0;padding-{{left}}: 0;"><div class="ee_editable ee_element" ee-type="element">
-                                                  <p style="margin: 0px; text-align: {{right}}; font-family: arial, helvetica, sans-serif; line-height: 150%; font-size: 12px;"><a {{#if unsubscribeUrl}} href="{{unsubscribeUrl}}" {{/if}} style="color: {{colors.primary}}; text-decoration: none;">Unsubscribe</a></p>
-                                                </div></td>
+                                                {{#if unsubscribeUrl}}
+                                                  <td width="50%" valign="top" class="ee_dropzone ved-scaled-cols ee_headercenter" align="{{left}}" style="width: 290px; padding-top: 4px;padding-{{right}}: 0;padding-bottom: 0;padding-{{left}}: 0;"><div class="ee_editable ee_element" ee-type="element">
+                                                    <p style="margin: 0px; text-align: {{right}}; font-family: arial, helvetica, sans-serif; line-height: 150%; font-size: 12px;"><a href="{{unsubscribeUrl}}" style="color: {{colors.primary}}; text-decoration: none;">Unsubscribe</a></p>
+                                                  </div></td>
+                                                {{/if}}
                                             </tr>
                                           </tbody>
                                         </table></td>
