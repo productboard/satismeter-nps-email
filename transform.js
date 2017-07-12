@@ -19,12 +19,20 @@ function escape(html) {
 }
 
 function transform(options) {
-  var user = options.user || {};
-  var colors = xtend(DEFAULT_COLORS, options.color ? {primary: options.color} : null, options.colors);
+  // var user = options.user || {};
+  var userId = options.userId;
+  var traits = options.traits || {};
+  var colors = xtend(
+    DEFAULT_COLORS,
+    options.color ? { primary: options.color } : null,
+    options.colors
+  );
 
   var translation = options.translation || {};
   var preview = is.boolean(options.preview) ? options.preview : false;
-  var showPoweredBy = is.boolean(options.showPoweredBy) ? options.showPoweredBy : true;
+  var showPoweredBy = is.boolean(options.showPoweredBy)
+    ? options.showPoweredBy
+    : true;
 
   function t(key) {
     if (translation[key]) {
@@ -39,8 +47,14 @@ function transform(options) {
 
   var renderer = new marked.Renderer();
 
-  renderer.paragraph = function (text) {
-    return '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: ' + left + '; font-size: 15px; color: rgb(69, 69, 69);">' + text + '<br><br></p>';
+  renderer.paragraph = function(text) {
+    return (
+      '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: ' +
+      left +
+      '; font-size: 15px; color: rgb(69, 69, 69);">' +
+      text +
+      '<br><br></p>'
+    );
   };
 
   function question(serviceName) {
@@ -49,7 +63,9 @@ function transform(options) {
     if (!serviceName && howLikelyUs) {
       return escape(howLikelyUs);
     }
-    var serviceHtml = serviceName ? '<b>' + escape(serviceName) + '</b>' : t('US');
+    var serviceHtml = serviceName
+      ? '<b>' + escape(serviceName) + '</b>'
+      : t('US');
     var howLikely = t('HOW_LIKELY').replace('%s', '{{service_name}}');
     return escape(howLikely).replace('{{service_name}}', serviceHtml);
   }
@@ -60,12 +76,9 @@ function transform(options) {
     }
     var uri = new Uri(options.url);
     uri.addQueryParam('token', options.token);
-    uri.addQueryParam('userId', user.userId);
-    if (user.email) {
-      uri.addQueryParam('email', user.email);
-    }
-    if (user.name) {
-      uri.addQueryParam('name', user.name);
+    uri.addQueryParam('userId', userId);
+    for (const traitName of Object.keys(traits)) {
+      uri.addQueryParam(traitName, traits[traitName]);
     }
     if (is.number(rating)) {
       uri.addQueryParam('rating', rating.toString());
@@ -74,8 +87,8 @@ function transform(options) {
   }
 
   return {
-    intro: marked(options.intro || t('INTRO'), {renderer: renderer}),
-    outro: marked(options.outro || t('OUTRO'), {renderer: renderer}),
+    intro: marked(options.intro || t('INTRO'), { renderer: renderer }),
+    outro: marked(options.outro || t('OUTRO'), { renderer: renderer }),
     question: question(options.serviceName),
     colors: colors,
     direction: direction,
@@ -83,7 +96,7 @@ function transform(options) {
     right: right,
     unlikely: t('UNLIKELY'),
     likely: t('LIKELY'),
-    ratings: [0,1,2,3,4,5,6,7,8,9,10].map(function(rating) {
+    ratings: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function(rating) {
       return {
         rating: rating,
         url: escape(ratingUrl(rating))

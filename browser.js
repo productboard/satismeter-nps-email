@@ -8,7 +8,7 @@ var TEMPLATES = {
 
 function render(options) {
   var template = TEMPLATES[options.template] || TEMPLATES.default;
-  return template(transform(options))
+  return template(transform(options));
 }
 
 module.exports = render;

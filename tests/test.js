@@ -8,7 +8,7 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: {userId: '1'},
+      user: { userId: '1' },
       url: 'http://localhost/survey',
       token: 'aaa',
       color: 'orange',
@@ -23,8 +23,14 @@ describe('email', function() {
     assert.include(html, 'Bye');
     assert.include(html, 'Je <b>ACME</b> dobry?');
     assert.include(html, 'Extremely likely');
-    assert.include(html, 'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"');
-    assert.include(html, 'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"');
+    assert.include(
+      html,
+      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"'
+    );
+    assert.include(
+      html,
+      'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"'
+    );
 
     var $ = cheerio.load(html);
     assert.equal($('a:not([href])').length, 0);
@@ -34,7 +40,7 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: {userId: '1'},
+      user: { userId: '1' },
       url: 'http://localhost/survey',
       token: 'aaa',
       color: 'orange',
@@ -54,10 +60,10 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: {userId: '1'},
+      user: { userId: '1' },
       token: 'aaa',
       color: 'orange',
-      serviceName: 'ACME',
+      serviceName: 'ACME'
     });
     var $ = cheerio.load(html);
     assert.equal($('a:not([href])').length, 11);
@@ -67,13 +73,18 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: {userId: '1'},
+      user: { userId: '1' },
       token: 'aaa',
       color: 'orange',
       serviceName: 'ACME',
       template: 'zonky'
     });
     var $ = cheerio.load(html);
-    assert.equal($('img[src="https://zonky.cz/images/zebra/zebra-point-self-fill-flipped.png"]').length, 1);
+    assert.equal(
+      $(
+        'img[src="https://zonky.cz/images/zebra/zebra-point-self-fill-flipped.png"]'
+      ).length,
+      1
+    );
   });
 });
