@@ -77,9 +77,9 @@ function transform(options) {
     var uri = new Uri(options.url);
     uri.addQueryParam('token', options.token);
     uri.addQueryParam('userId', userId);
-    for (var traitName of Object.keys(traits)) {
+    Object.keys(traits).forEach(function(traitName) {
       uri.addQueryParam(traitName, traits[traitName]);
-    }
+    });
     if (is.number(rating)) {
       uri.addQueryParam('rating', rating.toString());
     }
