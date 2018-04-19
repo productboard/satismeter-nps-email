@@ -1,5 +1,5 @@
-var render = require('..');
-var express = require('express');
+import render from '..';
+import express from 'express';
 
 var app = express();
 

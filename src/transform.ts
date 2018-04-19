@@ -1,9 +1,9 @@
-var marked = require('marked');
-var messages = require('./messages');
-var Uri = require('jsuri');
-var is = require('is');
-var escapeHtml = require('escape-html');
-var xtend = require('xtend');
+import marked from 'marked';
+import messages from './messages';
+import Uri from 'jsuri';
+import is from 'is';
+import escapeHtml from 'escape-html';
+import xtend from 'xtend';
 
 var DEFAULT_COLORS = {
   primary: '#ff4981',
@@ -11,14 +11,14 @@ var DEFAULT_COLORS = {
   background: '#FDFDFD'
 };
 
-function escape(html) {
+function escape(html: string) {
   if (!html) {
     return null;
   }
   return escapeHtml(html);
 }
 
-function transform(options) {
+export default function transform(options: any) {
   // var user = options.user || {};
   var userId = options.userId;
   var traits = options.traits || {};
@@ -34,7 +34,7 @@ function transform(options) {
     ? options.showPoweredBy
     : true;
 
-  function t(key) {
+  function t(key: keyof typeof messages) {
     if (translation[key]) {
       return translation[key];
     }
@@ -47,7 +47,7 @@ function transform(options) {
 
   var renderer = new marked.Renderer();
 
-  renderer.paragraph = function(text) {
+  renderer.paragraph = function(text: string) {
     return (
       '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: ' +
       left +
@@ -57,8 +57,8 @@ function transform(options) {
     );
   };
 
-  function question(serviceName) {
-    serviceName = is.string(serviceName) ? serviceName.trim() : null;
+  function question(serviceName: string | null) {
+    serviceName = is.string(serviceName) ? serviceName!.trim() : null;
     var howLikelyUs = t('HOW_LIKELY_US');
     if (!serviceName && howLikelyUs) {
       return escape(howLikelyUs);
@@ -67,10 +67,10 @@ function transform(options) {
       ? '<b>' + escape(serviceName) + '</b>'
       : t('US');
     var howLikely = t('HOW_LIKELY').replace('%s', '{{service_name}}');
-    return escape(howLikely).replace('{{service_name}}', serviceHtml);
+    return escape(howLikely)!.replace('{{service_name}}', serviceHtml);
   }
 
-  function ratingUrl(rating) {
+  function ratingUrl(rating: number) {
     if (!options.url) {
       return null;
     }
@@ -99,7 +99,7 @@ function transform(options) {
     ratings: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function(rating) {
       return {
         rating: rating,
-        url: escape(ratingUrl(rating))
+        url: escape(ratingUrl(rating)!)
       };
     }),
     unsubscribeUrl: options.unsubscribeUrl,
@@ -107,5 +107,3 @@ function transform(options) {
     showPoweredBy: showPoweredBy
   };
 }
-
-module.exports = transform;

@@ -1,14 +1,14 @@
-var assert = require('chai').assert;
-var cheerio = require('cheerio');
+import { assert } from 'chai';
+import cheerio from 'cheerio';
 
-var render = require('..');
+import render from '..';
 
 describe('email', function() {
   it('should render email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: { userId: '1' },
+      userId: '1',
       url: 'http://localhost/survey',
       token: 'aaa',
       color: 'orange',
