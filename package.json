@@ -1,6 +1,7 @@
 {
   "name": "@satismeter/nps-email",
-  "version": "0.44.2",
+  "private": true,
+  "version": "0.45.0",
   "description": "Net Promoter Score email template",
   "repository": "git@github.com:satismeter/nps-email.git",
   "main": "dist/index.js",
@@ -8,7 +9,6 @@
     "test": "make test"
   },
   "author": "Jakub Sedlacek",
-  "license": "ISC",
   "dependencies": {
     "@types/chai": "^4.1.2",
     "@types/cheerio": "^0.22.7",
