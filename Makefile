@@ -19,4 +19,8 @@ serve: dist
 test: dist
 	$(BIN)/mocha dist/tests/test.js
 
-.PHONY: test serve
+publish: clean dist test
+	yarn publish
+	git push --tag
+
+.PHONY: clean serve test publish
