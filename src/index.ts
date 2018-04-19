@@ -4,6 +4,7 @@ import './templates/inline';
 import './templates/zonky-survey';
 import './templates/ilos-survey';
 import transform from './transform';
+import { TransformOptions } from './transform';
 
 const templates: { [name: string]: any } = {
   default: Handlebars.templates['survey.hbs'],
@@ -12,7 +13,12 @@ const templates: { [name: string]: any } = {
   ilos: Handlebars.templates['ilos-survey.hbs']
 };
 
-export default function render(options: any) {
-  var template = templates[options.template] || templates.default;
+export interface Options extends TransformOptions {
+  template?: string;
+}
+
+export default function render(options: Options) {
+  const templateName = options.template || 'default';
+  var template = templates[templateName] || templates.default;
   return template(transform(options));
 }

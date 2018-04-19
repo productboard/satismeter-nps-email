@@ -4,6 +4,7 @@ import Uri from 'jsuri';
 import is from 'is';
 import escapeHtml from 'escape-html';
 import xtend from 'xtend';
+import { Colors } from './base';
 
 var DEFAULT_COLORS = {
   primary: '#ff4981',
@@ -18,7 +19,25 @@ function escape(html: string) {
   return escapeHtml(html);
 }
 
-export default function transform(options: any) {
+export interface TransformOptions {
+  userId: string;
+  traits?: any;
+  colors?: Colors;
+  translation?: any;
+  preview?: boolean;
+  showPoweredBy?: boolean;
+  url?: string;
+  token: string;
+  serviceName?: string;
+  unsubscribeUrl?: string;
+
+  //legacy
+  color?: string;
+  intro?: string;
+  outro?: string;
+}
+
+export default function transform(options: TransformOptions) {
   // var user = options.user || {};
   var userId = options.userId;
   var traits = options.traits || {};
@@ -57,7 +76,7 @@ export default function transform(options: any) {
     );
   };
 
-  function question(serviceName: string | null) {
+  function question(serviceName: string | null | undefined) {
     serviceName = is.string(serviceName) ? serviceName!.trim() : null;
     var howLikelyUs = t('HOW_LIKELY_US');
     if (!serviceName && howLikelyUs) {

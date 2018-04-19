@@ -1,10 +1,10 @@
-interface Colors {
+export interface Colors {
   primary: string;
   foreground: string;
   background: string;
 }
 
-interface Rating {
+export interface Rating {
   rating: number;
   url: string;
 }

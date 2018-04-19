@@ -40,7 +40,7 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: { userId: '1' },
+      userId: '1',
       url: 'http://localhost/survey',
       token: 'aaa',
       color: 'orange',
@@ -60,7 +60,7 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: { userId: '1' },
+      userId: '1',
       token: 'aaa',
       color: 'orange',
       serviceName: 'ACME'
@@ -73,7 +73,7 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      user: { userId: '1' },
+      userId: '1',
       token: 'aaa',
       color: 'orange',
       serviceName: 'ACME',

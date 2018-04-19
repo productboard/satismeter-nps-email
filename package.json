@@ -4,6 +4,7 @@
   "description": "Net Promoter Score email template",
   "repository": "git@github.com:satismeter/nps-email.git",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": ["dist/**"],
   "license": "UNLICENSED",
   "scripts": {
