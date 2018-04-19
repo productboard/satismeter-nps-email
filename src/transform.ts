@@ -20,7 +20,7 @@ function escape(html: string) {
 }
 
 export interface TransformOptions {
-  userId: string;
+  userId?: string;
   traits?: any;
   colors?: Colors;
   translation?: any;
@@ -95,7 +95,9 @@ export default function transform(options: TransformOptions) {
     }
     var uri = new Uri(options.url);
     uri.addQueryParam('token', options.token);
-    uri.addQueryParam('userId', userId);
+    if (userId) {
+      uri.addQueryParam('userId', userId);
+    }
     Object.keys(traits).forEach(function(traitName) {
       uri.addQueryParam(traitName, traits[traitName]);
     });
