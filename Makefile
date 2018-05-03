@@ -20,7 +20,7 @@ test: dist
 	$(BIN)/mocha dist/tests/test.js
 
 publish: clean dist test
-	yarn publish
+	yarn publish --access public
 	git push --tag
 
 .PHONY: clean serve test publish
