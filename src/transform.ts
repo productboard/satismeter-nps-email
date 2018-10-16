@@ -76,19 +76,6 @@ export default function transform(options: TransformOptions) {
     );
   };
 
-  function question(serviceName: string | null | undefined) {
-    serviceName = is.string(serviceName) ? serviceName!.trim() : null;
-    var howLikelyUs = t('HOW_LIKELY_US');
-    if (!serviceName && howLikelyUs) {
-      return escape(howLikelyUs);
-    }
-    var serviceHtml = serviceName
-      ? '<b>' + escape(serviceName) + '</b>'
-      : t('US');
-    var howLikely = t('HOW_LIKELY').replace('%s', '{{service_name}}');
-    return escape(howLikely)!.replace('{{service_name}}', serviceHtml);
-  }
-
   function ratingUrl(rating: number) {
     if (!options.url) {
       return null;
@@ -110,7 +97,7 @@ export default function transform(options: TransformOptions) {
   return {
     intro: marked(options.intro || t('INTRO'), { renderer: renderer }),
     outro: marked(options.outro || t('OUTRO'), { renderer: renderer }),
-    question: question(options.serviceName),
+    question: t('HOW_LIKELY'),
     colors: colors,
     direction: direction,
     left: left,

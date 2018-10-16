@@ -1,9 +1,7 @@
 export default {
   US: 'us',
-  HOW_LIKELY_US:
-    'How likely are you to recommend us to your friends and colleagues?',
   HOW_LIKELY:
-    'How likely are you to recommend {{service_name}} to your friends and colleagues?',
+    'How likely are you to recommend us to your friends and colleagues?',
   UNLIKELY: 'Not at all likely',
   LIKELY: 'Extremely likely',
   FOLLOWUP: 'What could we do to improve?',

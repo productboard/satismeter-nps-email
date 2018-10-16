@@ -12,16 +12,15 @@ describe('email', function() {
       url: 'http://localhost/survey',
       token: 'aaa',
       color: 'orange',
-      serviceName: 'ACME',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
-        HOW_LIKELY: 'Je {{service_name}} dobry?'
+        HOW_LIKELY: 'Je ACME dobry?'
       }
     });
     assert.isString(html);
     assert.include(html, 'Please fill');
     assert.include(html, 'Bye');
-    assert.include(html, 'Je <b>ACME</b> dobry?');
+    assert.include(html, 'Je ACME dobry?');
     assert.include(html, 'Extremely likely');
     assert.include(
       html,
@@ -44,9 +43,8 @@ describe('email', function() {
       url: 'http://localhost/survey',
       token: 'aaa',
       color: 'orange',
-      serviceName: 'ACME',
       translation: {
-        HOW_LIKELY: 'Je {{service_name}} dobry?'
+        HOW_LIKELY: 'Je ACME dobry?'
       }
     });
     assert.isString(html);

@@ -9,7 +9,6 @@ app.get('/', function(req, res) {
       userId: '1',
       url: 'http://localhost/survey',
       token: 'aaa',
-      serviceName: 'ACME',
       unsubscribeUrl: 'http://localhost/unsubscribe'
     })
   );
