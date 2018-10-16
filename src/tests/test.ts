@@ -35,6 +35,22 @@ describe('email', function() {
     assert.equal($('a:not([href])').length, 0);
   });
 
+  it('should escape question', function() {
+    var html = render({
+      userId: '1',
+      url: 'http://localhost/survey',
+      token: 'aaa',
+      color: 'orange',
+      unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
+      translation: {
+        HOW_LIKELY: 'Je ACME <b>dobry</b>?'
+      }
+    });
+
+    var $ = cheerio.load(html);
+    assert.include($.root().text(), 'Je ACME <b>dobry</b>?');
+  });
+
   it('should not include unsubscribe', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
