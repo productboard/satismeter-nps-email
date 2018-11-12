@@ -23,7 +23,6 @@ export interface TransformOptions {
   urlParams: {
     [key: string]: string;
   };
-  traits?: any;
   colors?: Colors;
   translation?: any;
   preview?: boolean;
@@ -41,7 +40,6 @@ export interface TransformOptions {
 export default function transform(options: TransformOptions) {
   // var user = options.user || {};
   var urlParams = options.urlParams;
-  var traits = options.traits || {};
   var colors = xtend(
     DEFAULT_COLORS,
     options.color ? { primary: options.color } : null,
@@ -85,10 +83,6 @@ export default function transform(options: TransformOptions) {
 
     Object.keys(urlParams).forEach(function(paramName) {
       uri.addQueryParam(paramName, urlParams[paramName]);
-    });
-
-    Object.keys(traits).forEach(function(traitName) {
-      uri.addQueryParam(traitName, traits[traitName]);
     });
 
     if (is.number(rating)) {
