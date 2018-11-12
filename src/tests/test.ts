@@ -4,7 +4,22 @@ import cheerio from 'cheerio';
 import render from '..';
 
 describe('email', function() {
-  function assertRendered(html: any) {
+  it('should render email', function() {
+    var html = render({
+      intro: 'Hi!\n\nPlease fill in the survey below:',
+      outro: 'Bye!',
+      url: 'http://localhost/survey',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
+      color: 'orange',
+      unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
+      translation: {
+        HOW_LIKELY: 'Je ACME dobry?'
+      }
+    });
+
     assert.isString(html);
     assert.include(html, 'Please fill');
     assert.include(html, 'Bye');
@@ -17,59 +32,38 @@ describe('email', function() {
 
     var $ = cheerio.load(html);
     assert.equal($('a:not([href])').length, 0);
-  }
-
-  it('should render email (with token)', function() {
-    var html = render({
-      intro: 'Hi!\n\nPlease fill in the survey below:',
-      outro: 'Bye!',
-      userId: '1',
-      url: 'http://localhost/survey',
-      token: 'aaa',
-      color: 'orange',
-      unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
-      translation: {
-        HOW_LIKELY: 'Je ACME dobry?'
-      }
-    });
-
-    assertRendered(html);
-
-    assert.include(
-      html,
-      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"'
-    );
   });
 
-  it('should render email (with responseId)', function() {
+  it('should include passed urlParams', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
+      urlParams: {
+        token: 'aaa',
+        userId: '1',
+        foo: 'bar'
+      },
       color: 'orange',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
-      },
-      traits: {
-        responseId: '12345',
-        authToken: 'bbb',
       }
     });
 
-    assertRendered(html);
-
     assert.include(
       html,
-      'href="http://localhost/survey?responseId=12345&amp;authToken=bbb&amp;rating=10"'
+      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;foo=bar&amp;rating=10"'
     );
   });
 
   it('should escape question', function() {
     var html = render({
-      userId: '1',
       url: 'http://localhost/survey',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
@@ -85,9 +79,11 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
       url: 'http://localhost/survey',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
@@ -104,8 +100,10 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       serviceName: 'ACME'
     });
@@ -117,8 +115,10 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       serviceName: 'ACME',
       template: 'zonky'

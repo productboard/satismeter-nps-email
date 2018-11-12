@@ -20,14 +20,15 @@ function escape(html: string) {
 }
 
 export interface TransformOptions {
-  userId?: string;
+  urlParams: {
+    [key: string]: string;
+  };
   traits?: any;
   colors?: Colors;
   translation?: any;
   preview?: boolean;
   showPoweredBy?: boolean;
   url?: string;
-  token?: string;
   serviceName?: string;
   unsubscribeUrl?: string;
 
@@ -39,7 +40,7 @@ export interface TransformOptions {
 
 export default function transform(options: TransformOptions) {
   // var user = options.user || {};
-  var userId = options.userId;
+  var urlParams = options.urlParams;
   var traits = options.traits || {};
   var colors = xtend(
     DEFAULT_COLORS,
@@ -81,15 +82,15 @@ export default function transform(options: TransformOptions) {
       return null;
     }
     var uri = new Uri(options.url);
-    if (options.token) {
-      uri.addQueryParam('token', options.token);
-    }
-    if (userId) {
-      uri.addQueryParam('userId', userId);
-    }
+
+    Object.keys(urlParams).forEach(function(paramName) {
+      uri.addQueryParam(paramName, urlParams[paramName]);
+    });
+
     Object.keys(traits).forEach(function(traitName) {
       uri.addQueryParam(traitName, traits[traitName]);
     });
+
     if (is.number(rating)) {
       uri.addQueryParam('rating', rating.toString());
     }
