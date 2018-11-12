@@ -4,7 +4,22 @@ import cheerio from 'cheerio';
 import render from '..';
 
 describe('email', function() {
-  it('should render email', function() {
+  function assertRendered(html: any) {
+    assert.isString(html);
+    assert.include(html, 'Please fill');
+    assert.include(html, 'Bye');
+    assert.include(html, 'Je ACME dobry?');
+    assert.include(html, 'Extremely likely');
+    assert.include(
+      html,
+      'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"'
+    );
+
+    var $ = cheerio.load(html);
+    assert.equal($('a:not([href])').length, 0);
+  }
+
+  it('should render email (with token)', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -17,22 +32,37 @@ describe('email', function() {
         HOW_LIKELY: 'Je ACME dobry?'
       }
     });
-    assert.isString(html);
-    assert.include(html, 'Please fill');
-    assert.include(html, 'Bye');
-    assert.include(html, 'Je ACME dobry?');
-    assert.include(html, 'Extremely likely');
+
+    assertRendered(html);
+
     assert.include(
       html,
       'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"'
     );
+  });
+
+  it('should render email (with responseId)', function() {
+    var html = render({
+      intro: 'Hi!\n\nPlease fill in the survey below:',
+      outro: 'Bye!',
+      url: 'http://localhost/survey',
+      color: 'orange',
+      unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
+      translation: {
+        HOW_LIKELY: 'Je ACME dobry?'
+      },
+      traits: {
+        responseId: '12345',
+        authToken: 'bbb',
+      }
+    });
+
+    assertRendered(html);
+
     assert.include(
       html,
-      'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"'
+      'href="http://localhost/survey?responseId=12345&amp;authToken=bbb&amp;rating=10"'
     );
-
-    var $ = cheerio.load(html);
-    assert.equal($('a:not([href])').length, 0);
   });
 
   it('should escape question', function() {

@@ -27,7 +27,7 @@ export interface TransformOptions {
   preview?: boolean;
   showPoweredBy?: boolean;
   url?: string;
-  token: string;
+  token?: string;
   serviceName?: string;
   unsubscribeUrl?: string;
 
@@ -81,7 +81,9 @@ export default function transform(options: TransformOptions) {
       return null;
     }
     var uri = new Uri(options.url);
-    uri.addQueryParam('token', options.token);
+    if (options.token) {
+      uri.addQueryParam('token', options.token);
+    }
     if (userId) {
       uri.addQueryParam('userId', userId);
     }
