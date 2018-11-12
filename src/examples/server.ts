@@ -6,9 +6,11 @@ var app = express();
 app.get('/', function(req, res) {
   res.send(
     render({
-      userId: '1',
       url: 'http://localhost/survey',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       unsubscribeUrl: 'http://localhost/unsubscribe'
     })
   );

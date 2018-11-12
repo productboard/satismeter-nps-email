@@ -8,24 +8,23 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
       url: 'http://localhost/survey',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
       }
     });
+
     assert.isString(html);
     assert.include(html, 'Please fill');
     assert.include(html, 'Bye');
     assert.include(html, 'Je ACME dobry?');
     assert.include(html, 'Extremely likely');
-    assert.include(
-      html,
-      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;rating=10"'
-    );
     assert.include(
       html,
       'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"'
@@ -35,11 +34,36 @@ describe('email', function() {
     assert.equal($('a:not([href])').length, 0);
   });
 
+  it('should include passed urlParams', function() {
+    var html = render({
+      intro: 'Hi!\n\nPlease fill in the survey below:',
+      outro: 'Bye!',
+      url: 'http://localhost/survey',
+      urlParams: {
+        token: 'aaa',
+        userId: '1',
+        foo: 'bar'
+      },
+      color: 'orange',
+      unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
+      translation: {
+        HOW_LIKELY: 'Je ACME dobry?'
+      }
+    });
+
+    assert.include(
+      html,
+      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;foo=bar&amp;rating=10"'
+    );
+  });
+
   it('should escape question', function() {
     var html = render({
-      userId: '1',
       url: 'http://localhost/survey',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
@@ -55,9 +79,11 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
       url: 'http://localhost/survey',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
@@ -74,8 +100,10 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       serviceName: 'ACME'
     });
@@ -87,8 +115,10 @@ describe('email', function() {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
-      userId: '1',
-      token: 'aaa',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
       color: 'orange',
       serviceName: 'ACME',
       template: 'zonky'
