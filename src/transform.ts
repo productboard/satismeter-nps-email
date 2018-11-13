@@ -21,7 +21,7 @@ function escape(html: string) {
 
 export interface TransformOptions {
   urlParams: {
-    [key: string]: string;
+    [key: string]: string | number | boolean | undefined;
   };
   colors?: Colors;
   translation?: any;
@@ -82,7 +82,11 @@ export default function transform(options: TransformOptions) {
     var uri = new Uri(options.url);
 
     Object.keys(urlParams).forEach(function(paramName) {
-      uri.addQueryParam(paramName, urlParams[paramName]);
+      const paramValue = urlParams[paramName];
+
+      if (paramValue !== undefined) {
+        uri.addQueryParam(paramName, paramValue);
+      }
     });
 
     if (is.number(rating)) {

@@ -42,7 +42,9 @@ describe('email', function() {
       urlParams: {
         token: 'aaa',
         userId: '1',
-        foo: 'bar'
+        someBoolean: true,
+        someNumber: 2,
+        notThis: undefined
       },
       color: 'orange',
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
@@ -53,7 +55,7 @@ describe('email', function() {
 
     assert.include(
       html,
-      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;foo=bar&amp;rating=10"'
+      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;someBoolean=true&amp;someNumber=2&amp;rating=10"'
     );
   });
 
