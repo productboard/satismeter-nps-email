@@ -21,5 +21,6 @@ test: dist
 publish: clean dist test
 	yarn publish --access public
 	git push --tag
+	git push origin head
 
 .PHONY: clean serve test publish
