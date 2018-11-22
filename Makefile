@@ -4,7 +4,6 @@ SRC := $(shell find src -name '*')
 dist: $(SRC)
 	$(BIN)/tsc
 	mkdir -p dist/templates
-	$(BIN)/handlebars src/templates/ilos-survey.hbs -f dist/templates/ilos-survey.js -c handlebars/dist/handlebars.runtime.js
 	$(BIN)/handlebars src/templates/inline.hbs -f dist/templates/inline.js -c handlebars/dist/handlebars.runtime.js
 	$(BIN)/handlebars src/templates/survey.hbs -f dist/templates/survey.js -c handlebars/dist/handlebars.runtime.js
 	$(BIN)/handlebars src/templates/zonky-survey.hbs -f dist/templates/zonky-survey.js -c handlebars/dist/handlebars.runtime.js
