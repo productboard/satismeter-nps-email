@@ -32,9 +32,9 @@
   },
   "devDependencies": {
     "chai": "^2.0.0",
-    "cheerio": "^0.20.0",
-    "express": "^4.13.1",
-    "mocha": "3.2.0",
+    "cheerio": "^0.22.0",
+    "express": "^4.17.1",
+    "mocha": "6.2.2",
     "typescript": "^2.8.1"
   }
 }
