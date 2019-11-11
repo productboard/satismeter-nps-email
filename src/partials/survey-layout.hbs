@@ -1,10 +1,19 @@
 {{#unless preview}}
 <!DOCTYPE html>
-<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html>
 
 <head>
   <meta charset="UTF-8">
-  <!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+  <!--[if gte mso 9]>
+    <xml>
+      <urn:schemas-microsoft-com:office:office:OfficeDocumentSettings>
+        <urn:schemas-microsoft-com:office:office:AllowPNG/>
+        <urn:schemas-microsoft-com:office:office:PixelsPerInch>
+          96
+        </urn:schemas-microsoft-com:office:office:PixelsPerInch>
+      </urn:schemas-microsoft-com:office:office:OfficeDocumentSettings>
+    </xml>
+  <![endif]-->
   <title></title>
 </head>
 
@@ -14,10 +23,10 @@
   {{> survey-style}}
 
   <table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout: auto; border-spacing: 0;" class="ee_resizable ee_mobiletemplate"
-    data-dmtmp="true" dir="{{direction}}">
+    dir="{{direction}}">
     <tbody>
       <tr>
-        <td align="center" cellpadding="0" cellspacing="0" style="background-color: rgb(240, 240, 240);">
+        <td align="center" style="background-color: rgb(240, 240, 240);">
           <table width="600" border="0" cellspacing="0" cellpadding="0" style="table-layout: auto; border-spacing: 0;"
             class="eem_mainouterzone">
             <tbody>
@@ -30,7 +39,7 @@
                       <tr>
                         <td class="ee_pad" style="padding-top: 20px;padding-{{right}}: 10px;padding-bottom: 20px;padding-{{left}}: 10px; width: auto;">
                           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ee_columns eev_element"
-                            ee-type="container" style="width: 580px; position: relative; table-layout: auto; border-spacing: 0;"
+                            style="width: 580px; position: relative; table-layout: auto; border-spacing: 0;"
                             data-eewidth="580">
                             <tbody>
                               <tr>
@@ -47,7 +56,7 @@
                                               <tr>
                                                 <td class="eeb_width" style="width: 530px;">
                                                   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ee_columns eev_element"
-                                                    ee-type="container" style="width: 530px; position: relative; table-layout: auto; border-spacing: 0;"
+                                                    style="width: 530px; position: relative; table-layout: auto; border-spacing: 0;"
                                                     data-eewidth="530">
                                                     <tbody>
                                                       <tr>
@@ -76,13 +85,13 @@
                                       <tr>
                                         <td class="ee_pad" style="padding-top: 15px; width: auto;">
                                           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ee_columns eev_element"
-                                            ee-type="container" style="width: 580px; position: relative; table-layout: auto; border-spacing: 0;"
+                                            style="width: 580px; position: relative; table-layout: auto; border-spacing: 0;"
                                             data-eewidth="580">
                                             <tbody>
                                               <tr>
                                                 <td width="50%" valign="top" class="ee_dropzone ved-scaled-cols ee_headercenter"
                                                   align="{{left}}" style="width: 290px; padding-top: 4px;padding-{{right}}: 0;padding-bottom: 0;padding-{{left}}: 0;">
-                                                  <div class="ee_editable ee_element" ee-type="element">
+                                                  <div class="ee_editable ee_element">
                                                     {{#if showPoweredBy}}
                                                     <p style="margin: 0px; text-align: {{left}}; font-family: arial, helvetica, sans-serif; line-height: 150%; color: rgb(106, 106, 106);font-size: 12px;">
                                                       Powered by <a href="https://satismeter.com?utm_source=survey&utm_medium=email"
@@ -95,7 +104,7 @@
                                                 {{#if unsubscribeUrl}}
                                                 <td width="50%" valign="top" class="ee_dropzone ved-scaled-cols ee_headercenter"
                                                   align="{{left}}" style="width: 290px; padding-top: 4px;padding-{{right}}: 0;padding-bottom: 0;padding-{{left}}: 0;">
-                                                  <div class="ee_editable ee_element" ee-type="element">
+                                                  <div class="ee_editable ee_element">
                                                     <p style="margin: 0px; text-align: {{right}}; font-family: arial, helvetica, sans-serif; line-height: 150%; font-size: 12px;"><a
                                                         href="{{unsubscribeUrl}}" style="color: {{colors.primary}}; text-decoration: none;"
                                                         target="_blank">Unsubscribe</a></p>
