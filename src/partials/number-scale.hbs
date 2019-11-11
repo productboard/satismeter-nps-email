@@ -1,0 +1,82 @@
+<table class="ee_element ee_borders eeb_width" cellpadding="0" cellspacing="0" data-eewidth="530" style="table-layout: auto; width: 530px; border-spacing: 0;">
+  <tbody>
+    <tr>
+      <td class="ee_pad" style="padding-top: 15px; padding-bottom: 25px; width: auto;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ee_columns eev_element" ee-type="container"
+          style="width: 530px; position: relative; table-layout: auto; border-spacing: 0;" data-eewidth="530">
+          <tbody>
+            <tr>
+              <td width="100%" valign="top" class="ee_dropzone ved-scaled-cols " align="{{left}}" style="width: 530px; padding: 0px;">
+                <div class="ee_editable ee_element ee_headercenter show_on_mobile" ee-type="element" style="width: 0; max-height: 0; overflow: hidden; float: {{left}}; display: none;">
+                  <p style="margin: 0px; font-family: arial, helvetica, sans-serif; line-height: 21px; color: rgb(132, 132, 132); font-size: 13px; font-style: italic;">{{minLegend}}</p>
+                </div>
+                <table class="ee_borders eeb_width ee_element" cellpadding="0" cellspacing="0" style="width: 530px; table-layout: auto; border-spacing: 0;"
+                  data-eewidth="530">
+                  <tbody>
+                    <tr>
+                      <td class="ee_pad" style="padding-top: 10px; padding-bottom: 10px; width: auto;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ee_columns eev_element"
+                          ee-type="container" style="width: 530px; position: relative; table-layout: auto; border-spacing: 0;"
+                          data-eewidth="530">
+                          <tbody>
+                            <tr>
+                              {{#each ratings}}
+                              <td width="{{../width.relative}}%" valign="middle" class="ee_dropzone ved-scaled-cols" align="{{../left}}"
+                                style="width: {{../width.absolute}}px; padding: 0px; background-color: {{../colors.primary}}; border-radius: 3px; overflow: hidden;">
+                                <table class="ee_element ee_borders eeb_width" cellpadding="0" cellspacing="0" style="width: {{../width.absolute}}px; table-layout: auto; border-spacing: 0;"
+                                  data-eewidth="{{../width.absolute}}">
+                                  <tbody>
+                                    <tr>
+                                      <td class="ee_pad" style="width: auto; padding: 0px;">
+                                        <div class="ee_editable eev_element" ee-type="element" style="width: {{../width.absolute}}px;">
+                                          <p style="margin: 0px; text-align: center; font-family: arial, helvetica, sans-serif; color: {{../colors.background}}; font-size: 15px;">
+                                            <a {{#if url}} href="{{{url}}}" {{/if}} style="display:block; line-height: 18px; color: {{../colors.background}}; text-decoration: none; border: 12px solid {{../colors.primary}};">{{rating}}</a>
+                                          </p>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                              {{#unless @last}}
+                              <td width="2" valign="top" class="eegap" style="width: 2px; padding: 0px;"><img src="https://i.emlfiles.com/cmpimg/t/s.gif"
+                                  style="display:block" height="1" width="2"></td>
+                              <td width="3" valign="top" class="eegap hide" style="width: 3px; padding: 0px;"><img src="https://i.emlfiles.com/cmpimg/t/s.gif"
+                                  style="display:block" height="1" width="3"></td>
+                              {{/unless}}
+                              {{/each}}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ee_columns ee_element" ee-type="container"
+                  style="table-layout: auto; width: 530px; position: relative; border-spacing: 0; border-spacing: 0;"
+                  data-eewidth="530">
+                  <tbody>
+                    <tr>
+                      <td width="50%" valign="top" class="ee_dropzone ved-scaled-cols" align="{{left}}" style="width: 261px; padding: 0px;">
+                        <div class="ee_editable ee_element ee_headercenter hide" ee-type="element">
+                          <p style="margin: 0px; font-family: arial, helvetica, sans-serif; line-height: 21px; color: rgb(132, 132, 132); font-size: 13px; font-style: italic;">{{minLegend}}</p>
+                        </div>
+                      </td>
+                      <td width="8" valign="top" class="eegap" style="width: 8px; padding: 0px;"><img src="https://i.emlfiles.com/cmpimg/t/s.gif"
+                          style="display:block" height="10" width="8"></td>
+                      <td width="50%" valign="top" class="ee_dropzone ved-scaled-cols" align="{{left}}" style="width: 261px; padding: 0px;">
+                        <div class="ee_editable ee_element ee_headercenter" ee-type="element">
+                          <p style="margin: 0px; font-family: arial, helvetica, sans-serif; line-height: 21px; color: rgb(132, 132, 132); text-align: {{right}}; font-size: 13px; font-style: italic;">{{maxLegend}}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

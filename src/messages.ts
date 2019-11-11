@@ -4,6 +4,8 @@ export default {
     'How likely are you to recommend us to your friends and colleagues?',
   UNLIKELY: 'Not at all likely',
   LIKELY: 'Extremely likely',
+  DISAGREE: 'Disagree',
+  AGREE: 'Agree',
   FOLLOWUP: 'What could we do to improve?',
   DISMISS: 'Close',
   SUBMIT: 'Submit Feedback',

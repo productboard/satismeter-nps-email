@@ -4,25 +4,52 @@ export interface Colors {
   background: string;
 }
 
-export interface Rating {
-  rating: number;
-  url: string;
+export interface Choice {
+  label: string;
+  url: string | null;
 }
 
-export type Template = (
-  options: {
-    intro: string;
-    outro: string;
-    question: string;
-    colors: Colors;
-    direction: string;
-    left: 'left' | 'right';
-    right: 'left' | 'right';
-    unlikely: string;
-    likely: string;
-    ratings: Rating[];
-    unsubscribeUrl: string;
-    preview: boolean;
-    showPoweredBy: boolean;
-  }
-) => string;
+export interface Rating {
+  rating: number;
+  url: string | null;
+}
+
+export interface BaseTemplateOptions {
+  intro: string;
+  outro: string;
+  question: string;
+  colors: Colors;
+  direction: string;
+  left: 'left' | 'right';
+  right: 'left' | 'right';
+  unsubscribeUrl?: string;
+  preview: boolean;
+  showPoweredBy: boolean;
+}
+
+export interface TemplateOptions extends BaseTemplateOptions {
+  unlikely: string;
+  likely: string;
+  ratings: Rating[];
+}
+
+export interface ChoiceOptions {
+  choices: Choice[];
+}
+
+export interface ScaleOptions {
+  maxLegend: string;
+  minLegend: string;
+  ratings: Rating[];
+  width: {
+    absolute: number;
+    relative: number;
+  };
+}
+
+export type TemplateV2Options =
+  | BaseTemplateOptions & ChoiceOptions
+  | BaseTemplateOptions & ScaleOptions;
+
+export type Template = (options: TemplateOptions) => string;
+export type TemplateV2 = (options: TemplateV2Options) => string;
