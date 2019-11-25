@@ -38,6 +38,8 @@ export interface ChoiceOptions {
 }
 
 export interface ScaleOptions {
+  max: number;
+  min: number;
   maxLegend: string;
   minLegend: string;
   ratings: Rating[];

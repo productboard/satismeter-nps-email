@@ -29,7 +29,7 @@ const DEFAULT_COLORS = {
 };
 
 const SCALE_WIDTH = 530;
-const NPS_WIDTH = { absolute: 43, relative: 9 };
+const NPS_WIDTH = { absolute: 48, relative: 9 };
 
 function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
@@ -118,11 +118,13 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
 
     return {
       ...templateOptions,
+      max: options.max,
+      min: options.min,
       maxLegend: options.maxLegend || t('AGREE'),
       minLegend: options.minLegend || t('DISAGREE'),
       ratings: ratings,
       width: {
-        absolute: Math.floor(SCALE_WIDTH / ratings.length) - 5,
+        absolute: Math.floor(SCALE_WIDTH / ratings.length),
         relative: Math.floor(100 / ratings.length)
       }
     };
@@ -139,6 +141,8 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     return {
       ...templateOptions,
       question: templateOptions.question || t('HOW_LIKELY'),
+      max: 10,
+      min: 0,
       maxLegend: options.maxLegend || t('LIKELY'),
       minLegend: options.minLegend || t('UNLIKELY'),
       ratings: ratings,
