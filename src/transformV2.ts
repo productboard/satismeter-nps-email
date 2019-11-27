@@ -29,7 +29,7 @@ const DEFAULT_COLORS = {
 };
 
 const SCALE_WIDTH = 530;
-const NPS_WIDTH = { absolute: 48, relative: 9 };
+const NPS_WIDTH = { absolute: 48.18, relative: 9.09 };
 
 function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
@@ -124,8 +124,8 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       minLegend: options.minLegend || t('DISAGREE'),
       ratings: ratings,
       width: {
-        absolute: Math.floor(SCALE_WIDTH / ratings.length),
-        relative: Math.floor(100 / ratings.length)
+        absolute: SCALE_WIDTH / ratings.length,
+        relative: 100 / ratings.length
       }
     };
   } else {

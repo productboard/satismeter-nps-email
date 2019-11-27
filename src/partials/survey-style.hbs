@@ -31,13 +31,17 @@
     margin: 13px 0;
   }
 </style>
-<!--[if lte mso 11]>
+<!--[if mso | IE]>
 <style type="text/css">
   .mj-outlook-group-fix { width:100% !important; }
 </style>
 <![endif]-->
 <style type="text/css">
   @media only screen and (min-width:480px) {
+    .mj-column-per-50 {
+      width: 50% !important;
+      max-width: 50%;
+    }
     .mj-column-per-100 {
       width: 100% !important;
       max-width: 100%;
@@ -45,6 +49,18 @@
     .mj-column-per-item-width {
       width: {{width.relative}}% !important;
       max-width: {{width.relative}}%;
+    }
+    .mj-align-left {
+      text-align: left !important;
+    }
+    .mj-align-right {
+      text-align: right !important;
+    }
+    .mj-display-none {
+      display: none !important;
+    }
+    .mj-display-inline-block {
+      display: inline-block !important;
     }
   }
 </style>
