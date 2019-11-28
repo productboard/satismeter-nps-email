@@ -140,7 +140,9 @@ describe('email', function() {
       const html = render({
         template: 'surveyV2',
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        questionId: 'QID',
+        questionType: 'SM_rating'
       });
 
       assert.isString(html);
@@ -161,6 +163,7 @@ describe('email', function() {
         template: 'surveyV2',
         choices: ['abc', '123'],
         questionId: 'QID',
+        questionType: 'single-choice',
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });
@@ -176,6 +179,7 @@ describe('email', function() {
         max: 3,
         min: 1,
         questionId: 'QID',
+        questionType: 'scale',
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });
@@ -192,6 +196,7 @@ describe('email', function() {
         max: -1,
         min: -3,
         questionId: 'QID',
+        questionType: 'scale',
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });
