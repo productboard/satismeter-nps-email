@@ -12,12 +12,16 @@ const baseSurvey: Options = {
 
 const npsV2: Options = {
   ...baseSurvey,
+  questionType: 'SM_rating',
+  questionId: 'nps-id',
   template: 'surveyV2'
 };
 
 const rating: Options = {
   ...baseSurvey,
   template: 'surveyV2',
+  questionType: 'scale',
+  questionId: 'rating-id',
   question: 'I am satisfied with the service',
   max: 5,
   min: 0,
@@ -28,6 +32,8 @@ const rating: Options = {
 const choice: Options = {
   ...baseSurvey,
   template: 'surveyV2',
+  questionType: 'single-choice',
+  questionId: 'choice-id',
   question: 'We are sorry you leave. What is the reason?',
   choices: ['Bad support', 'Not enough features', 'The price is too high']
 };

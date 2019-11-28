@@ -132,11 +132,18 @@
                                   <tr>
                                     {{#if showPoweredBy}}
                                     <td bgcolor="transparent" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 5px;background:transparent;"
-                                      valign="middle"> <a href="https://www.satismeter.com/?utm_source=survey&utm_medium=email"
-                                        style="display:inline-block;background:transparent;color:{{colors.primary}};font-family:arial, helvetica, sans-serif;font-size:12px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:5px 5px;mso-padding-alt:0px;border-radius:3px;"
+                                      valign="middle">
+                                      <!--[if mso | IE]>
+                                        <div style="text-align:left;">
+                                      <![endif]-->
+                                      <a href="https://www.satismeter.com/?utm_source=survey&utm_medium=email" style="display:inline-block;background:transparent;color:{{colors.primary}};font-family:arial, helvetica, sans-serif;font-size:12px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:5px 5px;mso-padding-alt:0px;border-radius:3px;"
                                         target="_blank">
-                                        Powered by <b>SatisMeter</b>
-                                      </a> </td>
+                                        <span style="color:#6a6a6a;">Powered by</span> <b>SatisMeter</b>
+                                      </a>
+                                      <!--[if mso | IE]>
+                                        </div>
+                                      <![endif]-->
+                                    </td>
                                     {{/if}}
                                   </tr>
                                 </table>
@@ -160,10 +167,18 @@
                                   <tr>
                                     {{#if unsubscribeUrl}}
                                     <td bgcolor="transparent" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 5px;background:transparent;"
-                                      valign="middle"> <a href="{{unsubscribeUrl}}" style="display:inline-block;background:transparent;color:{{colors.primary}};font-family:arial, helvetica, sans-serif;font-size:12px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:5px 5px;mso-padding-alt:0px;border-radius:3px;"
+                                      valign="middle">
+                                      <!--[if mso | IE]>
+                                        <div style="text-align:right;">
+                                      <![endif]-->
+                                      <a href="{{unsubscribeUrl}}" style="display:inline-block;background:transparent;color:{{colors.primary}};font-family:arial, helvetica, sans-serif;font-size:12px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:5px 5px;mso-padding-alt:0px;border-radius:3px;"
                                         target="_blank">
                                         Unsubscribe
-                                      </a> </td>
+                                      </a>
+                                      <!--[if mso | IE]>
+                                        </div>
+                                      <![endif]-->
+                                    </td>
                                     {{/if}}
                                   </tr>
                                 </table>

@@ -15,6 +15,7 @@ export type TransformV2Options = {
   preview?: boolean;
   question?: string;
   questionId?: string;
+  questionType?: 'scale' | 'single-choice' | 'SM_rating';
   showPoweredBy?: boolean;
   translation?: any;
   unsubscribeUrl?: string;
@@ -89,7 +90,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     width: NPS_WIDTH
   } as any;
 
-  if (options.choices) {
+  if (options.questionType === 'single-choice' && options.choices) {
     const choices = options.choices.map(choice => {
       return {
         label: choice,
@@ -101,7 +102,11 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       ...templateOptions,
       choices: choices
     };
-  } else if (options.max !== undefined && options.min !== undefined) {
+  } else if (
+    options.questionType === 'scale' &&
+    options.max !== undefined &&
+    options.min !== undefined
+  ) {
     const ratings: Rating[] = [];
     const inc = sign(options.max - options.min);
 
