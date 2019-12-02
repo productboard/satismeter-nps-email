@@ -32,7 +32,7 @@ for (const partial of partials) {
 }
 
 export interface OptionsV1 extends TransformOptions {
-  template: 'default' | 'inline' | 'zonky' | undefined;
+  template: string | undefined;
 }
 
 export interface OptionsV2 extends TransformV2Options {
@@ -46,6 +46,6 @@ export default function render(options: Options) {
   const template = templates[templateName] || templates.default;
 
   return options.template === 'surveyV2'
-    ? template(transformV2(options))
+    ? template(transformV2(options as OptionsV2))
     : template(transform(options));
 }
