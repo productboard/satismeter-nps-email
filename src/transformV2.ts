@@ -5,23 +5,32 @@ import marked from 'marked';
 import { BaseTemplateOptions, Colors, Rating, TemplateV2Options } from './base';
 import messages from './messages';
 
-export type TransformV2Options = {
-  choices?: string[];
+export interface BaseOptions {
   colors?: Colors;
-  max?: number;
-  maxLegend?: string;
-  min?: number;
-  minLegend?: string;
   preview?: boolean;
-  question?: string;
-  questionId?: string;
-  questionType?: 'scale' | 'single-choice' | 'SM_rating';
+  question: string;
+  questionId: string;
   showPoweredBy?: boolean;
   translation?: any;
   unsubscribeUrl?: string;
   url?: string;
   urlParams: { [key: string]: string | number | boolean | undefined };
-};
+}
+
+export interface ScaleOptions extends BaseOptions {
+  questionType: 'scale';
+  max: number;
+  min: number;
+  maxLegend: string;
+  minLegend: string;
+}
+
+export interface SingleChoiceOptions extends BaseOptions {
+  questionType: 'single-choice';
+  choices: string[];
+}
+
+export type TransformV2Options = ScaleOptions | SingleChoiceOptions;
 
 const DEFAULT_COLORS = {
   primary: '#FF4981',
@@ -30,13 +39,14 @@ const DEFAULT_COLORS = {
 };
 
 const SCALE_WIDTH = 530;
-const NPS_WIDTH = { absolute: 48.18, relative: 9.09 };
 
 function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
 }
 
-export function transformV2(options: TransformV2Options): TemplateV2Options {
+export function transformV2(
+  options: TransformV2Options
+): TemplateV2Options | undefined {
   function t(key: keyof typeof messages) {
     if (options.translation && options.translation[key]) {
       return options.translation[key];
@@ -86,11 +96,10 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     preview: is.boolean(options.preview) ? options.preview! : false,
     showPoweredBy: is.boolean(options.showPoweredBy)
       ? options.showPoweredBy!
-      : true,
-    width: NPS_WIDTH
-  } as any;
+      : true
+  };
 
-  if (options.questionType === 'single-choice' && options.choices) {
+  if (options.questionType === 'single-choice') {
     const choices = options.choices.map(choice => {
       return {
         label: choice,
@@ -102,11 +111,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       ...templateOptions,
       choices: choices
     };
-  } else if (
-    options.questionType === 'scale' &&
-    options.max !== undefined &&
-    options.min !== undefined
-  ) {
+  } else if (options.questionType === 'scale') {
     const ratings: Rating[] = [];
     const inc = sign(options.max - options.min);
 
@@ -125,33 +130,13 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       ...templateOptions,
       max: options.max,
       min: options.min,
-      maxLegend: options.maxLegend || t('AGREE'),
-      minLegend: options.minLegend || t('DISAGREE'),
+      maxLegend: options.maxLegend,
+      minLegend: options.minLegend,
       ratings: ratings,
       width: {
         absolute: SCALE_WIDTH / ratings.length,
         relative: 100 / ratings.length
       }
-    };
-  } else {
-    const ratings: Rating[] = [];
-
-    for (let rating = 0; rating <= 10; rating++) {
-      ratings.push({
-        rating: rating,
-        url: url(rating.toString())
-      });
-    }
-
-    return {
-      ...templateOptions,
-      question: templateOptions.question || t('HOW_LIKELY'),
-      max: 10,
-      min: 0,
-      maxLegend: options.maxLegend || t('LIKELY'),
-      minLegend: options.minLegend || t('UNLIKELY'),
-      ratings: ratings,
-      width: NPS_WIDTH
     };
   }
 }

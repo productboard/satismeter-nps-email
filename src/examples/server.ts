@@ -1,7 +1,9 @@
 import render, { Options } from '..';
 import express from 'express';
+import messages from '../messages';
 
 const baseSurvey: Options = {
+  template: undefined,
   url: 'http://localhost/survey',
   urlParams: {
     token: 'aaa',
@@ -12,9 +14,14 @@ const baseSurvey: Options = {
 
 const npsV2: Options = {
   ...baseSurvey,
-  questionType: 'SM_rating',
+  template: 'surveyV2',
+  questionType: 'scale',
   questionId: 'nps-id',
-  template: 'surveyV2'
+  question: messages.HOW_LIKELY,
+  max: 10,
+  min: 0,
+  maxLegend: messages.LIKELY,
+  minLegend: messages.UNLIKELY
 };
 
 const rating: Options = {
@@ -25,8 +32,8 @@ const rating: Options = {
   question: 'I am satisfied with the service',
   max: 5,
   min: 0,
-  maxLegend: 'Agree',
-  minLegend: 'Disagree'
+  maxLegend: messages.AGREE,
+  minLegend: messages.DISAGREE
 };
 
 const choice: Options = {

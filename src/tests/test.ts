@@ -7,6 +7,7 @@ import messages from '../messages';
 describe('email', function() {
   it('should render email', function() {
     var html = render({
+      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
@@ -37,6 +38,7 @@ describe('email', function() {
 
   it('should include passed urlParams', function() {
     var html = render({
+      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
@@ -62,6 +64,7 @@ describe('email', function() {
 
   it('should escape question', function() {
     var html = render({
+      template: undefined,
       url: 'http://localhost/survey',
       urlParams: {
         token: 'aaa',
@@ -80,6 +83,7 @@ describe('email', function() {
 
   it('should not include unsubscribe', function() {
     var html = render({
+      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
@@ -101,6 +105,7 @@ describe('email', function() {
 
   it('should handle undefined values', function() {
     var html = render({
+      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       urlParams: {
@@ -142,7 +147,12 @@ describe('email', function() {
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
         questionId: 'QID',
-        questionType: 'SM_rating'
+        question: messages.HOW_LIKELY,
+        questionType: 'scale',
+        max: 10,
+        min: 0,
+        maxLegend: messages.LIKELY,
+        minLegend: messages.UNLIKELY
       });
 
       assert.isString(html);
@@ -164,6 +174,7 @@ describe('email', function() {
         choices: ['abc', '123'],
         questionId: 'QID',
         questionType: 'single-choice',
+        question: 'What is the reason you are leaving?',
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });
@@ -178,6 +189,9 @@ describe('email', function() {
         template: 'surveyV2',
         max: 3,
         min: 1,
+        maxLegend: messages.AGREE,
+        minLegend: messages.DISAGREE,
+        question: 'I agree with this statement',
         questionId: 'QID',
         questionType: 'scale',
         url: 'localhost/survey',
@@ -195,6 +209,9 @@ describe('email', function() {
         template: 'surveyV2',
         max: -1,
         min: -3,
+        maxLegend: messages.AGREE,
+        minLegend: messages.DISAGREE,
+        question: 'I like odd scales',
         questionId: 'QID',
         questionType: 'scale',
         url: 'localhost/survey',

@@ -31,15 +31,21 @@ for (const partial of partials) {
   Handlebars.registerPartial(partial, Handlebars.templates[`${partial}.hbs`]);
 }
 
-export type Options =
-  | { template: 'surveyV2' } & TransformV2Options
-  | { template?: string } & TransformOptions;
+export interface OptionsV1 extends TransformOptions {
+  template: 'default' | 'inline' | 'zonky' | undefined;
+}
+
+export type OptionsV2 = TransformV2Options & {
+  template: 'surveyV2';
+};
+
+export type Options = OptionsV1 | OptionsV2;
 
 export default function render(options: Options) {
   const templateName = options.template || 'default';
   const template = templates[templateName] || templates.default;
 
-  return templateName === 'surveyV2'
+  return options.template === 'surveyV2'
     ? template(transformV2(options))
     : template(transform(options));
 }
