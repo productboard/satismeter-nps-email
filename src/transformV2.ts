@@ -5,32 +5,36 @@ import marked from 'marked';
 import { BaseTemplateOptions, Colors, Rating, TemplateV2Options } from './base';
 import messages from './messages';
 
-export interface BaseOptions {
-  colors?: Colors;
-  preview?: boolean;
-  question: string;
-  questionId: string;
-  showPoweredBy?: boolean;
-  translation?: any;
-  unsubscribeUrl?: string;
-  url?: string;
-  urlParams: { [key: string]: string | number | boolean | undefined };
+export interface BaseQuestion {
+  id: string;
+  label: string;
 }
 
-export interface ScaleOptions extends BaseOptions {
-  questionType: 'scale';
+export interface ScaleQuestion extends BaseQuestion {
+  type: 'scale';
   max: number;
   min: number;
   maxLegend: string;
   minLegend: string;
 }
 
-export interface SingleChoiceOptions extends BaseOptions {
-  questionType: 'single-choice';
+export interface SingleChoiceQuestion extends BaseQuestion {
+  type: 'single-choice';
   choices: string[];
 }
 
-export type TransformV2Options = ScaleOptions | SingleChoiceOptions;
+export type Question = ScaleQuestion | SingleChoiceQuestion;
+
+export interface TransformV2Options {
+  colors?: Colors;
+  preview?: boolean;
+  question: Question;
+  showPoweredBy?: boolean;
+  translation?: any;
+  unsubscribeUrl?: string;
+  url?: string;
+  urlParams: { [key: string]: string | number | boolean | undefined };
+}
 
 const DEFAULT_COLORS = {
   primary: '#FF4981',
@@ -67,8 +71,8 @@ export function transformV2(
       }
     }
 
-    if (options.questionId) {
-      uri.addQueryParam(`answers[${options.questionId}]`, value);
+    if (options.question.id) {
+      uri.addQueryParam(`answers[${options.question.id}]`, value);
     }
 
     return uri.toString();
@@ -84,7 +88,7 @@ export function transformV2(
   const templateOptions: BaseTemplateOptions = {
     intro: marked(t('INTRO'), { renderer }),
     outro: marked(t('OUTRO'), { renderer }),
-    question: options.question || '',
+    question: options.question.label,
     colors: {
       ...DEFAULT_COLORS,
       ...options.colors
@@ -99,8 +103,8 @@ export function transformV2(
       : true
   };
 
-  if (options.questionType === 'single-choice') {
-    const choices = options.choices.map(choice => {
+  if (options.question.type === 'single-choice') {
+    const choices = options.question.choices.map(choice => {
       return {
         label: choice,
         url: url(choice)
@@ -111,13 +115,13 @@ export function transformV2(
       ...templateOptions,
       choices: choices
     };
-  } else if (options.questionType === 'scale') {
+  } else if (options.question.type === 'scale') {
     const ratings: Rating[] = [];
-    const inc = sign(options.max - options.min);
+    const inc = sign(options.question.max - options.question.min);
 
     for (
-      let rating = options.min;
-      rating !== options.max + inc;
+      let rating = options.question.min;
+      rating !== options.question.max + inc;
       rating += inc
     ) {
       ratings.push({
@@ -128,10 +132,10 @@ export function transformV2(
 
     return {
       ...templateOptions,
-      max: options.max,
-      min: options.min,
-      maxLegend: options.maxLegend,
-      minLegend: options.minLegend,
+      max: options.question.max,
+      min: options.question.min,
+      maxLegend: options.question.maxLegend,
+      minLegend: options.question.minLegend,
       ratings: ratings,
       width: {
         absolute: SCALE_WIDTH / ratings.length,

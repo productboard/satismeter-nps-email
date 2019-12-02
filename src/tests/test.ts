@@ -146,13 +146,15 @@ describe('email', function() {
         template: 'surveyV2',
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
-        questionId: 'QID',
-        question: messages.HOW_LIKELY,
-        questionType: 'scale',
-        max: 10,
-        min: 0,
-        maxLegend: messages.LIKELY,
-        minLegend: messages.UNLIKELY
+        question: {
+          id: 'QID',
+          label: messages.HOW_LIKELY,
+          type: 'scale',
+          max: 10,
+          min: 0,
+          maxLegend: messages.LIKELY,
+          minLegend: messages.UNLIKELY
+        }
       });
 
       assert.isString(html);
@@ -171,10 +173,12 @@ describe('email', function() {
     it('should handle single-choice surveys', function() {
       const html = render({
         template: 'surveyV2',
-        choices: ['abc', '123'],
-        questionId: 'QID',
-        questionType: 'single-choice',
-        question: 'What is the reason you are leaving?',
+        question: {
+          choices: ['abc', '123'],
+          id: 'QID',
+          type: 'single-choice',
+          label: 'What is the reason you are leaving?'
+        },
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });
@@ -187,13 +191,15 @@ describe('email', function() {
     it('should handle custom scale surveys', function() {
       const html = render({
         template: 'surveyV2',
-        max: 3,
-        min: 1,
-        maxLegend: messages.AGREE,
-        minLegend: messages.DISAGREE,
-        question: 'I agree with this statement',
-        questionId: 'QID',
-        questionType: 'scale',
+        question: {
+          max: 3,
+          min: 1,
+          maxLegend: messages.AGREE,
+          minLegend: messages.DISAGREE,
+          label: 'I agree with this statement',
+          id: 'QID',
+          type: 'scale'
+        },
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });
@@ -207,13 +213,15 @@ describe('email', function() {
     it('should handle odd custom scales', function() {
       const html = render({
         template: 'surveyV2',
-        max: -1,
-        min: -3,
-        maxLegend: messages.AGREE,
-        minLegend: messages.DISAGREE,
-        question: 'I like odd scales',
-        questionId: 'QID',
-        questionType: 'scale',
+        question: {
+          max: -1,
+          min: -3,
+          maxLegend: messages.AGREE,
+          minLegend: messages.DISAGREE,
+          label: 'I like odd scales',
+          id: 'QID',
+          type: 'scale'
+        },
         url: 'localhost/survey',
         urlParams: { token: 'aaa' }
       });

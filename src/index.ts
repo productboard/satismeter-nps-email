@@ -35,9 +35,9 @@ export interface OptionsV1 extends TransformOptions {
   template: 'default' | 'inline' | 'zonky' | undefined;
 }
 
-export type OptionsV2 = TransformV2Options & {
+export interface OptionsV2 extends TransformV2Options {
   template: 'surveyV2';
-};
+}
 
 export type Options = OptionsV1 | OptionsV2;
 

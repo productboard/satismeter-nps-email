@@ -4,45 +4,66 @@ import messages from '../messages';
 
 const baseSurvey: Options = {
   template: undefined,
+  unsubscribeUrl: 'http://localhost/unsubscribe',
   url: 'http://localhost/survey',
   urlParams: {
     token: 'aaa',
     userId: '1'
-  },
-  unsubscribeUrl: 'http://localhost/unsubscribe'
+  }
 };
 
 const npsV2: Options = {
-  ...baseSurvey,
   template: 'surveyV2',
-  questionType: 'scale',
-  questionId: 'nps-id',
-  question: messages.HOW_LIKELY,
-  max: 10,
-  min: 0,
-  maxLegend: messages.LIKELY,
-  minLegend: messages.UNLIKELY
+  question: {
+    type: 'scale',
+    id: 'nps-id',
+    label: messages.HOW_LIKELY,
+    max: 10,
+    min: 0,
+    maxLegend: messages.LIKELY,
+    minLegend: messages.UNLIKELY
+  },
+  unsubscribeUrl: 'http://localhost/unsubscribe',
+  url: 'http://localhost/survey',
+  urlParams: {
+    token: 'aaa',
+    userId: '1'
+  }
 };
 
 const rating: Options = {
-  ...baseSurvey,
   template: 'surveyV2',
-  questionType: 'scale',
-  questionId: 'rating-id',
-  question: 'I am satisfied with the service',
-  max: 5,
-  min: 0,
-  maxLegend: messages.AGREE,
-  minLegend: messages.DISAGREE
+  question: {
+    type: 'scale',
+    id: 'rating-id',
+    label: 'I am satisfied with the service',
+    max: 5,
+    min: 0,
+    maxLegend: messages.AGREE,
+    minLegend: messages.DISAGREE
+  },
+  unsubscribeUrl: 'http://localhost/unsubscribe',
+  url: 'http://localhost/survey',
+  urlParams: {
+    token: 'aaa',
+    userId: '1'
+  }
 };
 
 const choice: Options = {
-  ...baseSurvey,
   template: 'surveyV2',
-  questionType: 'single-choice',
-  questionId: 'choice-id',
-  question: 'We are sorry you leave. What is the reason?',
-  choices: ['Bad support', 'Not enough features', 'The price is too high']
+  question: {
+    type: 'single-choice',
+    id: 'choice-id',
+    label: 'We are sorry you leave. What is the reason?',
+    choices: ['Bad support', 'Not enough features', 'The price is too high']
+  },
+  unsubscribeUrl: 'http://localhost/unsubscribe',
+  url: 'http://localhost/survey',
+  urlParams: {
+    token: 'aaa',
+    userId: '1'
+  }
 };
 
 var app = express();
