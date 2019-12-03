@@ -7,7 +7,6 @@ import messages from '../messages';
 describe('email', function() {
   it('should render email', function() {
     var html = render({
-      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
@@ -38,7 +37,6 @@ describe('email', function() {
 
   it('should include passed urlParams', function() {
     var html = render({
-      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
@@ -64,7 +62,6 @@ describe('email', function() {
 
   it('should escape question', function() {
     var html = render({
-      template: undefined,
       url: 'http://localhost/survey',
       urlParams: {
         token: 'aaa',
@@ -83,7 +80,6 @@ describe('email', function() {
 
   it('should not include unsubscribe', function() {
     var html = render({
-      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       url: 'http://localhost/survey',
@@ -105,7 +101,6 @@ describe('email', function() {
 
   it('should handle undefined values', function() {
     var html = render({
-      template: undefined,
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
       urlParams: {

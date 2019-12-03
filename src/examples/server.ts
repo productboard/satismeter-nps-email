@@ -3,7 +3,6 @@ import express from 'express';
 import messages from '../messages';
 
 const baseSurvey: Options = {
-  template: undefined,
   unsubscribeUrl: 'http://localhost/unsubscribe',
   url: 'http://localhost/survey',
   urlParams: {

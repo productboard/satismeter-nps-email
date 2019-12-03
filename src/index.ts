@@ -32,7 +32,7 @@ for (const partial of partials) {
 }
 
 export interface OptionsV1 extends TransformOptions {
-  template: string | undefined;
+  template?: string;
 }
 
 export interface OptionsV2 extends TransformV2Options {
