@@ -8,10 +8,10 @@ npm install
 
 # Run in browser
 ```
-make serve
+make storybook
 ```
 
-Open `http://localhost:3000` in your browser.
+Open `http://localhost:6006` in your browser.
 
 # Test
 ```

@@ -1,0 +1,18 @@
+{{#> survey-layout}}
+
+  {{#*inline "survey-content"}}
+    {{> paragraph text=intro}}
+    {{> paragraph text=question}}
+
+    {{#if choices}}
+      {{> choice-list}}
+    {{/if}}
+
+    {{#if ratings}}
+      {{> number-scale}}
+    {{/if}}
+
+    {{> paragraph text=outro}}
+  {{/inline}}
+
+{{/survey-layout}}

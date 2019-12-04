@@ -2,6 +2,7 @@ import { assert } from 'chai';
 import cheerio from 'cheerio';
 
 import render from '..';
+import messages from '../messages';
 
 describe('email', function() {
   it('should render email', function() {
@@ -132,5 +133,98 @@ describe('email', function() {
       ).length,
       1
     );
+  });
+
+  describe('V2', function() {
+    it('should handle V2 survey', function() {
+      const html = render({
+        template: 'surveyV2',
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' },
+        question: {
+          id: 'QID',
+          label: messages.HOW_LIKELY,
+          type: 'scale',
+          max: 10,
+          min: 0,
+          maxLegend: messages.LIKELY,
+          minLegend: messages.UNLIKELY
+        }
+      });
+
+      assert.isString(html);
+      assert.include(html, messages.INTRO.split('\n\n')[0]);
+      assert.include(html, messages.INTRO.split('\n\n')[1]);
+      assert.include(html, messages.HOW_LIKELY);
+      assert.include(html, messages.UNLIKELY);
+      assert.include(html, messages.LIKELY);
+      assert.include(html, messages.OUTRO.split('\n\n')[0]);
+      assert.include(html, messages.OUTRO.split('\n\n')[1]);
+
+      const $ = cheerio.load(html);
+      assert.equal($('a[href*="survey?token=aaa"]').length, 11);
+    });
+
+    it('should handle single-choice surveys', function() {
+      const html = render({
+        template: 'surveyV2',
+        question: {
+          choices: ['abc', '123'],
+          id: 'QID',
+          type: 'single-choice',
+          label: 'What is the reason you are leaving?'
+        },
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' }
+      });
+
+      const $ = cheerio.load(html);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=abc"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=123"]').length, 1);
+    });
+
+    it('should handle custom scale surveys', function() {
+      const html = render({
+        template: 'surveyV2',
+        question: {
+          max: 3,
+          min: 1,
+          maxLegend: messages.AGREE,
+          minLegend: messages.DISAGREE,
+          label: 'I agree with this statement',
+          id: 'QID',
+          type: 'scale'
+        },
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' }
+      });
+
+      const $ = cheerio.load(html);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=1"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=2"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=3"]').length, 1);
+    });
+
+    it('should handle odd custom scales', function() {
+      const html = render({
+        template: 'surveyV2',
+        question: {
+          max: -1,
+          min: -3,
+          maxLegend: messages.AGREE,
+          minLegend: messages.DISAGREE,
+          label: 'I like odd scales',
+          id: 'QID',
+          type: 'scale'
+        },
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' }
+      });
+
+      const $ = cheerio.load(html);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=-1"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=-2"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers[QID]=-3"]').length, 1);
+    });
   });
 });

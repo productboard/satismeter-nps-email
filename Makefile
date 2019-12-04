@@ -1,26 +1,21 @@
 BIN = node_modules/.bin
-SRC := $(shell find src -name '*')
 
-dist: $(SRC)
-	$(BIN)/tsc
-	mkdir -p dist/templates
-	$(BIN)/handlebars src/templates/inline.hbs -f dist/templates/inline.js -c handlebars/dist/handlebars.runtime.js
-	$(BIN)/handlebars src/templates/survey.hbs -f dist/templates/survey.js -c handlebars/dist/handlebars.runtime.js
-	$(BIN)/handlebars src/templates/zonky-survey.hbs -f dist/templates/zonky-survey.js -c handlebars/dist/handlebars.runtime.js
-	touch $@	
+dist:
+	$(BIN)/webpack src/index.ts -o dist/index.js
 
 clean:
 	rm -fr dist
 
-serve: dist
-	node dist/examples/server.js
+storybook:
+	$(BIN)/start-storybook -p 6006
 
-test: dist
+test:
+	$(BIN)/webpack src/tests/test.ts -o dist/tests/test.js --display=errors-only
 	$(BIN)/mocha dist/tests/test.js
 
-publish: clean dist test
+publish: test clean dist
 	yarn publish --access public
 	git push --tag
 	git push origin head
 
-.PHONY: clean serve test publish
+.PHONY: clean storybook test publish
