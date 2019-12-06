@@ -14,8 +14,6 @@ test:
 	$(BIN)/mocha dist/tests/test.js
 
 publish: test clean dist
-	yarn publish --access public
-	git push --tag
-	git push origin head
+	yarn semantic-release
 
 .PHONY: clean storybook test publish
