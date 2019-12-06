@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install
+      - name: Install
         run: yarn
-      - name: test
+      - name: Test
         run: make test
         env:
           CI: true
@@ -32,9 +32,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: install
+      - name: Install
         run: yarn
-      - name: publish
+      - name: Publish
         run: make publish
         env:
           CI: true
