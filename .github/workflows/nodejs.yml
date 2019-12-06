@@ -24,6 +24,7 @@ jobs:
         env:
           CI: true
   publish:
+    if: github.ref == 'master'
     name: Publish to NPM
     needs: build
     runs-on: ubuntu-latest
