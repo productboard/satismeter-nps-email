@@ -34,6 +34,7 @@ export interface TransformV2Options {
   unsubscribeUrl?: string;
   url?: string;
   urlParams: { [key: string]: string | number | boolean | undefined };
+  legacyRatingParameterMode?: boolean;
 }
 
 const DEFAULT_COLORS = {
@@ -72,7 +73,15 @@ export function transformV2(
     }
 
     if (options.question.id) {
-      uri.addQueryParam(`answers[${options.question.id}]`, value);
+      const legacyRatingParameter =
+        options.question.id === 'SM_rating' &&
+        options.legacyRatingParameterMode;
+
+      if (legacyRatingParameter) {
+        uri.addQueryParam('rating', value);
+      } else {
+        uri.addQueryParam(`answers[${options.question.id}]`, value);
+      }
     }
 
     return uri.toString();

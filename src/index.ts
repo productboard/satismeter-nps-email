@@ -19,6 +19,7 @@ export interface OptionsV1 extends TransformOptions {
 
 export interface OptionsV2 extends TransformV2Options {
   template: 'surveyV2';
+  legacyRatingParameterMode?: boolean;
 }
 
 export type Options = OptionsV1 | OptionsV2;

@@ -165,6 +165,27 @@ describe('email', function() {
       assert.equal($('a[href*="survey?token=aaa"]').length, 11);
     });
 
+    it('should handle NPS in legacy rating parameter mode', function() {
+      const html = render({
+        template: 'surveyV2',
+        legacyRatingParameterMode: true,
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' },
+        question: {
+          id: 'SM_rating',
+          label: messages.HOW_LIKELY,
+          type: 'scale',
+          max: 10,
+          min: 0,
+          maxLegend: messages.LIKELY,
+          minLegend: messages.UNLIKELY
+        }
+      });
+
+      const $ = cheerio.load(html);
+      assert.equal($('a[href*="survey?token=aaa&rating="]').length, 11);
+    });
+
     it('should handle single-choice surveys', function() {
       const html = render({
         template: 'surveyV2',
