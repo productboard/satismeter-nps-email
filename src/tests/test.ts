@@ -143,23 +143,23 @@ describe('email', function() {
         urlParams: { token: 'aaa' },
         question: {
           id: 'QID',
-          label: messages.HOW_LIKELY,
+          label: 'HOW_LIKELY',
           type: 'scale',
           max: 10,
           min: 0,
-          maxLegend: messages.LIKELY,
-          minLegend: messages.UNLIKELY
-        }
+          maxLegend: 'LIKELY',
+          minLegend: 'UNLIKELY'
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       assert.isString(html);
-      assert.include(html, messages.INTRO.split('\n\n')[0]);
-      assert.include(html, messages.INTRO.split('\n\n')[1]);
-      assert.include(html, messages.HOW_LIKELY);
-      assert.include(html, messages.UNLIKELY);
-      assert.include(html, messages.LIKELY);
-      assert.include(html, messages.OUTRO.split('\n\n')[0]);
-      assert.include(html, messages.OUTRO.split('\n\n')[1]);
+      assert.include(html, 'INTRO');
+      assert.include(html, 'HOW_LIKELY');
+      assert.include(html, 'UNLIKELY');
+      assert.include(html, 'LIKELY');
+      assert.include(html, 'OUTRO');
 
       const $ = cheerio.load(html);
       assert.equal($('a[href*="survey?token=aaa"]').length, 11);
@@ -179,7 +179,9 @@ describe('email', function() {
           min: 0,
           maxLegend: messages.LIKELY,
           minLegend: messages.UNLIKELY
-        }
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);
@@ -196,7 +198,9 @@ describe('email', function() {
           label: 'What is the reason you are leaving?'
         },
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);
@@ -217,7 +221,9 @@ describe('email', function() {
           type: 'scale'
         },
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);
@@ -239,7 +245,9 @@ describe('email', function() {
           type: 'scale'
         },
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);

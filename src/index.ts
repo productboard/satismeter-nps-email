@@ -14,7 +14,7 @@ const templates: { [name: string]: any } = {
 };
 
 export interface OptionsV1 extends TransformOptions {
-  template?: string;
+  template?: 'default' | 'inline' | 'zonky';
 }
 
 export interface OptionsV2 extends TransformV2Options {
