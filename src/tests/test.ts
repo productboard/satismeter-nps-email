@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import cheerio from 'cheerio';
 
-import render from '..';
+import render, { renderV2 } from '..';
 import messages from '../messages';
 
 describe('email', function() {
@@ -137,8 +137,7 @@ describe('email', function() {
 
   describe('V2', function() {
     it('should handle V2 survey', function() {
-      const html = render({
-        template: 'surveyV2',
+      const html = renderV2({
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
         question: {
@@ -149,25 +148,24 @@ describe('email', function() {
           min: 0,
           maxLegend: messages.LIKELY,
           minLegend: messages.UNLIKELY
-        }
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       assert.isString(html);
-      assert.include(html, messages.INTRO.split('\n\n')[0]);
-      assert.include(html, messages.INTRO.split('\n\n')[1]);
+      assert.include(html, 'INTRO');
       assert.include(html, messages.HOW_LIKELY);
       assert.include(html, messages.UNLIKELY);
       assert.include(html, messages.LIKELY);
-      assert.include(html, messages.OUTRO.split('\n\n')[0]);
-      assert.include(html, messages.OUTRO.split('\n\n')[1]);
+      assert.include(html, 'OUTRO');
 
       const $ = cheerio.load(html);
       assert.equal($('a[href*="survey?token=aaa"]').length, 11);
     });
 
     it('should handle NPS in legacy rating parameter mode', function() {
-      const html = render({
-        template: 'surveyV2',
+      const html = renderV2({
         legacyRatingParameterMode: true,
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
@@ -179,7 +177,9 @@ describe('email', function() {
           min: 0,
           maxLegend: messages.LIKELY,
           minLegend: messages.UNLIKELY
-        }
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);
@@ -187,8 +187,7 @@ describe('email', function() {
     });
 
     it('should handle single-choice surveys', function() {
-      const html = render({
-        template: 'surveyV2',
+      const html = renderV2({
         question: {
           choices: ['abc', '123'],
           id: 'QID',
@@ -196,7 +195,9 @@ describe('email', function() {
           label: 'What is the reason you are leaving?'
         },
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);
@@ -205,8 +206,7 @@ describe('email', function() {
     });
 
     it('should handle custom scale surveys', function() {
-      const html = render({
-        template: 'surveyV2',
+      const html = renderV2({
         question: {
           max: 3,
           min: 1,
@@ -217,7 +217,9 @@ describe('email', function() {
           type: 'scale'
         },
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);
@@ -227,8 +229,7 @@ describe('email', function() {
     });
 
     it('should handle odd custom scales', function() {
-      const html = render({
-        template: 'surveyV2',
+      const html = renderV2({
         question: {
           max: -1,
           min: -3,
@@ -239,7 +240,9 @@ describe('email', function() {
           type: 'scale'
         },
         url: 'localhost/survey',
-        urlParams: { token: 'aaa' }
+        urlParams: { token: 'aaa' },
+        intro: 'INTRO',
+        outro: 'OUTRO'
       });
 
       const $ = cheerio.load(html);

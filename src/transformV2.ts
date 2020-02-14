@@ -3,7 +3,6 @@ import Uri from 'jsuri';
 import marked from 'marked';
 
 import { BaseTemplateOptions, Colors, Rating, TemplateV2Options } from './base';
-import messages from './messages';
 
 export interface BaseQuestion {
   id: string;
@@ -30,11 +29,13 @@ export interface TransformV2Options {
   preview?: boolean;
   question: Question;
   showPoweredBy?: boolean;
-  translation?: any;
   unsubscribeUrl?: string;
   url?: string;
   urlParams: { [key: string]: string | number | boolean | undefined };
   legacyRatingParameterMode?: boolean;
+  direction?: 'ltr' | 'rtl';
+  intro: string;
+  outro: string;
 }
 
 const DEFAULT_COLORS = {
@@ -49,16 +50,7 @@ function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
 }
 
-export function transformV2(
-  options: TransformV2Options
-): TemplateV2Options | undefined {
-  function t(key: keyof typeof messages) {
-    if (options.translation && options.translation[key]) {
-      return options.translation[key];
-    }
-    return messages[key];
-  }
-
+export function transformV2(options: TransformV2Options): TemplateV2Options {
   function url(value: string) {
     if (!options.url) {
       return null;
@@ -93,10 +85,10 @@ export function transformV2(
     return `${text}<br><br>`;
   };
 
-  const direction = t('DIRECTION') || 'ltr';
+  const direction = options.direction || 'ltr';
   const templateOptions: BaseTemplateOptions = {
-    intro: marked(t('INTRO'), { renderer }),
-    outro: marked(t('OUTRO'), { renderer }),
+    intro: marked(options.intro, { renderer }),
+    outro: marked(options.outro, { renderer }),
     question: options.question.label,
     colors: {
       ...DEFAULT_COLORS,
@@ -124,7 +116,7 @@ export function transformV2(
       ...templateOptions,
       choices: choices
     };
-  } else if (options.question.type === 'scale') {
+  } else {
     const ratings: Rating[] = [];
     const inc = sign(options.question.max - options.question.min);
 
