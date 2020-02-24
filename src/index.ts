@@ -9,26 +9,22 @@ import { transformV2, TransformV2Options } from './transformV2';
 const templates: { [name: string]: any } = {
   default: surveyTemplate,
   inline: inlineTemplate,
-  surveyV2: surveyV2Template,
   zonky: zonkyTemplate
 };
 
-export interface OptionsV1 extends TransformOptions {
+export interface Options extends TransformOptions {
   template?: string;
 }
-
-export interface OptionsV2 extends TransformV2Options {
-  template: 'surveyV2';
-  legacyRatingParameterMode?: boolean;
-}
-
-export type Options = OptionsV1 | OptionsV2;
 
 export default function render(options: Options) {
   const templateName = options.template || 'default';
   const template = templates[templateName] || templates.default;
 
-  return options.template === 'surveyV2'
-    ? template(transformV2(options as OptionsV2))
-    : template(transform(options));
+  return template(transform(options));
+}
+
+export interface OptionsV2 extends TransformV2Options {}
+
+export function renderV2(options: OptionsV2) {
+  return surveyV2Template(transformV2(options));
 }
