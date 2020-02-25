@@ -19,12 +19,15 @@
       </urn:schemas-microsoft-com:office:office:OfficeDocumentSettings>
     </xml>
   <![endif]-->
+  {{> survey-style}}
 </head>
 
 <body style="background-color:#f0f0f0;">
   {{/unless}}
 
-  {{> survey-style}}
+  {{#if preview}}
+    {{> survey-style}}
+  {{/if}}
 
   <div style="background-color:#f0f0f0;">
     <!--[if mso | IE]>
