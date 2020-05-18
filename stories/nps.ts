@@ -1,12 +1,13 @@
-import { default as render, Options } from '../src/index';
+import { renderV2, OptionsV2 } from '../src/index';
 import messages from '../src/messages';
 
 export default {
   title: 'NPS'
 };
 
-const nps: Options = {
-  template: 'surveyV2',
+const nps: OptionsV2 = {
+  intro: '',
+  outro: '',
   question: {
     id: 'nps',
     type: 'scale',
@@ -21,12 +22,12 @@ const nps: Options = {
   url: 'http://localhost/survey'
 };
 
-export const basic = () => render(nps);
+export const basic = () => renderV2(nps);
 
 export const RTL_direction = () =>
-  render({ ...nps, translation: { DIRECTION: 'rtl' } });
+  renderV2({ ...nps, direction: 'rtl' });
 
-export const whitelabeled = () => render({ ...nps, showPoweredBy: false });
+export const whitelabeled = () => renderV2({ ...nps, showPoweredBy: false });
 
 export const no_unsubscribe_link = () =>
-  render({ ...nps, unsubscribeUrl: undefined });
+  renderV2({ ...nps, unsubscribeUrl: undefined });

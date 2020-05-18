@@ -1,12 +1,13 @@
-import { default as render, Options } from '../src/index';
+import { renderV2, OptionsV2 } from '../src/index';
 import messages from '../src/messages';
 
 export default {
   title: 'Rating'
 };
 
-const rating: Options = {
-  template: 'surveyV2',
+const rating: OptionsV2 = {
+  intro: '',
+  outro: '',
   question: {
     id: 'rating',
     type: 'scale',
@@ -21,10 +22,10 @@ const rating: Options = {
   url: 'http://localhost/survey'
 };
 
-export const basic = () => render(rating);
+export const basic = () => renderV2(rating);
 
 export const odd_scale_range = () =>
-  render({
+  renderV2({
     ...rating,
     question: {
       id: 'rating',
