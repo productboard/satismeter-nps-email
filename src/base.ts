@@ -49,9 +49,15 @@ export interface ScaleOptions {
   };
 }
 
+export interface LongTextOptions {
+  surveyUrl: string | null;
+  submit: string | undefined;
+}
+
 export type TemplateV2Options =
-  | BaseTemplateOptions & ChoiceOptions
-  | BaseTemplateOptions & ScaleOptions;
+  | (BaseTemplateOptions & ChoiceOptions)
+  | (BaseTemplateOptions & ScaleOptions)
+  | (BaseTemplateOptions & LongTextOptions);
 
 export type Template = (options: TemplateOptions) => string;
 export type TemplateV2 = (options: TemplateV2Options) => string;
