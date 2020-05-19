@@ -1,7 +1,11 @@
 BIN = node_modules/.bin
+SRC := $(shell find src -name '*')
 
-dist:
+dist: dist/.touch
+
+dist/.touch: $(SRC) tsconfig.json
 	$(BIN)/webpack src/index.ts -o dist/index.js
+	touch dist/.touch
 
 clean:
 	rm -fr dist

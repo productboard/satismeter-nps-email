@@ -1,11 +1,12 @@
-import { default as render, Options } from '../src/index';
+import { renderV2, OptionsV2 } from '../src/index';
 
 export default {
   title: 'Choice'
 };
 
-const choice: Options = {
-  template: 'surveyV2',
+const choice: OptionsV2 = {
+  intro: '',
+  outro: '',
   question: {
     id: 'choice',
     type: 'single-choice',
@@ -17,7 +18,7 @@ const choice: Options = {
   url: 'http://localhost/survey'
 };
 
-export const basic = () => render(choice);
+export const basic = () => renderV2(choice);
 
 export const RTL_direction = () =>
-  render({ ...choice, translation: { DIRECTION: 'rtl' } });
+  renderV2({ ...choice, direction: 'rtl' });

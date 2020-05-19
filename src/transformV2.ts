@@ -22,7 +22,11 @@ export interface SingleChoiceQuestion extends BaseQuestion {
   choices: string[];
 }
 
-export type Question = ScaleQuestion | SingleChoiceQuestion;
+export interface LongTextQuestion extends BaseQuestion {
+  type: 'long-text';
+}
+
+export type Question = ScaleQuestion | SingleChoiceQuestion | LongTextQuestion;
 
 export interface TransformV2Options {
   colors?: Colors;
@@ -36,6 +40,7 @@ export interface TransformV2Options {
   direction?: 'ltr' | 'rtl';
   intro: string;
   outro: string;
+  submit?: string;
 }
 
 const DEFAULT_COLORS = {
@@ -51,7 +56,7 @@ function sign(x: number) {
 }
 
 export function transformV2(options: TransformV2Options): TemplateV2Options {
-  function url(value: string) {
+  function url(value?: string) {
     if (!options.url) {
       return null;
     }
@@ -64,7 +69,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       }
     }
 
-    if (options.question.id) {
+    if (options.question.id && value) {
       const legacyRatingParameter =
         options.question.id === 'SM_rating' &&
         options.legacyRatingParameterMode;
@@ -116,7 +121,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       ...templateOptions,
       choices: choices
     };
-  } else {
+  } else if (options.question.type === 'scale') {
     const ratings: Rating[] = [];
     const inc = sign(options.question.max - options.question.min);
 
@@ -142,6 +147,12 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
         absolute: SCALE_WIDTH / ratings.length,
         relative: 100 / ratings.length
       }
+    };
+  } else {
+    return {
+      ...templateOptions,
+      surveyUrl: url(),
+      submit: options.submit || 'Submit Feedback'
     };
   }
 }
