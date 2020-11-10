@@ -29,7 +29,9 @@
     {{> survey-style}}
   {{/if}}
 
-  {{> bot-honeypot-link url=botHoneypotUrl}}
+  {{#if botHoneypotUrl}}
+    {{> bot-honeypot-link url=botHoneypotUrl}}
+  {{/if}}
 
   <div style="background-color:#f0f0f0;">
     <!--[if mso | IE]>

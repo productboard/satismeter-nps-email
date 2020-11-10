@@ -60,7 +60,9 @@ table.ee_mobiletemplate { table-layout: fixed !important; }
 }
 -->
 </style>
-{{> bot-honeypot-link url=botHoneypotUrl}}
+{{#if botHoneypotUrl}}
+  {{> bot-honeypot-link url=botHoneypotUrl}}
+{{/if}}
 <!-- Easy Editor -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout: auto; border-spacing: 0;" class="ee_resizable ee_mobiletemplate" dir="{{direction}}">
   <tbody>

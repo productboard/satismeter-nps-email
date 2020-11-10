@@ -30,7 +30,7 @@ export interface TransformOptions {
   url?: string;
   serviceName?: string;
   unsubscribeUrl?: string;
-  botHoneypotUrl: string;
+  botHoneypotUrl?: string;
 
   //legacy
   color?: string;

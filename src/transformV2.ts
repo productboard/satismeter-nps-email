@@ -41,7 +41,7 @@ export interface TransformV2Options {
   intro: string;
   outro: string;
   submit?: string;
-  botHoneypotUrl: string;
+  botHoneypotUrl?: string;
 }
 
 const DEFAULT_COLORS = {
