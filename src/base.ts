@@ -25,6 +25,7 @@ export interface BaseTemplateOptions {
   unsubscribeUrl?: string;
   preview: boolean;
   showPoweredBy: boolean;
+  botHoneypotUrl: string;
 }
 
 export interface TemplateOptions extends BaseTemplateOptions {

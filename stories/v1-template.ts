@@ -7,7 +7,8 @@ export default {
 const nps: Options = {
   urlParams: { token: 'token', user: 'user' },
   unsubscribeUrl: 'http://localhost/unsubscribe',
-  url: 'http://localhost/survey'
+  url: 'http://localhost/survey',
+  botHoneypotUrl: 'http://localhost/honeypot'
 };
 
 export const _default = () => render(nps);
