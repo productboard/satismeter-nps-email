@@ -41,6 +41,7 @@ export interface TransformV2Options {
   intro: string;
   outro: string;
   submit?: string;
+  botHoneypotUrl?: string;
 }
 
 const DEFAULT_COLORS = {
@@ -106,7 +107,8 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     preview: is.boolean(options.preview) ? options.preview! : false,
     showPoweredBy: is.boolean(options.showPoweredBy)
       ? options.showPoweredBy!
-      : true
+      : true,
+    botHoneypotUrl: options.botHoneypotUrl
   };
 
   if (options.question.type === 'single-choice') {

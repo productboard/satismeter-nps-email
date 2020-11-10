@@ -15,7 +15,8 @@ const text: OptionsV2 = {
   },
   urlParams: { token: 'token', user: 'user' },
   unsubscribeUrl: 'http://localhost/unsubscribe',
-  url: 'http://localhost/survey'
+  url: 'http://localhost/survey',
+  botHoneypotUrl: 'http://localhost/honeypot'
 };
 
 export const basic = () => renderV2(text);

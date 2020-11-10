@@ -264,6 +264,9 @@
 
   -->
 </style>
+{{#if botHoneypotUrl}}
+  {{> bot-honeypot-link url=botHoneypotUrl}}
+{{/if}}
 <div class="ee_editable ee_element">
   {{{intro}}}
   <p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: {{left}}; font-size: 15px; color: rgb(69, 69, 69);">{{question}}</p>

@@ -18,7 +18,8 @@ describe('email', function() {
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
-      }
+      },
+      botHoneypotUrl: 'http://localhost/honeypot'
     });
 
     assert.isString(html);
@@ -51,7 +52,8 @@ describe('email', function() {
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
-      }
+      },
+      botHoneypotUrl: 'http://localhost/honeypot'
     });
 
     assert.include(
@@ -71,7 +73,8 @@ describe('email', function() {
       unsubscribeUrl: 'http://localhost/survey/unsubscribe?token=aaa&userId=1',
       translation: {
         HOW_LIKELY: 'Je ACME <b>dobry</b>?'
-      }
+      },
+      botHoneypotUrl: 'http://localhost/honeypot'
     });
 
     var $ = cheerio.load(html);
@@ -90,13 +93,33 @@ describe('email', function() {
       color: 'orange',
       translation: {
         HOW_LIKELY: 'Je ACME dobry?'
-      }
+      },
+      botHoneypotUrl: 'http://localhost/honeypot'
     });
     assert.isString(html);
     assert.notInclude(html, 'Unsubscribe');
 
     var $ = cheerio.load(html);
     assert.equal($('a:not([href])').length, 0);
+  });
+
+  it('should include bot-honeypot-link', function() {
+    var html = render({
+      intro: 'Hi!\n\nPlease fill in the survey below:',
+      outro: 'Bye!',
+      url: 'http://localhost/survey',
+      urlParams: {
+        token: 'aaa',
+        userId: '1'
+      },
+      color: 'orange',
+      translation: {
+        HOW_LIKELY: 'Je ACME dobry?'
+      },
+      botHoneypotUrl: 'http://localhost/honeypot'
+    });
+    var $ = cheerio.load(html);
+    assert.equal($('a[href="http://localhost/honeypot"]').length, 1);
   });
 
   it('should handle undefined values', function() {
@@ -108,7 +131,8 @@ describe('email', function() {
         userId: '1'
       },
       color: 'orange',
-      serviceName: 'ACME'
+      serviceName: 'ACME',
+      botHoneypotUrl: 'http://localhost/honeypot'
     });
     var $ = cheerio.load(html);
     assert.equal($('a:not([href])').length, 11);
@@ -124,7 +148,8 @@ describe('email', function() {
       },
       color: 'orange',
       serviceName: 'ACME',
-      template: 'zonky'
+      template: 'zonky',
+      botHoneypotUrl: 'http://localhost/honeypot'
     });
     var $ = cheerio.load(html);
     assert.equal(
@@ -150,7 +175,8 @@ describe('email', function() {
           minLegend: messages.UNLIKELY
         },
         intro: 'INTRO',
-        outro: 'OUTRO'
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
       });
 
       assert.isString(html);
@@ -179,7 +205,8 @@ describe('email', function() {
           minLegend: messages.UNLIKELY
         },
         intro: 'INTRO',
-        outro: 'OUTRO'
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
       });
 
       const $ = cheerio.load(html);
@@ -197,7 +224,8 @@ describe('email', function() {
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
         intro: 'INTRO',
-        outro: 'OUTRO'
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
       });
 
       const $ = cheerio.load(html);
@@ -219,7 +247,8 @@ describe('email', function() {
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
         intro: 'INTRO',
-        outro: 'OUTRO'
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
       });
 
       const $ = cheerio.load(html);
@@ -242,13 +271,36 @@ describe('email', function() {
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
         intro: 'INTRO',
-        outro: 'OUTRO'
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
       });
 
       const $ = cheerio.load(html);
       assert.equal($('a[href*="survey?token=aaa&answers[QID]=-1"]').length, 1);
       assert.equal($('a[href*="survey?token=aaa&answers[QID]=-2"]').length, 1);
       assert.equal($('a[href*="survey?token=aaa&answers[QID]=-3"]').length, 1);
+    });
+
+    it('should include bot-honeypot-link', function() {
+      const html = renderV2({
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' },
+        question: {
+          id: 'QID',
+          label: messages.HOW_LIKELY,
+          type: 'scale',
+          max: 10,
+          min: 0,
+          maxLegend: messages.LIKELY,
+          minLegend: messages.UNLIKELY
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
+      });
+
+      const $ = cheerio.load(html);
+      assert.equal($('a[href="http://localhost/honeypot"]').length, 1);
     });
   });
 });

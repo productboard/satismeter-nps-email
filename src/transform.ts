@@ -30,6 +30,7 @@ export interface TransformOptions {
   url?: string;
   serviceName?: string;
   unsubscribeUrl?: string;
+  botHoneypotUrl?: string;
 
   //legacy
   color?: string;
@@ -113,6 +114,7 @@ export default function transform(options: TransformOptions) {
     }),
     unsubscribeUrl: options.unsubscribeUrl,
     preview: preview,
-    showPoweredBy: showPoweredBy
+    showPoweredBy: showPoweredBy,
+    botHoneypotUrl: options.botHoneypotUrl
   };
 }
