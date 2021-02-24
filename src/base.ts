@@ -24,6 +24,10 @@ export interface BaseTemplateOptions {
   right: 'left' | 'right';
   unsubscribeUrl?: string;
   preview: boolean;
+  previewDevice: {
+    desktop: boolean;
+    mobile: boolean;
+  };
   showPoweredBy: boolean;
   botHoneypotUrl?: string;
 }
