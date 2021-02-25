@@ -31,6 +31,7 @@ export type Question = ScaleQuestion | SingleChoiceQuestion | LongTextQuestion;
 export interface TransformV2Options {
   colors?: Colors;
   preview?: boolean;
+  previewDevice?: 'desktop' | 'mobile';
   question: Question;
   showPoweredBy?: boolean;
   unsubscribeUrl?: string;
@@ -105,6 +106,10 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     right: direction === 'ltr' ? 'right' : 'left',
     unsubscribeUrl: options.unsubscribeUrl,
     preview: is.boolean(options.preview) ? options.preview! : false,
+    previewDevice: {
+      desktop: options.previewDevice === 'desktop',
+      mobile: options.previewDevice === 'mobile'
+    },
     showPoweredBy: is.boolean(options.showPoweredBy)
       ? options.showPoweredBy!
       : true,

@@ -26,6 +26,7 @@ export interface TransformOptions {
   colors?: Colors;
   translation?: any;
   preview?: boolean;
+  previewDevice?: 'desktop' | 'mobile';
   showPoweredBy?: boolean;
   url?: string;
   serviceName?: string;
@@ -114,6 +115,10 @@ export default function transform(options: TransformOptions) {
     }),
     unsubscribeUrl: options.unsubscribeUrl,
     preview: preview,
+    previewDevice: {
+      desktop: options.previewDevice === 'desktop',
+      mobile: options.previewDevice === 'mobile'
+    },
     showPoweredBy: showPoweredBy,
     botHoneypotUrl: options.botHoneypotUrl
   };
