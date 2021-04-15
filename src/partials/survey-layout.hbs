@@ -33,6 +33,9 @@
     {{> bot-honeypot-link url=botHoneypotUrl}}
   {{/if}}
 
+  {{!-- Windows10 Mail fix for background-color --}}
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#f0f0f0;width:100%;">
+    <tbody><tr><td>
   <div style="background-color:#f0f0f0;">
     <!--[if mso | IE]>
     <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:580px;" width="580">
@@ -66,7 +69,7 @@
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:white;background-color:white;width:100%;">
         <tbody>
           <tr>
-            <td style="border-bottom:5px solid #dddddd;border-top:5px solid #dddddd;direction:ltr;font-size:0px;padding:25px;padding-bottom:5px;text-align:center;">
+            <td class="content-container" style="border-bottom:5px solid #dddddd;border-top:5px solid #dddddd;direction:ltr;font-size:0px;padding:25px 0px 5px 0px;text-align:center;">
               <!--[if mso | IE]>
               <table role="presentation" border="0" cellpadding="0" cellspacing="0">
               <![endif]-->
@@ -110,17 +113,17 @@
                         <!--[if mso | IE]>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                           <tr>
-                            <td class="" style="vertical-align:top;width:290px;">
+                            <td class="" style="vertical-align:top;width:288px;">
                         <![endif]-->
-                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:50%;">
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:288px;">
                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;"
                             width="100%">
                             <tr>
-                              <td class="mj-align-center" align="{{left}}" style="text-align:{{left}};font-size:0px;padding:0px;word-break:break-word;">
+                              <td style="font-size:0px;padding:0px;word-break:break-word;">
                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;border-collapse:separate;line-height:100%;">
                                   <tr>
                                     {{#if showPoweredBy}}
-                                    <td bgcolor="transparent" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 5px;background:transparent;"
+                                    <td class="mj-align-center" align="{{left}}" bgcolor="transparent" role="presentation" style="text-align:{{left}};border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 5px;background:transparent;"
                                       valign="middle">
                                       <!--[if mso | IE]>
                                       <div style="text-align:left;">
@@ -142,17 +145,17 @@
                         </div>
                         <!--[if mso | IE]>
                         </td>
-                        <td class="" style="vertical-align:top;width:290px;">
+                        <td class="" style="vertical-align:top;width:288px;">
                         <![endif]-->
-                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:50%;">
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:288px;">
                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;"
                             width="100%">
                             <tr>
-                              <td class="mj-align-center" align="{{right}}" style="text-align:{{right}};font-size:0px;padding:0px;word-break:break-word;">
+                              <td style="font-size:0px;padding:0px;word-break:break-word;">
                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;border-collapse:separate;line-height:100%;">
                                   <tr>
                                     {{#if unsubscribeUrl}}
-                                    <td bgcolor="transparent" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 5px;background:transparent;"
+                                    <td class="mj-align-center" align="{{right}}" bgcolor="transparent" role="presentation" style="text-align:{{right}};border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 5px;background:transparent;"
                                       valign="middle">
                                       <!--[if mso | IE]>
                                       <div style="text-align:right;">
@@ -200,7 +203,10 @@
       </tr>
     </table>
     <![endif]-->
+    <span aria-hidden="true" style="font-size:0px;color:#f0f0f0;">Generated on {{current-date}}</span>
   </div>
+    </td></tr></tbody>
+  </table>
 
 {{#unless preview}}
 </body>

@@ -150,10 +150,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       maxLegend: options.question.maxLegend,
       minLegend: options.question.minLegend,
       ratings: ratings,
-      width: {
-        absolute: SCALE_WIDTH / ratings.length,
-        relative: 100 / ratings.length
-      }
+      width: Math.floor(SCALE_WIDTH / ratings.length)
     };
   } else {
     return {
