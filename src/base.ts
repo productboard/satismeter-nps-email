@@ -48,10 +48,7 @@ export interface ScaleOptions {
   maxLegend: string;
   minLegend: string;
   ratings: Rating[];
-  width: {
-    absolute: number;
-    relative: number;
-  };
+  width: number;
 }
 
 export interface LongTextOptions {
