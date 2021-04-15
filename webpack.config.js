@@ -13,7 +13,10 @@ module.exports = {
         use: [
           {
             loader: 'handlebars-loader',
-            query: { partialDirs: [path.resolve(__dirname, 'src/partials')] }
+            query: {
+              helperDirs: [path.resolve(__dirname, 'src/helpers')],
+              partialDirs: [path.resolve(__dirname, 'src/partials')]
+            }
           }
         ],
         exclude: /node_modules/
