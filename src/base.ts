@@ -14,6 +14,15 @@ export interface Rating {
   url: string | null;
 }
 
+export enum Emoji {
+  tired = 'tired'
+}
+
+export interface EmojiRating {
+  emoji: Emoji;
+  url: string | null;
+}
+
 export interface BaseTemplateOptions {
   intro: string;
   outro: string;
@@ -51,6 +60,13 @@ export interface ScaleOptions {
   width: number;
 }
 
+export interface SmileyOptions {
+  emojis: EmojiRating[];
+  maxLegend: string;
+  minLegend: string;
+  width: number;
+}
+
 export interface LongTextOptions {
   surveyUrl: string | null;
   submit: string | undefined;
@@ -59,7 +75,8 @@ export interface LongTextOptions {
 export type TemplateV2Options =
   | (BaseTemplateOptions & ChoiceOptions)
   | (BaseTemplateOptions & ScaleOptions)
-  | (BaseTemplateOptions & LongTextOptions);
+  | (BaseTemplateOptions & LongTextOptions)
+  | (BaseTemplateOptions & SmileyOptions);
 
 export type Template = (options: TemplateOptions) => string;
 export type TemplateV2 = (options: TemplateV2Options) => string;

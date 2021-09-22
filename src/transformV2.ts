@@ -2,7 +2,7 @@ import is from 'is';
 import Uri from 'jsuri';
 import marked from 'marked';
 
-import { BaseTemplateOptions, Colors, Rating, TemplateV2Options } from './base';
+import { BaseTemplateOptions, Colors, Emoji, Rating, TemplateV2Options } from './base';
 
 export interface BaseQuestion {
   id: string;
@@ -26,7 +26,13 @@ export interface LongTextQuestion extends BaseQuestion {
   type: 'long-text';
 }
 
-export type Question = ScaleQuestion | SingleChoiceQuestion | LongTextQuestion;
+export interface SmileyQuestion extends BaseQuestion {
+  type: 'smiley';
+  maxLegend: string;
+  minLegend: string;
+}
+
+export type Question = ScaleQuestion | SingleChoiceQuestion | LongTextQuestion | SmileyQuestion;
 
 export interface TransformV2Options {
   colors?: Colors;
@@ -52,6 +58,14 @@ const DEFAULT_COLORS = {
 };
 
 const SCALE_WIDTH = 530;
+
+const EMOJI_SCALE = [
+  Emoji.tired,
+  Emoji.tired,
+  Emoji.tired,
+  Emoji.tired,
+  Emoji.tired
+]
 
 function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
@@ -151,6 +165,19 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       minLegend: options.question.minLegend,
       ratings: ratings,
       width: Math.floor(SCALE_WIDTH / ratings.length)
+    };
+  } else if (options.question.type === 'smiley') {
+    const emojis = EMOJI_SCALE.map((emoji, index) => ({
+      emoji: emoji,
+      url: url((index + 1).toString())
+    }));
+
+    return {
+      ...templateOptions,
+      emojis,
+      maxLegend: options.question.maxLegend,
+      minLegend: options.question.minLegend,
+      width: Math.floor(SCALE_WIDTH / 5)
     };
   } else {
     return {
