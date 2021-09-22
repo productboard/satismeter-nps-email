@@ -15,7 +15,11 @@ export interface Rating {
 }
 
 export enum Emoji {
-  tired = 'tired'
+  tired = 'tired',
+  frowning = 'frowning',
+  neutral = 'neutral',
+  grinning = 'grinning',
+  starEyes = 'star-eyes'
 }
 
 export interface EmojiRating {

@@ -61,11 +61,11 @@ const SCALE_WIDTH = 530;
 
 const EMOJI_SCALE = [
   Emoji.tired,
-  Emoji.tired,
-  Emoji.tired,
-  Emoji.tired,
-  Emoji.tired
-]
+  Emoji.frowning,
+  Emoji.neutral,
+  Emoji.grinning,
+  Emoji.starEyes
+];
 
 function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
