@@ -23,6 +23,7 @@ export enum Emoji {
 }
 
 export interface EmojiRating {
+  value: number;
   emoji: Emoji;
   url: string | null;
 }

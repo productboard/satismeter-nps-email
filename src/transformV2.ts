@@ -169,6 +169,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
   } else if (options.question.type === 'smiley') {
     const emojis = EMOJI_SCALE.map((emoji, index) => ({
       emoji: emoji,
+      value: index + 1,
       url: url((index + 1).toString())
     }));
 
