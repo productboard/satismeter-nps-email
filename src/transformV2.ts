@@ -1,8 +1,9 @@
 import is from 'is';
 import Uri from 'jsuri';
 import marked from 'marked';
+import twemoji from 'twemoji';
 
-import { BaseTemplateOptions, Colors, Emoji, Rating, TemplateV2Options } from './base';
+import { BaseTemplateOptions, Colors, Emoji, EmojiRating, Rating, TemplateV2Options } from './base';
 
 export interface BaseQuestion {
   id: string;
@@ -69,6 +70,17 @@ const EMOJI_SCALE = [
 
 function sign(x: number) {
   return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
+
+function getEmojiImageUrl(emoji: Emoji) {
+  const imageEl = twemoji.parse(emoji);
+  const match = imageEl.match(/src="([^"]*)"/);
+
+  if (match && match.length >= 2) {
+    return match[1];
+  } else {
+    return '';
+  }
 }
 
 export function transformV2(options: TransformV2Options): TemplateV2Options {
@@ -167,9 +179,10 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       width: Math.floor(SCALE_WIDTH / ratings.length)
     };
   } else if (options.question.type === 'smiley') {
-    const emojis = EMOJI_SCALE.map((emoji, index) => ({
+    const emojis: EmojiRating[] = EMOJI_SCALE.map((emoji, index) => ({
       emoji: emoji,
       value: index + 1,
+      imageUrl: getEmojiImageUrl(emoji),
       url: url((index + 1).toString())
     }));
 

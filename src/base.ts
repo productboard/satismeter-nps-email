@@ -15,16 +15,17 @@ export interface Rating {
 }
 
 export enum Emoji {
-  tired = 'tired',
-  frowning = 'frowning',
-  neutral = 'neutral',
-  grinning = 'grinning',
-  starEyes = 'star-eyes'
+  tired = '😫',
+  frowning = '🙁',
+  neutral = '😐',
+  grinning = '😀',
+  starEyes = '🤩'
 }
 
 export interface EmojiRating {
   value: number;
   emoji: Emoji;
+  imageUrl: string;
   url: string | null;
 }
 
