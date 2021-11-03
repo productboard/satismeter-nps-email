@@ -191,7 +191,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       emojis,
       maxLegend: options.question.maxLegend,
       minLegend: options.question.minLegend,
-      width: Math.floor(SCALE_WIDTH / 5)
+      width: Math.floor(SCALE_WIDTH / emojis.length)
     };
   } else {
     return {
