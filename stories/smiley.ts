@@ -2,18 +2,16 @@ import { renderV2, OptionsV2 } from '../src/index';
 import messages from '../src/messages';
 
 export default {
-  title: 'Rating'
+  title: 'Smiley'
 };
 
-const rating: OptionsV2 = {
+const smiley: OptionsV2 = {
   intro: '',
   outro: '',
   question: {
-    id: 'rating',
-    type: 'scale',
+    id: 'smiley',
+    type: 'smiley',
     label: 'I am satisfied with the service',
-    max: 5,
-    min: 1,
     maxLegend: messages.LIKELY,
     minLegend: messages.UNLIKELY
   },
@@ -23,18 +21,4 @@ const rating: OptionsV2 = {
   botHoneypotUrl: 'http://localhost/honeypot'
 };
 
-export const basic = () => renderV2(rating);
-
-export const odd_scale_range = () =>
-  renderV2({
-    ...rating,
-    question: {
-      id: 'rating',
-      type: 'scale',
-      label: 'I love odd rating scales',
-      max: -6,
-      min: 3,
-      maxLegend: 'Yes',
-      minLegend: 'Salmon'
-    }
-  });
+export const basic = () => renderV2(smiley);
