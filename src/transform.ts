@@ -1,4 +1,4 @@
-import marked from 'marked';
+import { marked } from 'marked';
 import messages from './messages';
 import Uri from 'jsuri';
 import is from 'is';

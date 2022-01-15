@@ -1,6 +1,6 @@
 import is from 'is';
 import Uri from 'jsuri';
-import marked from 'marked';
+import { marked } from 'marked';
 import twemoji from 'twemoji';
 
 import { BaseTemplateOptions, Colors, Emoji, EmojiRating, Rating, TemplateV2Options } from './base';
