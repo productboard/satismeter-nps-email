@@ -229,8 +229,8 @@ describe('email', function() {
       });
 
       const $ = cheerio.load(html);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=abc"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=123"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=abc"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=123"]').length, 1);
     });
 
     it('should handle custom scale surveys', function() {
@@ -252,9 +252,9 @@ describe('email', function() {
       });
 
       const $ = cheerio.load(html);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=1"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=2"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=3"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=1"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=2"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=3"]').length, 1);
     });
 
     it('should handle odd custom scales', function() {
@@ -276,9 +276,9 @@ describe('email', function() {
       });
 
       const $ = cheerio.load(html);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=-1"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=-2"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers[QID]=-3"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=-1"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=-2"]').length, 1);
+      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=-3"]').length, 1);
     });
 
     it('should include bot-honeypot-link', function() {
