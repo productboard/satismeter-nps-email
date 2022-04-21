@@ -105,7 +105,10 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       if (legacyRatingParameter) {
         uri.addQueryParam('rating', value);
       } else {
-        uri.addQueryParam(`answers[${options.question.id}]`, value);
+        uri.addQueryParam(
+          encodeURIComponent(`answers[${options.question.id}]`),
+          value
+        );
       }
     }
 
