@@ -1,4 +1,4 @@
-import { SafeString } from "handlebars";
+import { SafeString } from 'handlebars';
 
 export interface Colors {
   primary: string;
@@ -17,11 +17,11 @@ export interface Rating {
 }
 
 export enum Emoji {
-  tired = "😫",
-  frowning = "🙁",
-  neutral = "😐",
-  grinning = "😀",
-  starEyes = "🤩",
+  tired = '😫',
+  frowning = '🙁',
+  neutral = '😐',
+  grinning = '😀',
+  starEyes = '🤩'
 }
 
 export interface EmojiRating {
@@ -37,8 +37,8 @@ export interface BaseTemplateOptions {
   question: string;
   colors: Colors;
   direction: string;
-  left: "left" | "right";
-  right: "left" | "right";
+  left: 'left' | 'right';
+  right: 'left' | 'right';
   unsubscribeUrl?: string;
   preview: boolean;
   previewDevice: {

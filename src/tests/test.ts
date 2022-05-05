@@ -4,8 +4,8 @@ import cheerio from 'cheerio';
 import render, { renderV2 } from '..';
 import messages from '../messages';
 
-describe('email', function() {
-  it('should render email', function() {
+describe('email', function () {
+  it('should render email', function () {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -36,7 +36,7 @@ describe('email', function() {
     assert.equal($('a:not([href])').length, 0);
   });
 
-  it('should include passed urlParams', function() {
+  it('should include passed urlParams', function () {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -62,7 +62,7 @@ describe('email', function() {
     );
   });
 
-  it('should escape question', function() {
+  it('should escape question', function () {
     var html = render({
       url: 'http://localhost/survey',
       urlParams: {
@@ -81,7 +81,7 @@ describe('email', function() {
     assert.include($.root().text(), 'Je ACME <b>dobry</b>?');
   });
 
-  it('should not include unsubscribe', function() {
+  it('should not include unsubscribe', function () {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -103,7 +103,7 @@ describe('email', function() {
     assert.equal($('a:not([href])').length, 0);
   });
 
-  it('should include bot-honeypot-link', function() {
+  it('should include bot-honeypot-link', function () {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -122,7 +122,7 @@ describe('email', function() {
     assert.equal($('a[href="http://localhost/honeypot"]').length, 1);
   });
 
-  it('should handle undefined values', function() {
+  it('should handle undefined values', function () {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -138,7 +138,7 @@ describe('email', function() {
     assert.equal($('a:not([href])').length, 11);
   });
 
-  it('should handle other templates', function() {
+  it('should handle other templates', function () {
     var html = render({
       intro: 'Hi!\n\nPlease fill in the survey below:',
       outro: 'Bye!',
@@ -160,8 +160,8 @@ describe('email', function() {
     );
   });
 
-  describe('V2', function() {
-    it('should handle V2 survey', function() {
+  describe('V2', function () {
+    it('should handle V2 survey', function () {
       const html = renderV2({
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },
@@ -190,7 +190,7 @@ describe('email', function() {
       assert.equal($('a[href*="survey?token=aaa"]').length, 11);
     });
 
-    it('should handle NPS in legacy rating parameter mode', function() {
+    it('should handle NPS in legacy rating parameter mode', function () {
       const html = renderV2({
         legacyRatingParameterMode: true,
         url: 'localhost/survey',
@@ -213,7 +213,7 @@ describe('email', function() {
       assert.equal($('a[href*="survey?token=aaa&rating="]').length, 11);
     });
 
-    it('should handle single-choice surveys', function() {
+    it('should handle single-choice surveys', function () {
       const html = renderV2({
         question: {
           choices: ['abc', '123'],
@@ -229,11 +229,17 @@ describe('email', function() {
       });
 
       const $ = cheerio.load(html);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=abc"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=123"]').length, 1);
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=abc"]').length,
+        1
+      );
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=123"]').length,
+        1
+      );
     });
 
-    it('should handle custom scale surveys', function() {
+    it('should handle custom scale surveys', function () {
       const html = renderV2({
         question: {
           max: 3,
@@ -252,12 +258,21 @@ describe('email', function() {
       });
 
       const $ = cheerio.load(html);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=1"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=2"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=3"]').length, 1);
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=1"]').length,
+        1
+      );
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=2"]').length,
+        1
+      );
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=3"]').length,
+        1
+      );
     });
 
-    it('should handle odd custom scales', function() {
+    it('should handle odd custom scales', function () {
       const html = renderV2({
         question: {
           max: -1,
@@ -276,12 +291,21 @@ describe('email', function() {
       });
 
       const $ = cheerio.load(html);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=-1"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=-2"]').length, 1);
-      assert.equal($('a[href*="survey?token=aaa&answers%5BQID%5D=-3"]').length, 1);
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=-1"]').length,
+        1
+      );
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=-2"]').length,
+        1
+      );
+      assert.equal(
+        $('a[href*="survey?token=aaa&answers%5BQID%5D=-3"]').length,
+        1
+      );
     });
 
-    it('should include bot-honeypot-link', function() {
+    it('should include bot-honeypot-link', function () {
       const html = renderV2({
         url: 'localhost/survey',
         urlParams: { token: 'aaa' },

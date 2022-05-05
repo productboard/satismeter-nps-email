@@ -20,4 +20,7 @@ test:
 publish: test clean dist
 	yarn semantic-release
 
-.PHONY: clean storybook test publish
+format:
+	yarn prettier --write "**/*.{ts,js,json}"
+
+.PHONY: clean storybook test publish format

@@ -21,5 +21,4 @@ const choice: OptionsV2 = {
 
 export const basic = () => renderV2(choice);
 
-export const RTL_direction = () =>
-  renderV2({ ...choice, direction: 'rtl' });
+export const RTL_direction = () => renderV2({ ...choice, direction: 'rtl' });

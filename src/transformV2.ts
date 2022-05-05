@@ -1,8 +1,8 @@
-import { SafeString } from "handlebars/runtime";
-import is from "is";
-import Uri from "jsuri";
-import { marked } from "marked";
-import twemoji from "twemoji";
+import { SafeString } from 'handlebars/runtime';
+import is from 'is';
+import Uri from 'jsuri';
+import { marked } from 'marked';
+import twemoji from 'twemoji';
 
 import {
   BaseTemplateOptions,
@@ -10,8 +10,8 @@ import {
   Emoji,
   EmojiRating,
   Rating,
-  TemplateV2Options,
-} from "./base";
+  TemplateV2Options
+} from './base';
 
 export interface BaseQuestion {
   id: string;
@@ -19,7 +19,7 @@ export interface BaseQuestion {
 }
 
 export interface ScaleQuestion extends BaseQuestion {
-  type: "scale";
+  type: 'scale';
   max: number;
   min: number;
   maxLegend: string;
@@ -27,16 +27,16 @@ export interface ScaleQuestion extends BaseQuestion {
 }
 
 export interface SingleChoiceQuestion extends BaseQuestion {
-  type: "single-choice";
+  type: 'single-choice';
   choices: string[];
 }
 
 export interface LongTextQuestion extends BaseQuestion {
-  type: "long-text";
+  type: 'long-text';
 }
 
 export interface SmileyQuestion extends BaseQuestion {
-  type: "smiley";
+  type: 'smiley';
   maxLegend: string;
   minLegend: string;
 }
@@ -50,14 +50,14 @@ export type Question =
 export interface TransformV2Options {
   colors?: Colors;
   preview?: boolean;
-  previewDevice?: "desktop" | "mobile";
+  previewDevice?: 'desktop' | 'mobile';
   question: Question;
   showPoweredBy?: boolean;
   unsubscribeUrl?: string;
   url?: string;
   urlParams: { [key: string]: string | number | boolean | undefined };
   legacyRatingParameterMode?: boolean;
-  direction?: "ltr" | "rtl";
+  direction?: 'ltr' | 'rtl';
   intro: string;
   outro: string;
   submit?: string;
@@ -65,9 +65,9 @@ export interface TransformV2Options {
 }
 
 const DEFAULT_COLORS = {
-  primary: "#FF4981",
-  foreground: "#333",
-  background: "#FDFDFD",
+  primary: '#FF4981',
+  foreground: '#333',
+  background: '#FDFDFD'
 };
 
 const SCALE_WIDTH = 530;
@@ -77,7 +77,7 @@ const EMOJI_SCALE = [
   Emoji.frowning,
   Emoji.neutral,
   Emoji.grinning,
-  Emoji.starEyes,
+  Emoji.starEyes
 ];
 
 function sign(x: number) {
@@ -91,7 +91,7 @@ function getEmojiImageUrl(emoji: Emoji) {
   if (match && match.length >= 2) {
     return match[1];
   } else {
-    return "";
+    return '';
   }
 }
 
@@ -111,11 +111,11 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
 
     if (options.question.id && value) {
       const legacyRatingParameter =
-        options.question.id === "SM_rating" &&
+        options.question.id === 'SM_rating' &&
         options.legacyRatingParameterMode;
 
       if (legacyRatingParameter) {
-        uri.addQueryParam("rating", value);
+        uri.addQueryParam('rating', value);
       } else {
         uri.addQueryParam(
           encodeURIComponent(`answers[${options.question.id}]`),
@@ -133,43 +133,43 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     return `${text}<br><br>`;
   };
 
-  const direction = options.direction || "ltr";
+  const direction = options.direction || 'ltr';
   const templateOptions: BaseTemplateOptions = {
     intro: new SafeString(marked(options.intro, { renderer })),
     outro: new SafeString(marked(options.outro, { renderer })),
     question: options.question.label,
     colors: {
       ...DEFAULT_COLORS,
-      ...options.colors,
+      ...options.colors
     },
     direction: direction,
-    left: direction === "ltr" ? "left" : "right",
-    right: direction === "ltr" ? "right" : "left",
+    left: direction === 'ltr' ? 'left' : 'right',
+    right: direction === 'ltr' ? 'right' : 'left',
     unsubscribeUrl: options.unsubscribeUrl,
     preview: is.boolean(options.preview) ? options.preview! : false,
     previewDevice: {
-      desktop: options.previewDevice === "desktop",
-      mobile: options.previewDevice === "mobile",
+      desktop: options.previewDevice === 'desktop',
+      mobile: options.previewDevice === 'mobile'
     },
     showPoweredBy: is.boolean(options.showPoweredBy)
       ? options.showPoweredBy!
       : true,
-    botHoneypotUrl: options.botHoneypotUrl,
+    botHoneypotUrl: options.botHoneypotUrl
   };
 
-  if (options.question.type === "single-choice") {
+  if (options.question.type === 'single-choice') {
     const choices = options.question.choices.map((choice) => {
       return {
         label: choice,
-        url: url(choice),
+        url: url(choice)
       };
     });
 
     return {
       ...templateOptions,
-      choices: choices,
+      choices: choices
     };
-  } else if (options.question.type === "scale") {
+  } else if (options.question.type === 'scale') {
     const ratings: Rating[] = [];
     const inc = sign(options.question.max - options.question.min);
 
@@ -180,7 +180,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     ) {
       ratings.push({
         rating: rating,
-        url: url(rating.toString()),
+        url: url(rating.toString())
       });
     }
 
@@ -191,14 +191,14 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       maxLegend: options.question.maxLegend,
       minLegend: options.question.minLegend,
       ratings: ratings,
-      width: Math.floor(SCALE_WIDTH / ratings.length),
+      width: Math.floor(SCALE_WIDTH / ratings.length)
     };
-  } else if (options.question.type === "smiley") {
+  } else if (options.question.type === 'smiley') {
     const emojis: EmojiRating[] = EMOJI_SCALE.map((emoji, index) => ({
       emoji: emoji,
       value: index + 1,
       imageUrl: getEmojiImageUrl(emoji),
-      url: url((index + 1).toString()),
+      url: url((index + 1).toString())
     }));
 
     return {
@@ -206,13 +206,13 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       emojis,
       maxLegend: options.question.maxLegend,
       minLegend: options.question.minLegend,
-      width: Math.floor(SCALE_WIDTH / emojis.length),
+      width: Math.floor(SCALE_WIDTH / emojis.length)
     };
   } else {
     return {
       ...templateOptions,
       surveyUrl: url(),
-      submit: options.submit || "Submit Feedback",
+      submit: options.submit || 'Submit Feedback'
     };
   }
 }
