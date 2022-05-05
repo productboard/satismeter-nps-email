@@ -1,22 +1,23 @@
-import { marked } from 'marked';
-import messages from './messages';
-import Uri from 'jsuri';
-import is from 'is';
-import escapeHtml from 'escape-html';
-import xtend from 'xtend';
-import { Colors } from './base';
+import { marked } from "marked";
+import messages from "./messages";
+import Uri from "jsuri";
+import is from "is";
+import escapeHtml from "escape-html";
+import xtend from "xtend";
+import { Colors } from "./base";
+import { SafeString } from "handlebars/runtime";
 
 var DEFAULT_COLORS = {
-  primary: '#ff4981',
-  foreground: '#333',
-  background: '#FDFDFD'
+  primary: "#ff4981",
+  foreground: "#333",
+  background: "#FDFDFD",
 };
 
 function escape(html: string) {
   if (!html) {
     return null;
   }
-  return escapeHtml(html);
+  return new SafeString(escapeHtml(html));
 }
 
 export interface TransformOptions {
@@ -26,7 +27,7 @@ export interface TransformOptions {
   colors?: Colors;
   translation?: any;
   preview?: boolean;
-  previewDevice?: 'desktop' | 'mobile';
+  previewDevice?: "desktop" | "mobile";
   showPoweredBy?: boolean;
   url?: string;
   serviceName?: string;
@@ -61,19 +62,19 @@ export default function transform(options: TransformOptions) {
     return messages[key];
   }
 
-  var direction = t('DIRECTION') || 'ltr';
-  var left = direction === 'rtl' ? 'right' : 'left';
-  var right = direction === 'rtl' ? 'left' : 'right';
+  var direction = t("DIRECTION") || "ltr";
+  var left = direction === "rtl" ? "right" : "left";
+  var right = direction === "rtl" ? "left" : "right";
 
   var renderer = new marked.Renderer();
 
-  renderer.paragraph = function(text: string) {
+  renderer.paragraph = function (text: string) {
     return (
       '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: ' +
       left +
       '; font-size: 15px; color: rgb(69, 69, 69);">' +
       text +
-      '<br><br></p>'
+      "<br><br></p>"
     );
   };
 
@@ -83,7 +84,7 @@ export default function transform(options: TransformOptions) {
     }
     var uri = new Uri(options.url);
 
-    Object.keys(urlParams).forEach(function(paramName) {
+    Object.keys(urlParams).forEach(function (paramName) {
       const paramValue = urlParams[paramName];
 
       if (paramValue !== undefined) {
@@ -92,34 +93,38 @@ export default function transform(options: TransformOptions) {
     });
 
     if (is.number(rating)) {
-      uri.addQueryParam('rating', rating.toString());
+      uri.addQueryParam("rating", rating.toString());
     }
     return uri.toString();
   }
 
   return {
-    intro: marked(options.intro || t('INTRO'), { renderer: renderer }),
-    outro: marked(options.outro || t('OUTRO'), { renderer: renderer }),
-    question: t('HOW_LIKELY'),
+    intro: new SafeString(
+      marked(options.intro || t("INTRO"), { renderer: renderer })
+    ),
+    outro: new SafeString(
+      marked(options.outro || t("OUTRO"), { renderer: renderer })
+    ),
+    question: t("HOW_LIKELY"),
     colors: colors,
     direction: direction,
     left: left,
     right: right,
-    unlikely: t('UNLIKELY'),
-    likely: t('LIKELY'),
-    ratings: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function(rating) {
+    unlikely: t("UNLIKELY"),
+    likely: t("LIKELY"),
+    ratings: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (rating) {
       return {
         rating: rating,
-        url: escape(ratingUrl(rating)!)
+        url: escape(ratingUrl(rating)!),
       };
     }),
     unsubscribeUrl: options.unsubscribeUrl,
     preview: preview,
     previewDevice: {
-      desktop: options.previewDevice === 'desktop',
-      mobile: options.previewDevice === 'mobile'
+      desktop: options.previewDevice === "desktop",
+      mobile: options.previewDevice === "mobile",
     },
     showPoweredBy: showPoweredBy,
-    botHoneypotUrl: options.botHoneypotUrl
+    botHoneypotUrl: options.botHoneypotUrl,
   };
 }
