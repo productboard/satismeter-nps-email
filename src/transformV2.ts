@@ -1,9 +1,17 @@
+import { SafeString } from 'handlebars/runtime';
 import is from 'is';
 import Uri from 'jsuri';
 import { marked } from 'marked';
 import twemoji from 'twemoji';
 
-import { BaseTemplateOptions, Colors, Emoji, EmojiRating, Rating, TemplateV2Options } from './base';
+import {
+  BaseTemplateOptions,
+  Colors,
+  Emoji,
+  EmojiRating,
+  Rating,
+  TemplateV2Options
+} from './base';
 
 export interface BaseQuestion {
   id: string;
@@ -33,7 +41,11 @@ export interface SmileyQuestion extends BaseQuestion {
   minLegend: string;
 }
 
-export type Question = ScaleQuestion | SingleChoiceQuestion | LongTextQuestion | SmileyQuestion;
+export type Question =
+  | ScaleQuestion
+  | SingleChoiceQuestion
+  | LongTextQuestion
+  | SmileyQuestion;
 
 export interface TransformV2Options {
   colors?: Colors;
@@ -123,8 +135,8 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
 
   const direction = options.direction || 'ltr';
   const templateOptions: BaseTemplateOptions = {
-    intro: marked(options.intro, { renderer }),
-    outro: marked(options.outro, { renderer }),
+    intro: new SafeString(marked(options.intro, { renderer })),
+    outro: new SafeString(marked(options.outro, { renderer })),
     question: options.question.label,
     colors: {
       ...DEFAULT_COLORS,
@@ -146,7 +158,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
   };
 
   if (options.question.type === 'single-choice') {
-    const choices = options.question.choices.map(choice => {
+    const choices = options.question.choices.map((choice) => {
       return {
         label: choice,
         url: url(choice)

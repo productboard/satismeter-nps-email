@@ -5,6 +5,7 @@ import is from 'is';
 import escapeHtml from 'escape-html';
 import xtend from 'xtend';
 import { Colors } from './base';
+import { SafeString } from 'handlebars/runtime';
 
 var DEFAULT_COLORS = {
   primary: '#ff4981',
@@ -16,7 +17,7 @@ function escape(html: string) {
   if (!html) {
     return null;
   }
-  return escapeHtml(html);
+  return new SafeString(escapeHtml(html));
 }
 
 export interface TransformOptions {
@@ -67,7 +68,7 @@ export default function transform(options: TransformOptions) {
 
   var renderer = new marked.Renderer();
 
-  renderer.paragraph = function(text: string) {
+  renderer.paragraph = function (text: string) {
     return (
       '<p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: ' +
       left +
@@ -83,7 +84,7 @@ export default function transform(options: TransformOptions) {
     }
     var uri = new Uri(options.url);
 
-    Object.keys(urlParams).forEach(function(paramName) {
+    Object.keys(urlParams).forEach(function (paramName) {
       const paramValue = urlParams[paramName];
 
       if (paramValue !== undefined) {
@@ -98,8 +99,12 @@ export default function transform(options: TransformOptions) {
   }
 
   return {
-    intro: marked(options.intro || t('INTRO'), { renderer: renderer }),
-    outro: marked(options.outro || t('OUTRO'), { renderer: renderer }),
+    intro: new SafeString(
+      marked(options.intro || t('INTRO'), { renderer: renderer })
+    ),
+    outro: new SafeString(
+      marked(options.outro || t('OUTRO'), { renderer: renderer })
+    ),
     question: t('HOW_LIKELY'),
     colors: colors,
     direction: direction,
@@ -107,7 +112,7 @@ export default function transform(options: TransformOptions) {
     right: right,
     unlikely: t('UNLIKELY'),
     likely: t('LIKELY'),
-    ratings: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function(rating) {
+    ratings: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (rating) {
       return {
         rating: rating,
         url: escape(ratingUrl(rating)!)

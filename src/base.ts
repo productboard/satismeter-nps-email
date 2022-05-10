@@ -1,3 +1,5 @@
+import { SafeString } from 'handlebars';
+
 export interface Colors {
   primary: string;
   foreground: string;
@@ -30,8 +32,8 @@ export interface EmojiRating {
 }
 
 export interface BaseTemplateOptions {
-  intro: string;
-  outro: string;
+  intro: string | SafeString;
+  outro: string | SafeString;
   question: string;
   colors: Colors;
   direction: string;

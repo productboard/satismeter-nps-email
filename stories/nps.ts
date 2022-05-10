@@ -25,10 +25,26 @@ const nps: OptionsV2 = {
 
 export const basic = () => renderV2(nps);
 
-export const RTL_direction = () =>
-  renderV2({ ...nps, direction: 'rtl' });
+export const RTL_direction = () => renderV2({ ...nps, direction: 'rtl' });
 
 export const whitelabeled = () => renderV2({ ...nps, showPoweredBy: false });
 
 export const no_unsubscribe_link = () =>
   renderV2({ ...nps, unsubscribeUrl: undefined });
+
+export const markdown = () =>
+  renderV2({
+    ...nps,
+    intro: 'Hey **man**',
+    outro: 'Bye **bye**'
+  });
+
+export const xss = () =>
+  renderV2({
+    ...nps,
+    question: {
+      ...nps.question,
+      label:
+        '**Question** <img src=x onerror=alert(document.domain)>PAYLOAD<img>'
+    }
+  });

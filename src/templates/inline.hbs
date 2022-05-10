@@ -268,7 +268,7 @@
   {{> bot-honeypot-link url=botHoneypotUrl}}
 {{/if}}
 <div class="ee_editable ee_element">
-  {{{intro}}}
+  {{intro}}
   <p style="margin: 0px; line-height: 150%; font-family: arial, helvetica, sans-serif; text-align: {{left}}; font-size: 15px; color: rgb(69, 69, 69);">{{question}}</p>
 </div>
 <table class="ee_element ee_borders eeb_width" cellpadding="0" cellspacing="0" data-eewidth="530" style="table-layout: auto; width: 530px;">
@@ -303,7 +303,7 @@
                                       <td class="ee_pad" style="width: auto; padding: 0px;">
                                         <div class="ee_editable eev_element" style="width: 43px;">
                                           <p style="margin: 0px; text-align: center; font-family: arial, helvetica, sans-serif; color: rgb(255, 255, 255); font-size: 14px;">
-                                            <b><a {{#if url}} href="{{{url}}}" {{/if}} style="display:block; line-height: 100%; color: {{../colors.background}}; text-decoration: none; border: 12px solid {{../colors.primary}};">{{rating}}</a></b>
+                                            <b><a {{#if url}} href="{{url}}" {{/if}} style="display:block; line-height: 100%; color: {{../colors.background}}; text-decoration: none; border: 12px solid {{../colors.primary}};">{{rating}}</a></b>
                                           </p>
                                         </div>
                                       </td>
@@ -355,5 +355,5 @@
   </tbody>
 </table>
 <div class="ee_editable ee_element">
-  {{{outro}}}
+  {{outro}}
 </div>
