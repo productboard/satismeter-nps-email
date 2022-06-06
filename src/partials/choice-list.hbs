@@ -25,14 +25,33 @@
                   <td style="vertical-align:top;padding:1px 2px;">
                     <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
                       <tr>
-                        <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                        <td align="left" style="font-size:0px;padding:0px;word-break:break-word;">
                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:100%;line-height:100%;">
                             <tr>
-                              <td align="center" bgcolor="{{../colors.primary}}" role="presentation" style="border:none;border-radius:3px;cursor:auto;height:40px;mso-padding-alt:0px;background:{{../colors.primary}};"
-                                valign="middle"> <a {{#if url}} href="{{url}}" {{/if}} style="display:block;background:{{../colors.primary}};color:{{../colors.background}};font-family:arial, helvetica, sans-serif;font-size:14px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 0px;mso-padding-alt:0px;border-radius:3px;"
-                                  target="_blank">
-                                  {{label}}
-                                </a> </td>
+                              <td align="left" bgcolor="{{../colors.primary}}" role="presentation" style="border:none;border-radius:3px;cursor:auto;height:40px;mso-padding-alt:0px;background:{{../colors.primary}};"
+                                valign="middle">
+
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:100%;line-height:100%;">
+                                  <tr>
+                                    {{#if ../multiple}}
+                                      <td align="left" role="presentation" style="cursor:auto;height:40px;width:0;padding: 0px 0px 1px 8px;mso-padding-alt:0px 0px 1px 8px;background:{{../colors.primary}};"
+                                        valign="middle">
+                                        <div style="height:14px;width:14px;line-height: 60px;margin:0;border: 2px solid {{../colors.background}};border-radius:4px">
+                                        </div>
+                                      </td>
+                                    {{/if}}
+
+                                    <td align="{{#if ../multiple}}left{{else}}center{{/if}}" bgcolor="{{../colors.primary}}" role="presentation" style="border:none;border-radius:3px;cursor:auto;height:40px;padding: 0px 8px; mso-padding-alt: 0px 8px;background:{{../colors.primary}};"
+                                      valign="middle">
+                                      
+                                      <a {{#if url}} href="{{url}}" {{/if}} style="display:block;background:{{../colors.primary}};color:{{../colors.background}};font-family:arial, helvetica, sans-serif;font-size:14px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 0px;mso-padding-alt:0px;border-radius:3px;"
+                                        target="_blank">
+                                        {{label}}
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
                             </tr>
                           </table>
                         </td>

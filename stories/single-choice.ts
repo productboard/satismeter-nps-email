@@ -1,7 +1,7 @@
 import { renderV2, OptionsV2 } from '../src/index';
 
 export default {
-  title: 'Choice'
+  title: 'Single Choice'
 };
 
 const choice: OptionsV2 = {

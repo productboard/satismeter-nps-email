@@ -56,6 +56,7 @@ export interface TemplateOptions extends BaseTemplateOptions {
 }
 
 export interface ChoiceOptions {
+  multiple: boolean;
   choices: Choice[];
 }
 

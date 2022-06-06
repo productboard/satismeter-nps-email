@@ -31,6 +31,11 @@ export interface SingleChoiceQuestion extends BaseQuestion {
   choices: string[];
 }
 
+export interface MultipleChoiceQuestion extends BaseQuestion {
+  type: 'multiple-choice';
+  choices: string[];
+}
+
 export interface LongTextQuestion extends BaseQuestion {
   type: 'long-text';
 }
@@ -44,6 +49,7 @@ export interface SmileyQuestion extends BaseQuestion {
 export type Question =
   | ScaleQuestion
   | SingleChoiceQuestion
+  | MultipleChoiceQuestion
   | LongTextQuestion
   | SmileyQuestion;
 
@@ -157,7 +163,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     botHoneypotUrl: options.botHoneypotUrl
   };
 
-  if (options.question.type === 'single-choice') {
+  if (options.question.type === 'single-choice' || options.question.type === 'multiple-choice') {
     const choices = options.question.choices.map((choice) => {
       return {
         label: choice,
@@ -167,6 +173,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
 
     return {
       ...templateOptions,
+      multiple: options.question.type === 'multiple-choice',
       choices: choices
     };
   } else if (options.question.type === 'scale') {
