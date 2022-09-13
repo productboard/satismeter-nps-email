@@ -29,7 +29,7 @@ describe('email', function () {
     assert.include(html, 'Extremely likely');
     assert.include(
       html,
-      'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"'
+      'href="http://localhost/survey/unsubscribe?token=aaa&userId=1"'
     );
 
     var $ = cheerio.load(html);
