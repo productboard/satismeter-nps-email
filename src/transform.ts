@@ -2,7 +2,6 @@ import { marked } from 'marked';
 import messages from './messages';
 import Uri from 'jsuri';
 import is from 'is';
-import escapeHtml from 'escape-html';
 import xtend from 'xtend';
 import { Colors } from './base';
 import { SafeString } from 'handlebars/runtime';
@@ -13,11 +12,13 @@ var DEFAULT_COLORS = {
   background: '#FDFDFD'
 };
 
-function escape(html: string) {
+function escape(html: string | undefined) {
   if (!html) {
     return null;
   }
-  return new SafeString(escapeHtml(html));
+
+  const escaped = html.replace('"', '&quot;');
+  return new SafeString(escaped);
 }
 
 export interface TransformOptions {
@@ -118,7 +119,7 @@ export default function transform(options: TransformOptions) {
         url: escape(ratingUrl(rating)!)
       };
     }),
-    unsubscribeUrl: options.unsubscribeUrl,
+    unsubscribeUrl: escape(options.unsubscribeUrl),
     preview: preview,
     previewDevice: {
       desktop: options.previewDevice === 'desktop',

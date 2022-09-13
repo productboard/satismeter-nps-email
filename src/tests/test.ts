@@ -58,7 +58,7 @@ describe('email', function () {
 
     assert.include(
       html,
-      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;someBoolean=true&amp;someNumber=2&amp;rating=10"'
+      'href="http://localhost/survey?token=aaa&userId=1&someBoolean=true&someNumber=2&rating=10"'
     );
   });
 
