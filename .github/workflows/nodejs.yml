@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12]
+        node-version: [16, 18]
 
     steps:
       - uses: actions/checkout@v1
@@ -33,7 +33,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
       - name: Install
         run: yarn
       - name: Publish
