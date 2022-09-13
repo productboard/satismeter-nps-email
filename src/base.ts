@@ -8,12 +8,12 @@ export interface Colors {
 
 export interface Choice {
   label: string;
-  url: string | null;
+  url: string | SafeString | null;
 }
 
 export interface Rating {
   rating: number;
-  url: string | null;
+  url: string | SafeString | null;
 }
 
 export enum Emoji {
@@ -28,7 +28,7 @@ export interface EmojiRating {
   value: number;
   emoji: Emoji;
   imageUrl: string;
-  url: string | null;
+  url: string | SafeString | null;
 }
 
 export interface BaseTemplateOptions {
@@ -39,14 +39,14 @@ export interface BaseTemplateOptions {
   direction: string;
   left: 'left' | 'right';
   right: 'left' | 'right';
-  unsubscribeUrl?: string;
+  unsubscribeUrl?: string | SafeString;
   preview: boolean;
   previewDevice: {
     desktop: boolean;
     mobile: boolean;
   };
   showPoweredBy: boolean;
-  botHoneypotUrl?: string;
+  botHoneypotUrl?: string | SafeString;
 }
 
 export interface TemplateOptions extends BaseTemplateOptions {
@@ -77,7 +77,7 @@ export interface SmileyOptions {
 }
 
 export interface LongTextOptions {
-  surveyUrl: string | null;
+  surveyUrl: string | SafeString | null;
   submit: string | undefined;
 }
 
