@@ -29,7 +29,7 @@ describe('email', function () {
     assert.include(html, 'Extremely likely');
     assert.include(
       html,
-      'href="http://localhost/survey/unsubscribe?token&#x3D;aaa&amp;userId&#x3D;1"'
+      'href="http://localhost/survey/unsubscribe?token=aaa&userId=1"'
     );
 
     var $ = cheerio.load(html);
@@ -58,7 +58,7 @@ describe('email', function () {
 
     assert.include(
       html,
-      'href="http://localhost/survey?token=aaa&amp;userId=1&amp;someBoolean=true&amp;someNumber=2&amp;rating=10"'
+      'href="http://localhost/survey?token=aaa&userId=1&someBoolean=true&someNumber=2&rating=10"'
     );
   });
 
@@ -188,6 +188,33 @@ describe('email', function () {
 
       const $ = cheerio.load(html);
       assert.equal($('a[href*="survey?token=aaa"]').length, 11);
+    });
+
+    it('should not fully escape URLs', function () {
+      const html = renderV2({
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' },
+        question: {
+          id: 'QID',
+          label: messages.HOW_LIKELY,
+          type: 'scale',
+          max: 10,
+          min: 0,
+          maxLegend: messages.LIKELY,
+          minLegend: messages.UNLIKELY
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
+      });
+
+      const $ = cheerio.load(html);
+      const answerLinks = $('a[href*="survey?token=aaa"]').toArray();
+      assert.lengthOf(answerLinks, 11);
+
+      for (const link of answerLinks) {
+        assert.isTrue(link.attribs.href.indexOf('localhost/survey?token=aaa&answers%5BQID%5D=') === 0);
+      }
     });
 
     it('should handle NPS in legacy rating parameter mode', function () {

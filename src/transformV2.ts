@@ -130,7 +130,8 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       }
     }
 
-    return uri.toString();
+    const escaped = uri.toString().replace('"', '&quot;');
+    return new SafeString(escaped);
   }
 
   const renderer = new marked.Renderer();
