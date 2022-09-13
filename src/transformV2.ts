@@ -130,7 +130,7 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
       }
     }
 
-    return uri.toString();
+    return new SafeString(uri.toString());
   }
 
   const renderer = new marked.Renderer();
