@@ -190,6 +190,33 @@ describe('email', function () {
       assert.equal($('a[href*="survey?token=aaa"]').length, 11);
     });
 
+    it('should not fully escape URLs', function () {
+      const html = renderV2({
+        url: 'localhost/survey',
+        urlParams: { token: 'aaa' },
+        question: {
+          id: 'QID',
+          label: messages.HOW_LIKELY,
+          type: 'scale',
+          max: 10,
+          min: 0,
+          maxLegend: messages.LIKELY,
+          minLegend: messages.UNLIKELY
+        },
+        intro: 'INTRO',
+        outro: 'OUTRO',
+        botHoneypotUrl: 'http://localhost/honeypot'
+      });
+
+      const $ = cheerio.load(html);
+      const answerLinks = $('a[href*="survey?token=aaa"]').toArray();
+      assert.lengthOf(answerLinks, 11);
+
+      for (const link of answerLinks) {
+        assert.isTrue(link.attribs.href.indexOf('localhost/survey?token=aaa&answers%5BQID%5D=') === 0);
+      }
+    });
+
     it('should handle NPS in legacy rating parameter mode', function () {
       const html = renderV2({
         legacyRatingParameterMode: true,
