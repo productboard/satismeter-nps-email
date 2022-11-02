@@ -3,6 +3,7 @@ import is from 'is';
 import Uri from 'jsuri';
 import { marked } from 'marked';
 import twemoji from 'twemoji';
+import xss from 'xss';
 
 import {
   BaseTemplateOptions,
@@ -142,8 +143,8 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
 
   const direction = options.direction || 'ltr';
   const templateOptions: BaseTemplateOptions = {
-    intro: new SafeString(marked(options.intro, { renderer })),
-    outro: new SafeString(marked(options.outro, { renderer })),
+    intro: new SafeString(xss(marked(options.intro, { renderer }))),
+    outro: new SafeString(xss(marked(options.outro, { renderer }))),
     question: options.question.label,
     colors: {
       ...DEFAULT_COLORS,
@@ -164,7 +165,10 @@ export function transformV2(options: TransformV2Options): TemplateV2Options {
     botHoneypotUrl: options.botHoneypotUrl
   };
 
-  if (options.question.type === 'single-choice' || options.question.type === 'multiple-choice') {
+  if (
+    options.question.type === 'single-choice' ||
+    options.question.type === 'multiple-choice'
+  ) {
     const choices = options.question.choices.map((choice) => {
       return {
         label: choice,
