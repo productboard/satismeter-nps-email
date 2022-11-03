@@ -39,6 +39,12 @@ export const markdown = () =>
     outro: 'Bye **bye**'
   });
 
+export const introXss = () =>
+  renderV2({
+    ...nps,
+    intro: '<img src=x onerror=alert(document.domain)>PAYLOAD<img>'
+  });
+
 export const xss = () =>
   renderV2({
     ...nps,

@@ -5,6 +5,7 @@ import is from 'is';
 import xtend from 'xtend';
 import { Colors } from './base';
 import { SafeString } from 'handlebars/runtime';
+import xss from 'xss';
 
 var DEFAULT_COLORS = {
   primary: '#ff4981',
@@ -101,10 +102,10 @@ export default function transform(options: TransformOptions) {
 
   return {
     intro: new SafeString(
-      marked(options.intro || t('INTRO'), { renderer: renderer })
+      xss(marked(options.intro || t('INTRO'), { renderer: renderer }))
     ),
     outro: new SafeString(
-      marked(options.outro || t('OUTRO'), { renderer: renderer })
+      xss(marked(options.outro || t('OUTRO'), { renderer: renderer }))
     ),
     question: t('HOW_LIKELY'),
     colors: colors,
