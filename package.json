@@ -49,5 +49,6 @@
     "typescript": "^2.8.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
-  }
+  },
+  "packageManager": "yarn@3.6.3"
 }
