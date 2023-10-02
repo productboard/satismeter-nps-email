@@ -2,7 +2,6 @@ import { marked } from 'marked';
 import messages from './messages';
 import Uri from 'jsuri';
 import is from 'is';
-import xtend from 'xtend';
 import { Colors } from './base';
 import { SafeString } from 'handlebars/runtime';
 import xss from 'xss';
@@ -45,11 +44,11 @@ export interface TransformOptions {
 export default function transform(options: TransformOptions) {
   // var user = options.user || {};
   var urlParams = options.urlParams;
-  var colors = xtend(
-    DEFAULT_COLORS,
-    options.color ? { primary: options.color } : null,
-    options.colors
-  );
+  var colors = {
+    ...DEFAULT_COLORS,
+    ...(options.color ? { primary: options.color } : null),
+    ...options.colors
+  };
 
   var translation = options.translation || {};
   var preview = is.boolean(options.preview) ? options.preview : false;
