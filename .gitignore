@@ -3,4 +3,4 @@ dist
 
 .DS_Store
 .yarn/cache
-*.gz
+.yarn/install-state.gz

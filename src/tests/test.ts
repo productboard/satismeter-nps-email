@@ -213,7 +213,7 @@ describe('email', function () {
       assert.lengthOf(answerLinks, 11);
 
       for (const link of answerLinks) {
-        assert.isTrue(link.attribs.href.indexOf('localhost/survey?token=aaa&answers%5BQID%5D=') === 0);
+        assert.isTrue(link.type === 'tag' && link.attribs.href.indexOf('localhost/survey?token=aaa&answers%5BQID%5D=') === 0);
       }
     });
 
